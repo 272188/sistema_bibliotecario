@@ -16,18 +16,63 @@ import mysql.connector
 class Biblioteca:
     """
 
-	A classe principal, utilizada para representar os principais metodos de funcionalidades do sistema
+	A classe principal, que faz a conexao com banco de dados e cria todas as tabelas, tambem foi utilizada para representar os principais metodos de funcionalidades do sistema
 
     ...
 
     Attributes
     ----------
-    conexao : 
-
+    self.conexao : object
+        realiza a conexao entre a classe biblioteca  com o banco de dados, que requer os parametros de acesso e conexao
+    self.cursor : object
+        cursor mysql que permite executar comandos no banco de dados, será usado sempre que for necessário solicitar algo ao banco de dados 
+    
+     Methods
+    -------
+    verificarLogin(codigo_usuario, senha):
+        verfifica se o codigo do usuario e a senha corresponde a algum usuario cadastrado no sistema
+    cadastrarUsuario(usuario):
+        cadastra um usuario se o mesmo nao possuir cadastro
+    buscarUsuario(codigo_usuario):
+        faz uma busca entre os usuarios cadastrados na tabela de usuario, atraves do codigo de usuario informado
+    cadastrarAutor(autor):
+        cadastra um autor se o mesmo nao possuir cadastro no sistema
+    buscarAutores(nome_autor):
+        faz uma busca entre nomes de autores cadastrados na tabela de autor, pelo nome do autor informado
+    cadastrarLivros(livro):
+        cadastra um livro se o mesmo nao possuir cadastro no sistema
+    buscarLivros(codigo_livro):
+        faz uma busca entre entre os livros cadastrados na tabela de livro, atraves do codigo do livro informado
+    cadastrarExemplares(exemplar):
+        cadastra um exemplar de um livro se o mesmo nao possuir cadastro no sistema
+    buscarExemplares(codigo_exemplar):
+        faz uma busca entre entre os exemplares cadastrados na tabela de exemplar, atraves do codigo do livro informado
+    realizarEmprestimo(self, emprestimo):
+        cadastra um emprestimo de um exemplar de um livro se o mesmo nao possuir emprestimo no sistema
+    buscarEmprestimo(codigo_exemplar):
+        faz uma busca entre entre os emprestimos realizados na tabela de emprestimo, atraves do codigo do exemplar informado
+    realizarDevolucao(devolucao):
+        cadastra a devolucao de um exemplar de um livro se o mesmo possuir emprestimo no sistema
+    buscarDevolucoes(codigo_exemplar, data_devolucao):
+        faz uma busca entre entre as devolucoes realizadas na tabela de devolucao, atraves do codigo do exemplar e a data da devolucao informada
 	"""
+   
     __slots__ = ['conexao','cursor','mysql']
     def __init__(self):
-        #configuração da conexão com banco de dados
+        """
+        construtor que cria tres atributos referentes ao banco de dados
+
+        Parameters
+        ----------
+
+        self.conexao : object
+            conexão entre a classe biblioteca com o banco de dados escolhido, onde a mesma precisa dos parametros de acesso e conexão
+        self.cursor : object
+            cursor mysql que permite executar comandos no banco de dados, será usado sempre que for necessário solicitar algo ao banco de dados
+        self.mysql : object
+            criar o banco de dados e suas respectivas tabelas caso os mesmos não exista
+        """
+        #configuração para conexão com o banco de dados
         self.conexao = mysql.connector.connect(
             host = 'localhost',
             user = 'sheila',
@@ -36,8 +81,8 @@ class Biblioteca:
         )
         self.cursor = self.conexao.cursor()
         self.mysql = """CREATE DATABASE IF NOT EXISTS bd_biblioteca"""
-        self.cursor.execute(self.mysql)
-        self.conexao.commit()
+        self.cursor.execute(self.mysql) #funcao para executar a acao no mysql
+        self.conexao.commit() #Por padrão, não é efetuado commit automaticamente, deve-se commitar para salvar as alteracoes no banco.
 
         self.mysql = """USE bd_biblioteca"""
         self.cursor.execute(self.mysql)
@@ -81,8 +126,20 @@ class Biblioteca:
         
 
     def verificarLogin(self, codigo_usuario, senha):
+        """
+        verifica se o codigo do usuario e senha informado corresponde aos dos usuarios ja cadastrados no sistema e assim, permitir logar no sistema.
 
-        selecionar = self.buscarUsuario(codigo_usuario)
+        Parameters
+        ----------
+        codigo_usuario {string}:
+            codigo de identificao do usuario que podera conter numero e/ou caracteres especiais ao se cadastrar
+        senha {string} :
+            hash da senha em formato de string para garatir a seguranca no acesso ao sistema
+        return {boolean}: 
+            Boleano referente ao resultado para retorno das condicoes das funcoes
+        """
+
+        selecionar = self.buscarUsuario(codigo_usuario) #selecionar recebe a funcao buscarUsuario, que busca o usuario por seu codigo cadastrado
             
         if selecionar == None:
             return None
@@ -91,7 +148,19 @@ class Biblioteca:
         else:
             return selecionar
 
-    def cadastrarUsuario(self, usuario): 
+    def cadastrarUsuario(self, usuario):
+        """
+        verifica se o codigo do usuario informado corresponde aos dos usuarios ja cadastrados no sistema, caso nao, realiza um novo cadastro de usuario
+
+        Parameters
+        ----------
+        codigo_usuario {string}:
+            codigo de identificao do usuario em formato de string, que podera conter numero e/ou caracteres especiais ao se cadastrar
+        return {boolean}: 
+            referente ao retorno com o resultado em formato Boleano (verdadeiro ou falso) das condicoes das funcoes
+        VALUES:
+            refere-se formato de representacao dos valores das variaveis inseridas na tabela 
+        """ 
         verifica = self.buscarUsuario(usuario.codigo_usuario)
         if verifica == None:
             self.cursor.execute('INSERT INTO usuario(codigo_usuario, nome, cpf, telefone, endereco, bairro, cidade, cep, email, senha) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', (usuario.codigo_usuario, usuario.nome, usuario.cpf, usuario.telefone, usuario.endereco, usuario.bairro, usuario.cidade, usuario.cep, usuario.email, usuario.senha))
@@ -101,9 +170,21 @@ class Biblioteca:
             return False
 
         
-    def buscarUsuario(self, codigo_usuario): #-> Usuario | None:
-        self.cursor.execute("SELECT * FROM usuario WHERE codigo_usuario = %s", (codigo_usuario,))
-        selecionar = self.cursor.fetchone()
+    def buscarUsuario(self, codigo_usuario):
+        """
+        realiza a busca de um usuario pelo codigo do usuario informado.
+
+        Parameters
+        ----------
+        codigo_usuario {string}:
+            codigo de identificao do usuario em formato de string, que podera conter numero e/ou caracteres especiais ao se cadastrar
+        return {boolean}: 
+            referente ao retorno com o resultado do tipo None ou o proprio resultado das condicoes das funcoes
+        usuario:
+            referece um elemento intanciado da classe Usuario, que recebe uma lista. 
+        """
+        self.cursor.execute("SELECT * FROM usuario WHERE codigo_usuario = %s", (codigo_usuario,)) #executa a selecao do codigo do usuario na tabela usuario
+        selecionar = self.cursor.fetchone() #recupera a próxima linha de um conjunto de resultados de consulta e retorna uma única sequência ou None, se não houver mais linhas disponíveis.
         if (selecionar == None):
             return None
         else:
@@ -123,22 +204,14 @@ class Biblioteca:
         
         self.cursor.execute("SELECT * FROM autor WHERE nome_autor = %s", (nome_autor,))
         selecionar = self.cursor.fetchone()
-        # verifica se o autor já foi cadastrado pelo código
+        # verifica se o autor já foi cadastrado pelo nome do autor
         if (selecionar == None):
             return None
         else:
             autor = Autor(selecionar[0],selecionar[1])
             return autor
     
-    '''def buscarAutores(self, codigo_autor):
-        self.cursor.execute("SELECT * FROM autor WHERE codigo_autor = %s", (codigo_autor,))
-        selecionar = self.cursor.fetchone()
-        # verifica se o autor já foi cadastrado pelo código
-        for autor in selecionar:
-            if autor == codigo_autor:
-                return autor
-        else:
-            None'''
+
 
     def cadastrarLivros(self, livro):
         verifica = self.buscarLivros(livro.codigo_livro)
@@ -176,7 +249,7 @@ class Biblioteca:
             exemplar = Exemplar(selecionar[0],selecionar[1],selecionar[2])
             return exemplar
 
-    def realizarEmprestimo(self, emprestimo):
+    def realizarEmprestimo(self, emprestimo): #precisa ser ajustada, quando realizar um emprestimo o exemplar deve ser removido
         verifica = self.buscarEmprestimo(emprestimo.codigo_exemplar)
         if verifica == None:
             self.cursor.execute('INSERT INTO emprestimo(codigo_usuario, codigo_livro, codigo_exemplar, data_emprestimo, data_para_devolver) VALUES(%s, %s, %s, %s, %s)', (emprestimo.codigo_usuario, emprestimo.codigo_livro, emprestimo.codigo_exemplar, emprestimo.data_emprestimo, emprestimo.data_para_devolver))
@@ -195,14 +268,7 @@ class Biblioteca:
             emprestimo = Emprestimo(selecionar[0],selecionar[1],selecionar[2],selecionar[3],selecionar[4])
             return emprestimo
 
-    #def removerExemplar(self, codigo_exemplar):
-    #    if self.buscarEmprestimo(codigo_exemplar) != None:
-    #        self.cursor.execute("DELETE FROM emprestimo WHERE codigo_exemplar = %s", (codigo_exemplar,))
-    #        self.conexao.commit()
-    #    else:
-    #        print("Livre não pode ser removido pois, está em emprestimo")
-
-    def realizarDevolucao(self, devolucao):
+    def realizarDevolucao(self, devolucao): #precisa ser ajustada, quando realizar uma devolucao, este exemplar deve ser inserido novamente
         verifica = self.buscarDevolucoes(devolucao.codigo_exemplar, devolucao.data_devolucao)
         if verifica == None:
             self.cursor.execute('INSERT INTO devolucao(codigo_usuario, codigo_livro, codigo_exemplar, data_emprestimo, data_devolucao) VALUES(%s, %s, %s, %s, %s)', (devolucao.codigo_usuario, devolucao.codigo_livro, devolucao.codigo_exemplar, devolucao.data_emprestimo, devolucao.data_devolucao))
@@ -220,121 +286,4 @@ class Biblioteca:
             devolucao = Devolucao(selecionar[0],selecionar[1],selecionar[2],selecionar[3],selecionar[4])
             return devolucao
         
-    '''def Devolucao(self, codigo_exemplar):
-        if (verifica = self.buscarEmprestimo(codigo_exemplar)) == True:
-            self.cursor.execute("DELETE * FROM emprestimo WHERE codigo_exemplar = %s", (codigo_exemplar,))
-            self.conexao.commit()
-        else:
-            print("O exemplar não possui registro de emprestimo para devolução!")
- 
-
-    # def Devolucao(self, codigo_exemplar):
-    #     if self.verificarLogin(codigo_usuario, senha):
-    #         cursor = self.conexao.cursor()
-    #         cursor.execute ("DELETE FROM emprestimos WHERE codigo_exemplar=?", (codigo_exemplar,))
-    #         self.conexao.commit()
-    #         print("Devolução realizada com sucesso!")
-    #     else:
-    #         print("Login necessário para realizar a devolução.")
-
-
-
-    @property
-    def mostraAutores(self):
-        if len(self.__autores) > 0:
-            for i in self.__autores:
-                print(f"Nome: {i.nome} Codigo: {i.codigo}")
-        else:
-            print("Sem autores cadastrados!")
-
-    # codigo, titulo, editora, int anoPublicacao, ISBN, assunto, edicao, int Numero_pag, volume
     
-    
-    def mostraLivros(self):
-        if len(self.__livros) > 0:
-            for i in self.__livros:
-                print("codigo: ", i.codigo)
-                print("titulo: ", i.titulo)
-                print("editora: ", i.editora)
-                print("ano de publicação: ", i.anoPublicacao)
-                print("ISBN: ", i.ISBN)
-                print("assunto: ", i.assunto)
-                print("edição: ", i.edicao)
-                print("volume: ", i.volume)
-                print("número de página: ", i.numero_pag)
-        else:
-            print("Sem livros cadastrados")
-
-    @property
-    def mostraExemplares(self):
-        if len(self.__exemplares) > 0:
-            for i in self.__exemplares:
-                print("código do livro: 1", i.codigo_livro)
-                print("código do exemplar: ", i.codigo_exemplar)
-                print("dias de empréstimo: ", i.dias_emprestimo)
-        else:
-            print("Sem exemplares cadastrados!")
-
-
-# configurações da conexão com o banco de dados
-        self.connection = mysql.connect(
-            user="root",
-            password="root",
-            host="localhost",
-            database="bd_biblioteca",)
-        # conectar com o banco de dados
-
-    conexao = mysql.connect()
-    print("Conexão realizada com sucesso!")
-
-    # criando cursor para executar consultas
-    cursor = conexao.cursor()
-
-    self.connection = self.create_connection()
-        self.cursor = self.connection.cursor() 
-        
-    def create_connection(self):
-        Cria uma conexão com o banco de dados MySQL.
-
-        Returns:
-            obj: Objeto de conexão com o banco de dados.
-        try:
-            
-        except Error as e:
-            print(f"Erro ao conectar ao banco de dados: {e}")
-            return None
-
-    def close_connection(self):
-        Fecha a conexão com o banco de dados.
-        if self.connection:
-            self.connection.commit()
-            self.connection.close()
-
-    # criando cursor para executar consultas
-
-
-def create_connection(self):
-        Cria uma conexão com o banco de dados MySQL.
-
-        Returns:
-            obj: Objeto de conexão com o banco de dados.
-        try:
-            connection = mysql.connector.connect(
-                host='localhost',
-                user='root',
-                password='C0mpL3xP@$$',
-                database='project_tarefa',
-            )
-            return connection
-        except Error as e:
-            print(f"Erro ao conectar ao banco de dados: {e}")
-            return None
-
-    def close_connection(self):
-        #Fecha a conexão com o banco de dados.
-
-        if self.connection:
-            self.connection.commit()
-            self.connection.close()
-
-    cursor = conexao.cursor()  '''
