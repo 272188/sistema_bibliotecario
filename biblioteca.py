@@ -192,6 +192,17 @@ class Biblioteca:
             return usuario
     
     def cadastrarAutor(self, autor):
+        """
+        verifica se o nome do autor informado corresponde aos dos autores ja cadastrados no sistema, caso nao, realiza o cadastro de um novo autor
+
+        Parameters
+        ----------
+        nome_autor {string}:
+            nome do autor em formato de string.
+        return {boolean}: 
+            referente ao retorno com o resultado em formato Boleano (verdadeiro ou falso) das condicoes das funcoes 
+        """
+
         verifica = self.buscarAutores(autor.nome_autor)
         if verifica == None:
             self.cursor.execute('INSERT INTO autor(codigo_autor, nome_autor) VALUES(%s, %s)', (autor.codigo_autor, autor.nome_autor))
@@ -201,7 +212,18 @@ class Biblioteca:
             return False
 
     def buscarAutores(self, nome_autor):
-        
+        """
+        realiza a busca de um autor pelo nome.
+
+        Parameters
+        ----------
+        nome_autor {string}:
+            nome do autor em formato de string.
+        return {boolean}: 
+            referente ao retorno com o resultado do tipo None ou o proprio resultado das condicoes das funcoes
+        autor:
+            referece um elemento intanciado da classe Autor, que recebe uma lista. 
+        """
         self.cursor.execute("SELECT * FROM autor WHERE nome_autor = %s", (nome_autor,))
         selecionar = self.cursor.fetchone()
         # verifica se o autor já foi cadastrado pelo nome do autor
@@ -214,6 +236,16 @@ class Biblioteca:
 
 
     def cadastrarLivros(self, livro):
+        """
+        verifica se o codigo do livro informado corresponde aos dos livros ja cadastrados no sistema, caso nao, realiza o cadastro de um novo livro
+
+        Parameters
+        ----------
+        codigo_livro {string}:
+            codigo do livro em formato de string, que podera conter numero e/ou caracteres especiais
+        return {boolean}: 
+            referente ao retorno com o resultado em formato Boleano (verdadeiro ou falso) das condicoes das funcoes 
+        """
         verifica = self.buscarLivros(livro.codigo_livro)
         if verifica == None:
             self.cursor.execute('INSERT INTO livro(codigo_livro, nome_autor, codigo_autor, titulo, editora, isbn, assunto, edicao, volume, Numero_pag, anoPublicacao) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', (livro.codigo_livro, livro.nome_autor, livro.codigo_autor, livro.titulo, livro.editora, livro.isbn, livro.assunto, livro.edicao, livro.volume, livro.Numero_pag, livro.anoPublicacao))
@@ -223,6 +255,18 @@ class Biblioteca:
             return False
 
     def buscarLivros(self, codigo_livro):
+        """
+        realiza a busca de um livro pelo seu codigo.
+
+        Parameters
+        ----------
+        codigo_livro {string}:
+            codigo do livro em formato de string, que podera conter numero e/ou caracteres especiais.
+        return {boolean}: 
+            referente ao retorno com o resultado do tipo None ou o proprio resultado das condicoes das funcoes
+        livro:
+            referece um elemento intanciado da classe Livro, que recebe uma lista. 
+        """
         self.cursor.execute("SELECT * FROM livro WHERE codigo_livro = %s", (codigo_livro,))
         selecionar = self.cursor.fetchone()
         if (selecionar == None):  # verifica se existe livro cadastrado
@@ -232,6 +276,16 @@ class Biblioteca:
             return livro
 
     def cadastrarExemplares(self, exemplar):
+        """
+        verifica se o codigo do exemplar informado corresponde aos dos exemplares ja cadastrados no sistema, caso nao, realiza o cadastro de um novo exemplar
+
+        Parameters
+        ----------
+        codigo_exemplar {string}:
+            codigo do exemplar de um livro em formato de string, que podera conter numero e/ou caracteres especiais
+        return {boolean}: 
+            referente ao retorno com o resultado em formato Boleano (verdadeiro ou falso) das condicoes das funcoes 
+        """
         verifica = self.buscarExemplares(exemplar.codigo_exemplar)
         if verifica == None:
             self.cursor.execute('INSERT INTO exemplar(codigo_exemplar, codigo_livro, dias_emprestimo) VALUES(%s, %s, %s)', (exemplar.codigo_exemplar, exemplar.codigo_livro, exemplar.dias_emprestimo))
@@ -240,7 +294,19 @@ class Biblioteca:
         else:
             return False
 
-    def buscarExemplares(self, codigo_exemplar): 
+    def buscarExemplares(self, codigo_exemplar):
+        """
+        realiza a busca de um exemplar de livro pelo seu codigo.
+
+        Parameters
+        ----------
+        codigo_exemplar {string}:
+            codigo do exemplar de um livro em formato de string, que podera conter numero e/ou caracteres especiais.
+        return {boolean}: 
+            referente ao retorno com o resultado do tipo None ou o proprio resultado das condicoes das funcoes
+        exemplar:
+            referece um elemento intanciado da classe Exemplar, que recebe uma lista. 
+        """ 
         self.cursor.execute("SELECT * FROM exemplar WHERE codigo_exemplar = %s", (codigo_exemplar,))
         selecionar = self.cursor.fetchone()
         if (selecionar == None):  
@@ -250,6 +316,16 @@ class Biblioteca:
             return exemplar
 
     def realizarEmprestimo(self, emprestimo): #precisa ser ajustada, quando realizar um emprestimo o exemplar deve ser removido
+        """
+        verifica se o codigo do exemplar informado corresponde aos dos exemplares com registro de emprestimo  no sistema, caso nao, realiza o emprestimo de um exemplar de livro
+
+        Parameters
+        ----------
+        codigo_exemplar {string}:
+            codigo do exemplar de um livro em formato de string, que podera conter numero e/ou caracteres especiais
+        return {boolean}: 
+            referente ao retorno com o resultado em formato Boleano (verdadeiro ou falso) das condicoes das funcoes 
+        """
         verifica = self.buscarEmprestimo(emprestimo.codigo_exemplar)
         if verifica == None:
             self.cursor.execute('INSERT INTO emprestimo(codigo_usuario, codigo_livro, codigo_exemplar, data_emprestimo, data_para_devolver) VALUES(%s, %s, %s, %s, %s)', (emprestimo.codigo_usuario, emprestimo.codigo_livro, emprestimo.codigo_exemplar, emprestimo.data_emprestimo, emprestimo.data_para_devolver))
@@ -260,6 +336,18 @@ class Biblioteca:
             return False
 
     def buscarEmprestimo(self, codigo_exemplar): 
+        """
+        realiza a busca de um emprestimo realizado pelo codigo do exemplar de livro.
+
+        Parameters
+        ----------
+        codigo_exemplar {string}:
+            codigo do exemplar de um livro em formato de string, que podera conter numero e/ou caracteres especiais.
+        return {boolean}: 
+            referente ao retorno com o resultado do tipo None ou o proprio resultado das condicoes das funcoes
+        emprestimo:
+            referece um elemento intanciado da classe Emprestimo, que recebe uma lista. 
+        """
         self.cursor.execute("SELECT * FROM emprestimo WHERE codigo_exemplar = %s", (codigo_exemplar,))
         selecionar = self.cursor.fetchone()
         if (selecionar == None):
@@ -269,6 +357,18 @@ class Biblioteca:
             return emprestimo
 
     def realizarDevolucao(self, devolucao): #precisa ser ajustada, quando realizar uma devolucao, este exemplar deve ser inserido novamente
+        """
+        verifica se o codigo do exemplar e a data da devolucao informado corresponde aos dos exemplares com registro de devolucoes no sistema, caso nao, realiza a devolucao do exemplar de um livro
+
+        Parameters
+        ----------
+        codigo_exemplar {string}:
+            codigo do exemplar de um livro em formato de string, que podera conter numeros e/ou caracteres especiais
+        data_devolucao {string}:
+            data da devolucao de um livro em formato de string, que podera conter numeros e/ou caracteres especiais
+        return {boolean}: 
+            referente ao retorno com o resultado em formato Boleano (verdadeiro ou falso) das condicoes das funcoes 
+        """
         verifica = self.buscarDevolucoes(devolucao.codigo_exemplar, devolucao.data_devolucao)
         if verifica == None:
             self.cursor.execute('INSERT INTO devolucao(codigo_usuario, codigo_livro, codigo_exemplar, data_emprestimo, data_devolucao) VALUES(%s, %s, %s, %s, %s)', (devolucao.codigo_usuario, devolucao.codigo_livro, devolucao.codigo_exemplar, devolucao.data_emprestimo, devolucao.data_devolucao))
@@ -278,6 +378,20 @@ class Biblioteca:
             False
 
     def buscarDevolucoes(self, codigo_exemplar, data_devolucao):
+        """
+        realiza a busca da devolucao de um exemplar de livro por o codigo do exemplar do livro e a data da devolucao.
+
+        Parameters
+        ----------
+        codigo_exemplar {string}:
+            codigo do exemplar de um livro em formato de string, que podera conter numeros e/ou caracteres especiais.
+        data_devolucao {string}:
+            data da devolucao de um livro em formato de string, que podera conter numeros e/ou caracteres especiais
+        return {boolean}: 
+            referente ao retorno com o resultado do tipo None ou o proprio resultado das condicoes das funcoes
+        emprestimo:
+            referece um elemento intanciado da classe Emprestimo, que recebe uma lista. 
+        """
         self.cursor.execute("SELECT * FROM devolucao WHERE codigo_exemplar = %s AND data_devolucao = %s", (codigo_exemplar, data_devolucao,))
         selecionar = self.cursor.fetchone()
         if (selecionar == None):
