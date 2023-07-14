@@ -8,6 +8,32 @@ class Usuario:
 	__slots__ = ['__codigo_usuario', '__nome', '__cpf', '__telefone', '__endereco', '__bairro', '__cidade', '__cep', '__email', '__senha', '__tipo']
 
 	def __init__(self, codigo_usuario, nome, cpf, telefone, endereco, bairro, cidade, cep, email, senha, tipo):
+		"""
+		Parameters
+		----------
+		codigo_usuario : int, optional
+			codigo do usuario
+		nome : str, optional
+			nome do usuario
+		cpf : str, optional
+			cpf do usuario
+		telefone : str, optional
+			telefone para contato do usuario
+		endereco : str, optional
+			endereco de residencia do usuario
+		bairro : str, optional
+			bairro de residencia do usuario
+		cidade : str, optional
+			cidade de residencia do usuario
+		cep : str, optional
+			cep da cidade de residencia do usuario
+		email : str, optional
+			email do usuario
+		senha : str, optional
+			senha de acesso do usuario
+		tipo : str, optional
+			tipo de usuario para acesso ao sistema
+		"""
 		self.__codigo_usuario = codigo_usuario
 		self.__nome = nome
 		self.__cpf = cpf

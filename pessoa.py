@@ -5,6 +5,14 @@ class Pessoa:
     '''
     
 	def __init__(self, nome_autor, sobrenome):
+		"""
+		Parameters
+		----------
+		nome_autor : str, optional
+			nome do autor
+		sobrenome : str, optional
+			sobrenome do autor
+		"""
 		self.__nome_autor = nome_autor
 		self.__sobrenome = sobrenome
 
