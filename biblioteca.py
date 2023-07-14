@@ -17,8 +17,21 @@ class Biblioteca:
     __slots__ = ['conexao','cursor','mysql']
     def __init__(self):
         #configuração da conexão com banco de dados
-        self.conexao = mysql.connector.connect(host = 'localhost', user = 'sheila', password= 'root', database = 'banco_bib')
+        self.conexao = mysql.connector.connect(
+            host = 'localhost',
+            user = 'root',
+            password= '1234',
+            auth_plugin='mysql_native_password',
+        )
         self.cursor = self.conexao.cursor()
+        self.mysql = """CREATE DATABASE IF NOT EXISTS bd_biblioteca"""
+        self.cursor.execute(self.mysql)
+        self.conexao.commit()
+
+        self.mysql = """USE bd_biblioteca"""
+        self.cursor.execute(self.mysql)
+        self.conexao.commit()
+        
         self.mysql = """CREATE TABLE IF NOT EXISTS pessoa(nome VARCHAR(20) NOT NULL PRIMARY KEY, sobrenome VARCHAR(40) NOT NULL)"""
 
         self.cursor.execute(self.mysql)
@@ -60,11 +73,12 @@ class Biblioteca:
 
         selecionar = self.buscarUsuario(codigo_usuario)
             
-        if(senha == selecionar.senha):
-
-            return selecionar
-        else:
+        if selecionar == None:
             return None
+        elif selecionar.senha != senha:
+            return False
+        else:
+            return selecionar
 
     def cadastrarUsuario(self, usuario): 
         verifica = self.buscarUsuario(usuario.codigo_usuario)

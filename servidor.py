@@ -18,7 +18,7 @@ def menu(con, cliente):
 
         msg = int(con.recv(1024).decode())
         
-        if msg == 0:          #cadastrar usuario
+        if msg == 0:     #cadastrar usuario
             connected =  False
         
         elif msg  == 1:  #cadastrar usuario
@@ -38,32 +38,17 @@ def menu(con, cliente):
 
             dados = con.recv(4096).decode()
             lista_de_login = dados.split(',')
+            selecionar = bib.verificarLogin(lista_de_login[0],lista_de_login[1])
 
-            if(bib.buscarUsuario(lista_de_login[0]) == None):
+            if selecionar == None:
                 con.send('0'.encode())
-
+            elif selecionar == False:
+                con.send('1'.encode())
             else:
-
-                selecionar = bib.verificarLogin(lista_de_login[0],lista_de_login[1])
-
-                if (selecionar != None):
-
-                    verificarLogin = []
-                    verificarLogin.append(selecionar.codigo_usuario)
-                    verificarLogin.append(selecionar.senha)
-                    
-                    dados = ",".join(verificarLogin)
-                    con.send(dados.encode())
-                else:
-                    con.send('1'.encode())
+                con.send(f'2,{selecionar}'.encode())
 
         #elif msg == 3:  #buscar usuario
-
-           
-
-       
-
-
+        
     print(f"[DESCONECTADO] client: {cliente}")
     con.close()
 

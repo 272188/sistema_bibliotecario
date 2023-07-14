@@ -20,6 +20,8 @@ class Usuario:
 		self.__senha = senha
 		self.__tipo = tipo
 
+	def __str__(self):
+		return f'{self.__codigo_usuario},{self.__nome},{self.__cpf},{self.__telefone},{self.__endereco},{self.__bairro},{self.__cidade},{self.__cep},{self.__email},{self.__senha},{self.__tipo}'
 	
 	@property
 	def codigo_usuario(self):

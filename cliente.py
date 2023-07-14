@@ -119,8 +119,8 @@ class Ui_Main(QtWidgets.QWidget):
     
 
 class Main(QMainWindow, Ui_Main):
-    login = list()
     def __init__(self, parent = None):
+        self.usuario = None
         super(Main, self).__init__(parent)
         self.setupUi(self)
 
@@ -202,49 +202,32 @@ class Main(QMainWindow, Ui_Main):
         senha = self.tela_login.input_senha.text()
 
         if not (codigo_usuario == "" or senha == ""):   # verifica se todos os campos foram preenchidos
-            usuario = self.bib.buscarUsuario(codigo_usuario)
-            if usuario != None:
+            client_socket.send('2'.encode())
 
-                if usuario.senha == senha:
-                    QMessageBox.information(None, "POO2", "Usuário logado no sistema!")
+            lista_de_login = []
+            lista_de_login.append(codigo_usuario)
+            lista_de_login.append(senha)
+            dados = ",".join(lista_de_login)
+            client_socket.send(dados.encode())
+            confirmacao = client_socket.recv(4096).decode().split(',')
+            if confirmacao[0] == '0':
+                QMessageBox.information(None, 'Atenção!', 'código de usuário não cadastrado!')
+            elif confirmacao[0] == '1':
+                QMessageBox.information(None, 'Atenção!', 'Senha incorreta!')
+            elif confirmacao[0] == '2':
+                QMessageBox.information(None, "POO2", "Usuário logado no sistema!")
+                self.usuario = Usuario(*confirmacao[1:])
+                self.abrirTelaBibliotecaUsuario()
 
-                    client_socket.send('2'.encode())
 
-                    senha = senha.encode("utf8")
-                    senha = md5(senha).hexdigest()
-
-                    lista_de_login = []
-                    lista_de_login.append(codigo_usuario)
-                    lista_de_login.append(senha)
-                    dados = ",".join(lista_de_login)
-                    client_socket.send(dados.encode())
-                    dados = client_socket.recv(4096).decode()
-
-                    if (dados != '1' and dados != '0'):
-
-                        Main.login = dados.split(',')
-                   
-                        self.abrirTelaBibliotecaUsuario()
-
-                    elif (dados == '0'):
-                        QMessageBox.information(None, 'Atenção!', 'código de usuário não cadastrado!')
-
-                    elif (dados == '1'):
-                        QMessageBox.information(None, 'Atenção!', 'Senha incorreta!')
-
-                    if usuario.tipo == "admin":
-                        self.abrirTelaBiblioteca()  # Método para abrir a tela de login
-                        self.tela_login.input_usuario.setText("")  # limpar campo de input
-                        self.tela_login.input_senha.setText("")
-                    else:
+                if self.usuario.tipo == "admin":
+                    self.abrirTelaBiblioteca()  # Método para abrir a tela de login
+                    self.tela_login.input_usuario.setText("")  # limpar campo de input
+                    self.tela_login.input_senha.setText("")
+                else:
                         self.abrirTelaBibliotecaUsuario()
                         self.tela_login.input_usuario.setText("")  # limpar campo de input
                         self.tela_login.input_senha.setText("")
-                
-                if usuario.codigo_usuario != codigo_usuario:
-                    QMessageBox.information(None, 'Atenção!', 'código de usuário não cadastrado!')
-                if usuario.senha != senha:
-                    QMessageBox.information(None, 'Atenção!', 'Senha incorreta!')
             else:
                 QMessageBox.information(None,"Atenção!"," Usuário não cadastrado!")  # mensagem de erro
                 self.tela_login.input_usuario.setText("")
@@ -273,55 +256,51 @@ class Main(QMainWindow, Ui_Main):
         # verifica se todos os campos foram preenchidos
         tipo = 'usuario'
         if not (nome == "" or codigo_usuario == ""or cpf == ""or telefone == ""or endereco == ""or bairro == ""or cidade == ""or cep == ""or email == ""or senha == ""):
-            usuario = Usuario(codigo_usuario,nome,cpf,telefone,endereco,bairro,cidade,cep,email,senha,tipo)
             client_socket.send('1'.encode())
-            if (self.bib.cadastrarUsuario(usuario)) == True:
-                self.tela_cadastro.input_nome.setText("")
-                self.tela_cadastro.input_codigo.setText("")
-                self.tela_cadastro.input_cpf.setText("")
-                self.tela_cadastro.input_fone.setText("")
-                self.tela_cadastro.input_endereco.setText("")
-                self.tela_cadastro.input_bairro.setText("")
-                self.tela_cadastro.input_cidade.setText("")
-                self.tela_cadastro.input_cep.setText("")
-                self.tela_cadastro.input_email.setText("")
-                self.tela_cadastro.input_senha.setText("")
+            self.tela_cadastro.input_nome.setText("")
+            self.tela_cadastro.input_codigo.setText("")
+            self.tela_cadastro.input_cpf.setText("")
+            self.tela_cadastro.input_fone.setText("")
+            self.tela_cadastro.input_endereco.setText("")
+            self.tela_cadastro.input_bairro.setText("")
+            self.tela_cadastro.input_cidade.setText("")
+            self.tela_cadastro.input_cep.setText("")
+            self.tela_cadastro.input_email.setText("")
+            self.tela_cadastro.input_senha.setText("")
 
-                senha = senha.encode("utf8")
-                senha = md5(senha).hexdigest()
+            lista_de_dados = []
+            lista_de_dados.append(codigo_usuario)
+            lista_de_dados.append(nome)
+            lista_de_dados.append(cpf)
+            lista_de_dados.append(telefone)
+            lista_de_dados.append(endereco)
+            lista_de_dados.append(bairro)
+            lista_de_dados.append(cidade)
+            lista_de_dados.append(cep)
+            lista_de_dados.append(email)
+            lista_de_dados.append(senha)
+            lista_de_dados.append(tipo)
+            dados = ",".join(lista_de_dados)
+            client_socket.send(dados.encode())
 
-                lista_de_dados = []
-                lista_de_dados.append(codigo_usuario)
-                lista_de_dados.append(nome)
-                lista_de_dados.append(cpf)
-                lista_de_dados.append(telefone)
-                lista_de_dados.append(endereco)
-                lista_de_dados.append(bairro)
-                lista_de_dados.append(cidade)
-                lista_de_dados.append(cep)
-                lista_de_dados.append(email)
-                lista_de_dados.append(senha)
-                lista_de_dados.append(tipo)
-                dados = ",".join(lista_de_dados)
-                client_socket.send(dados.encode())
+            try:
+                retorno = client_socket.recv(4096).decode()
+            except:
+                print("\nNao foi possivel permanecer conectado!\n")
+                print("\nnPressione <Enter> para continuar...")
+                client_socket.close()
+            if(retorno == '1'):
+                QMessageBox.information(None, "Olá!", "Usuario Cadastrado com Sucesso!")
+                self.botao_Voltar_Cadastro()
 
-                try:
-                    retorno = client_socket.recv(4096).decode()
-                except:
-                    print("\nNao foi possivel permanecer conectado!\n")
-                    print("\nnPressione <Enter> para continuar...")
-                    client_socket.close()
-                if(retorno == '1'):
-                    QMessageBox.information(None, "Olá!", "Usuario Cadastrado com Sucesso!")
-                    self.botao_Voltar_Cadastro()
-
-                elif(retorno == '0'):
-                    QMessageBox.information(None,"Atenção!","O CPF informado já está cadastrado na base de dados!")   
+            elif(retorno == '0'):
+                QMessageBox.information(None,"Atenção!","O CPF informado já está cadastrado na base de dados!")   
         
         else:
             QMessageBox.information(None, "Atenção!", "Todos os valores devem ser preenchidos!")
 
     def botao_Voltar_Cadastro(self):  # Método para ativar o botão voltar
+        self.usuario = None
         self.QtStack.setCurrentIndex(0)
 
     def abrirTelaBibliotecaUsuario(self):  # Método para abrir a tela de login
@@ -616,13 +595,13 @@ class Main(QMainWindow, Ui_Main):
 
 
     def botao_Voltar_Biblioteca_Usuario(self):  # Método para ativar o botão voltar da tela emprestimo
+        self.usuario = None
         self.QtStack.setCurrentIndex(0)
 
     @staticmethod
     def botao_sair_login(self):
         client_socket.send('0'.encode())
         client_socket.close()
-        sys.exit(app.exec_())
 
 
 if __name__ == "__main__":
