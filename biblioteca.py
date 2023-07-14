@@ -14,14 +14,25 @@ import mysql.connector
 
 
 class Biblioteca:
+    """
+
+	A classe principal, utilizada para representar os principais metodos de funcionalidades do sistema
+
+    ...
+
+    Attributes
+    ----------
+    conexao : 
+
+	"""
     __slots__ = ['conexao','cursor','mysql']
     def __init__(self):
         #configuração da conexão com banco de dados
         self.conexao = mysql.connector.connect(
             host = 'localhost',
-            user = 'root',
-            password= '1234',
-            auth_plugin='mysql_native_password',
+            user = 'sheila',
+            password= 'root',
+            database='banco_bib',
         )
         self.cursor = self.conexao.cursor()
         self.mysql = """CREATE DATABASE IF NOT EXISTS bd_biblioteca"""

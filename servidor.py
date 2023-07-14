@@ -18,7 +18,7 @@ def menu(con, cliente):
 
         msg = int(con.recv(1024).decode())
         
-        if msg == 0:     #cadastrar usuario
+        if msg == 0:     
             connected =  False
         
         elif msg  == 1:  #cadastrar usuario
@@ -69,7 +69,7 @@ def main():
 
 def main():
 
-    print("[INICIADO] Aguardado conexão...")
+    print("[INICIADO] Aguardando conexão...")
     serv_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     serv_socket.bind(addr)
     serv_socket.listen()

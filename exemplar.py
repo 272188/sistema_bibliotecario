@@ -1,8 +1,23 @@
 from livro import Livro
 
 class Exemplar:
-#codigo livro, codigo_exemplar, ativo, motivo_baixa, dias_emprestimo
+	"""
+
+	Classe utilizada para representar um exemplar
+
+
+	"""
 	def __init__(self, codigo_exemplar, codigo_livro, dias_emprestimo):
+		"""
+		Parameters
+        ----------
+        codigo_exemplar : int, optional
+			codigo do exemplar de um livro
+		codigo_livro : int, opcional
+        	codigo do livro
+        dias_emprestimo : int, optional
+			quantidade de dias que o livro pode ser emprestado
+		"""
 		self.__codigo_exemplar = codigo_exemplar
 		self.__codigo_livro = codigo_livro
 		self.__ativo = True
