@@ -12,6 +12,29 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Tela_Login(object):
+    """
+    classe que representa a tela login
+
+    ...
+    Atributes
+    ----------
+    resize : object
+        dimensiona largura e altura da tela
+    setStyleSheet : object
+        estiliza a cor de fundo da tela
+    setObjectName : object
+        rotula algum lugar da tela, onde se deseja definir um nome ou frase curta
+    setText :
+        O método setText() da classe java.text.CollationElementIterator é usado para definir a nova string de origem para o objeto
+    QPushButton : object
+        atribuem-se aos botoes de acoes da tela
+    botao_login :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para logar no sistema
+    botao_cadastro_login :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela de cadastro
+    botao_sair_login : elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para sair do sistema
+
+    """
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1190, 706)
