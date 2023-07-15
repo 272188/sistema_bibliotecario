@@ -12,6 +12,29 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Tela_Buscar_Cadastro(object):
+    """
+    classe que representa a tela buscar cadastro de um usuario.
+
+    ...
+    Atributes
+    ----------
+    resize : object
+        dimensiona largura e altura da tela
+    setStyleSheet : object
+        estiliza a cor de fundo da tela
+    setObjectName : object
+        rotula algum lugar da tela, onde se deseja definir um nome ou frase curta
+    setText :
+        O método setText() da classe java.text.CollationElementIterator é usado para definir a nova string de origem para o objeto
+    QLineEdit : object
+        É uma caixa de texto
+    QPushButton : object
+        atribuem-se aos botoes de acoes da tela
+    botao_buscar_usuario :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para buscar cadasro de usuario do sistema
+    boto_voltar_buscar :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para voltar da tela buscar usuario para a tela de login
+    """
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1187, 689)

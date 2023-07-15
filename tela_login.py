@@ -33,7 +33,6 @@ class Tela_Login(object):
     botao_cadastro_login :
         elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela de cadastro
     botao_sair_login : elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para sair do sistema
-
     """
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
