@@ -26,6 +26,8 @@ class Tela_Login(object):
         rotula algum lugar da tela, onde se deseja definir um nome ou frase curta
     setText :
         O método setText() da classe java.text.CollationElementIterator é usado para definir a nova string de origem para o objeto
+    setEchoMode : object
+        utilizado para modificar um password de modo que a mesma fique camuflada.
     QPushButton : object
         atribuem-se aos botoes de acoes da tela
     botao_login :
