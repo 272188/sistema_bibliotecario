@@ -33,7 +33,7 @@ class Tela_Buscar_Cadastro(object):
     botao_buscar_usuario :
         elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para buscar cadasro de usuario do sistema
     boto_voltar_buscar :
-        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para voltar da tela buscar usuario para a tela de login
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para voltar da tela buscar usuario para a tela principal da bibblioteca para usuario.
     """
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
