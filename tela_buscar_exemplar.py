@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Tela_Buscar_Exemplar(object):
     """
-    classe que representa a tela de buscar exemplar de um livro pelo codigo.
+    classe que representa a tela de buscar exemplar de um livro pelo codigo do exemplar.
 
     ...
     Atributes
