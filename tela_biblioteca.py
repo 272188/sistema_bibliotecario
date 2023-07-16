@@ -30,11 +30,11 @@ class Tela_Biblioteca(object):
     QPushButton : object
         atribuem-se aos botoes de acoes da tela
     botao_cadastrar_autor_biblioteca :
-        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para cadastrar autor.
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela de cadastrar autor.
     botao_cadastrar_livro_biblioteca :
-        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para cadastrar livro.
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela de cadastrar livro.
     botao_cadastrar_exemplar_biblioteca :
-        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para cadastrar exemplar.
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela de cadastrar exemplar.
     botao_voltar_biblioteca_admin :
         elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao de voltar da tela principal para a tela de login
     """
