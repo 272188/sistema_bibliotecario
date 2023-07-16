@@ -504,7 +504,6 @@ class Main(QMainWindow, Ui_Main):
             self.tela_exemplar.input_codigo_livro.setText("")
             self.tela_exemplar.input_codigo_exemplar.setText("")
             self.tela_exemplar.input_qtd_dias.setText("")
-
             lista_exemplar = []
             lista_exemplar.append(codigo_exemplar)
             lista_exemplar.append(codigo_livro)
@@ -611,19 +610,30 @@ class Main(QMainWindow, Ui_Main):
         data_emprestimo = self.tela_devolucao.input_data_emprestimo.text()
         data_devolucao = self.tela_devolucao.input_data_devolucao.text()
         if not (codigo_usuario == "" or codigo_exemplar == "" or codigo_livro == "" or data_emprestimo == "" or data_devolucao == ""):
-            devolucao = Devolucao(codigo_usuario, codigo_livro, codigo_exemplar, data_emprestimo, data_devolucao)
-            if (self.bib.realizarDevolucao(devolucao)) == True:
-                QMessageBox.information(None, "POO2", "Devolução realizada com sucesso!")
-                self.tela_devolucao.input_codigo_usuario.setText("")
-                self.tela_devolucao.input_codigo_exemplar.setText("")
-                self.tela_devolucao.input_codigo_livro.setText("")
-                self.tela_devolucao.input_data_emprestimo.setText("")
-                self.tela_devolucao.input_data_devolucao.setText("")
-                #self.bib.realizarEmprestimo()
-            else:
-                QMessageBox.information(None, "POO2", "O Exemplar já foi devolvido!")
+            #devolucao = Devolucao(codigo_usuario, codigo_livro, codigo_exemplar, data_emprestimo, data_devolucao)
+            #if (self.bib.realizarDevolucao(devolucao)) == True:
+            client_socket.send('12'.encode())    
+            self.tela_devolucao.input_codigo_usuario.setText("")
+            self.tela_devolucao.input_codigo_exemplar.setText("")
+            self.tela_devolucao.input_codigo_livro.setText("")
+            self.tela_devolucao.input_data_emprestimo.setText("")
+            self.tela_devolucao.input_data_devolucao.setText("")
+            lista_devolucao = []
+            lista_devolucao.append(codigo_usuario)
+            lista_devolucao.append(codigo_exemplar)
+            lista_devolucao.append(codigo_livro)
+            lista_devolucao.append(data_emprestimo)
+            lista_devolucao.append(data_devolucao)
+            dados_devolucao = ",".join(lista_devolucao)
+            client_socket.send(dados_devolucao.encode())
+            retorno = client_socket.recv(4096).decode() 
+            if(retorno == '1'):
+                QMessageBox.information(None, "Olá", "Devolução realizada com sucesso!")
+                self.abrirTelaBibliotecaUsuario()
+            elif(retorno == '0'):
+                QMessageBox.information(None,"Atenção!","Este exemplar já possui registro de devolucao na base de dados do sistema!")   
         else:
-            QMessageBox.information(None, "POO2", "Todos os campos devem ser preenchidos!")
+            QMessageBox.information(None, "Atenção!", "Todos os campos devem ser preenchidos!")
 
     def botao_Voltar_Devolucao(self):  # Método para ativar o botão voltar da tela emprestimo
         self.QtStack.setCurrentIndex(4)
