@@ -12,6 +12,32 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Tela_Biblioteca(object):
+    """
+    classe que representa a tela principal da biblioteca para o administrador do sistema, que contem os menus de acesso as funcionalidades do sistema bibliotecario para cadastrar dados referentes a autores, livros e seus respectivos exemplares.
+
+    
+    ...
+    Atributes
+    ----------
+    resize : object
+        dimensiona largura e altura da tela
+    setStyleSheet : object
+        estiliza a cor de fundo da tela
+    setObjectName : object
+        rotula algum lugar da tela, onde se deseja definir um nome ou frase curta
+    setText :
+        O método setText() da classe java.text.CollationElementIterator é usado para definir a nova string de origem para o objeto
+    QPushButton : object
+        atribuem-se aos botoes de acoes da tela
+    botao_cadastrar_autor_biblioteca :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para cadastrar autor.
+    botao_cadastrar_livro_biblioteca :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para cadastrar livro.
+    botao_cadastrar_exemplar_biblioteca :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para cadastrar exemplar.
+    botao_voltar_biblioteca_admin :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao de voltar da tela principal para a tela de login
+    """
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(916, 703)
