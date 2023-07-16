@@ -218,13 +218,13 @@ class Main(QMainWindow, Ui_Main):
                 QMessageBox.information(None, "POO2", "Usuário logado no sistema!")
                 self.usuario = Usuario(*confirmacao[1:])
                 if self.usuario.tipo == "admin":
-                    self.abrirTelaBiblioteca()  # Método para abrir a tela de login
                     self.tela_login.input_usuario.setText("")  # limpar campo de input
                     self.tela_login.input_senha.setText("")
+                    self.abrirTelaBiblioteca()  # Método para abrir a tela de login
                 else:
-                        self.abrirTelaBibliotecaUsuario()
-                        self.tela_login.input_usuario.setText("")  # limpar campo de input
-                        self.tela_login.input_senha.setText("")
+                    self.tela_login.input_usuario.setText("")  # limpar campo de input
+                    self.tela_login.input_senha.setText("")
+                    self.abrirTelaBibliotecaUsuario()
             else:
                 QMessageBox.information(None,"Atenção!"," Usuário não cadastrado!")  # mensagem de erro
                 self.tela_login.input_usuario.setText("")
@@ -358,16 +358,30 @@ class Main(QMainWindow, Ui_Main):
         nome_autor = self.tela_autor.input_nome_autor.text()
         codigo_autor = self.tela_autor.input_codigo_autor.text()
         if not (nome_autor == "" or codigo_autor == ""):
-            autor = Autor(codigo_autor, nome_autor)
-            if (self.bib.cadastrarAutor(autor)) == True:
-                QMessageBox.information(None, "POO2", "Autor cadastrado com sucesso!")
-                self.tela_autor.input_nome_autor.setText("")
-                self.tela_autor.input_codigo_autor.setText("")
+            client_socket.send('4'.encode())
+            
+            #autor = Autor(codigo_autor, nome_autor)
+            #if (self.bib.cadastrarAutor(autor)) == True:
+                
+            self.tela_autor.input_nome_autor.setText("")
+            self.tela_autor.input_codigo_autor.setText("")
+            lista_autor=[]
+            lista_autor.append(nome_autor)
+            lista_autor.append(codigo_autor)
+            dados_autor = ",".join(lista_autor)
+            client_socket.send(dados_autor.encode())
+            
+            retorno = client_socket.recv(4096).decode()
+            
+            if(retorno == '1'):
+                QMessageBox.information(None, "Olá", "Autor cadastrado com sucesso!")
                 self.abrirTelaLivro()
-            else:
-                QMessageBox.information(None, "POO2", "Autor já possui cadastro no sistema!")
+            elif(retorno == '0'):
+                QMessageBox.information(None,"Atenção!","Este autor já está cadastrado na base de dados!")   
+        
         else:
-            QMessageBox.information(None, "POO2", "Todos os campos devem ser preenchidos!")
+            QMessageBox.information(None, "Atenção!", "Todos os campos devem ser preenchidos!")
+
 
     def botao_Voltar_Autor(self):  # Método para ativar o botão voltar da tela autor
         self.QtStack.setCurrentIndex(3)
@@ -406,27 +420,46 @@ class Main(QMainWindow, Ui_Main):
         anoPublicacao = self.tela_livro.input_ano_publicacao.text()
         
         if not (nome_autor == "" or codigo_autor == "" or titulo == "" or codigo_livro == "" or assunto == "" or isbn == "" or editora == "" or edicao == "" or volume == "" or Numero_pag == "" or anoPublicacao == ""):
-            livro = Livro(codigo_livro, nome_autor, codigo_autor, titulo, editora, isbn, assunto, edicao, volume, Numero_pag, anoPublicacao)
-            
-            if (self.bib.cadastrarLivros(livro)) == True:
-                QMessageBox.information(None, "POO2", "Livro Cadastrado com sucesso!")
-                self.tela_livro.input_nome_autor.setText("")
-                self.tela_livro.input_codigo_autor.setText("")
-                self.tela_livro.input_titulo_livro.setText("")
-                self.tela_livro.input_codigo_livro.setText("")
-                self.tela_livro.input_assunto.setText("")
-                self.tela_livro.input_isbn.setText("")
-                self.tela_livro.input_editora.setText("")
-                self.tela_livro.input_edicao.setText("")
-                self.tela_livro.input_volume.setText("")
-                self.tela_livro.input_num_paginas.setText("")
-                self.tela_livro.input_ano_publicacao.setText("")
-                self.abrirTelaExemplar()
-            else:
-                QMessageBox.information(None, "POO2", "O livro já possui cadastro na base de dados!")
+            #livro = Livro(codigo_livro, nome_autor, codigo_autor, titulo, editora, isbn, assunto, edicao, volume, Numero_pag, anoPublicacao)
+            #if (self.bib.cadastrarLivros(livro)) == True:
+            client_socket.send('6'.encode())
                 
+            self.tela_livro.input_nome_autor.setText("")
+            self.tela_livro.input_codigo_autor.setText("")
+            self.tela_livro.input_titulo_livro.setText("")
+            self.tela_livro.input_codigo_livro.setText("")
+            self.tela_livro.input_assunto.setText("")
+            self.tela_livro.input_isbn.setText("")
+            self.tela_livro.input_editora.setText("")
+            self.tela_livro.input_edicao.setText("")
+            self.tela_livro.input_volume.setText("")
+            self.tela_livro.input_num_paginas.setText("")
+            self.tela_livro.input_ano_publicacao.setText("")
+                
+            lista_livro=[]
+            lista_livro.append(nome_autor)
+            lista_livro.append(codigo_autor)
+            lista_livro.append(titulo)
+            lista_livro.append(codigo_livro)
+            lista_livro.append(assunto)
+            lista_livro.append(isbn)
+            lista_livro.append(editora)
+            lista_livro.append(edicao)
+            lista_livro.append(volume)
+            lista_livro.append(Numero_pag)
+            lista_livro.append(anoPublicacao)
+            dados_livro = ",".join(lista_livro)
+            client_socket.send(dados_livro.encode())
+
+            retorno = client_socket.recv(4096).decode() 
+            if(retorno == '1'):
+                QMessageBox.information(None, "Olá", "Livro cadastrado com sucesso!")
+                self.abrirTelaExemplar()
+            elif(retorno == '0'):
+                QMessageBox.information(None,"Atenção!","Este livro já está cadastrado na base de dados!")   
         else:
-            QMessageBox.information(None, "POO2", "Todos os campos devem ser preenchidos!")
+            QMessageBox.information(None, "Atenção!", "Todos os campos devem ser preenchidos!")
+
 
     def botao_Voltar_Livro(self):  # Método para ativar o botão voltar da tela livro
         self.QtStack.setCurrentIndex(3)
@@ -464,16 +497,28 @@ class Main(QMainWindow, Ui_Main):
         codigo_exemplar = self.tela_exemplar.input_codigo_exemplar.text()
         dias_emprestimo = self.tela_exemplar.input_qtd_dias.text()
         if not (codigo_livro == "" or codigo_exemplar == "" or dias_emprestimo == ""):
-            exemplar = Exemplar(codigo_exemplar,codigo_livro,dias_emprestimo)
-            if (self.bib.cadastrarExemplares(exemplar)) == True:
-                QMessageBox.information(None, "POO2", "Exemplar cadastrado com sucesso!")
-                self.tela_exemplar.input_codigo_livro.setText("")
-                self.tela_exemplar.input_codigo_exemplar.setText("")
-                self.tela_exemplar.input_qtd_dias.setText("")
-            else:
-                QMessageBox.information(None,"POO2","O exemplar já está cadastrado na base de dados do sistema!")
+            client_socket.send('8'.encode())
+            #exemplar = Exemplar(codigo_exemplar,codigo_livro,dias_emprestimo)
+            #if (self.bib.cadastrarExemplares(exemplar)) == True:
+                
+            self.tela_exemplar.input_codigo_livro.setText("")
+            self.tela_exemplar.input_codigo_exemplar.setText("")
+            self.tela_exemplar.input_qtd_dias.setText("")
+
+            lista_exemplar = []
+            lista_exemplar.append(codigo_exemplar)
+            lista_exemplar.append(codigo_livro)
+            lista_exemplar.append(dias_emprestimo)
+            dados_exemplar = ",".join(lista_exemplar)
+            client_socket.send(dados_exemplar.encode())
+            retorno = client_socket.recv(4096).decode() 
+            if(retorno == '1'):
+                QMessageBox.information(None, "Olá", "Exemplar cadastrado com sucesso!")
+                self.abrirTelaBiblioteca()
+            elif(retorno == '0'):
+                QMessageBox.information(None,"Atenção!","Este exemplar já está cadastrado na base de dados!")   
         else:
-            QMessageBox.information(None, "POO2", "Todos os campos devem ser preenchidos!")
+            QMessageBox.information(None, "Atenção!", "Todos os campos devem ser preenchidos!")
 
     def botao_Voltar_Exemplar(self):  # Método para ativar o botão voltar da tela exemplar
         self.QtStack.setCurrentIndex(3)
@@ -509,20 +554,31 @@ class Main(QMainWindow, Ui_Main):
         data_emprestimo = self.tela_emprestimo.input_data_emprestimo.text()
         data_para_devolver = self.tela_emprestimo.input_data_devolucao.text()
         if not (codigo_usuario == "" or codigo_exemplar == "" or codigo_livro == "" or data_emprestimo == "" or data_para_devolver == ""):
-            emprestimo = Emprestimo(codigo_usuario,codigo_livro,codigo_exemplar,data_emprestimo,data_para_devolver)
+            #emprestimo = Emprestimo(codigo_usuario,codigo_livro,codigo_exemplar,data_emprestimo,data_para_devolver)
+            #if (self.bib.realizarEmprestimo(emprestimo)) == True:
+            client_socket.send('10'.encode())    
             
-            if (self.bib.realizarEmprestimo(emprestimo)) == True:
-                
-                QMessageBox.information(None, "POO2", "Emprestimo realizado com sucesso!")
-                self.tela_emprestimo.input_codigo_usuario.setText("")
-                self.tela_emprestimo.input_codigo_exemplar.setText("")
-                self.tela_emprestimo.input_codigo_livro.setText("")
-                self.tela_emprestimo.input_data_emprestimo.setText("")
-                self.tela_emprestimo.input_data_devolucao.setText("")
-            else:
-                QMessageBox.information(None, "POO2", "O Exemplar informado já possui emprestimo!")
+            self.tela_emprestimo.input_codigo_usuario.setText("")
+            self.tela_emprestimo.input_codigo_exemplar.setText("")
+            self.tela_emprestimo.input_codigo_livro.setText("")
+            self.tela_emprestimo.input_data_emprestimo.setText("")
+            self.tela_emprestimo.input_data_devolucao.setText("")
+            lista_emprestimo = []
+            lista_emprestimo.append(codigo_usuario)
+            lista_emprestimo.append(codigo_exemplar)
+            lista_emprestimo.append(codigo_livro)
+            lista_emprestimo.append(data_emprestimo)
+            lista_emprestimo.append(data_para_devolver)
+            dados_emprestimo = ",".join(lista_emprestimo)
+            client_socket.send(dados_emprestimo.encode())
+            retorno = client_socket.recv(4096).decode() 
+            if(retorno == '1'):
+                QMessageBox.information(None, "Olá", "Emprestimo realizado com sucesso!")
+                self.abrirTelaBibliotecaUsuario()
+            elif(retorno == '0'):
+                QMessageBox.information(None,"Atenção!","Este exemplar já possui registro de emprestimo na base de dados do sistema!")   
         else:
-            QMessageBox.information(None, "POO2", "Todos os campos devem ser preenchidos!")
+            QMessageBox.information(None, "Atenção!", "Todos os campos devem ser preenchidos!")
 
     def botao_Voltar_Emprestimo(self):  # Método para ativar o botão voltar da tela emprestimo
         self.QtStack.setCurrentIndex(4)
