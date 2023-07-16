@@ -45,7 +45,7 @@ def menu(con, cliente):
 
             if selecionar == None:
                 con.send('0'.encode())
-            elif selecionar != lista_de_login[1]:
+            elif selecionar == False:
                 con.send('1'.encode())
             else:
                 con.send(f'2,{selecionar}'.encode())
