@@ -12,6 +12,29 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Tela_Autor(object):
+    """
+    classe que representa a tela para cadastrar um autor na base de dados do sistema, sendo essa funcionalidade especifica para usarios do tipo adiministrador.
+
+    ...
+    Atributes
+    ----------
+    resize : object
+        dimensiona largura e altura da tela
+    setStyleSheet : object
+        estiliza a cor de fundo da tela
+    setObjectName : object
+        rotula algum lugar da tela, onde se deseja definir um nome ou frase curta
+    setText :
+        O método setText() da classe java.text.CollationElementIterator é usado para definir a nova string de origem para o objeto
+    QLineEdit : object
+        É um campo ou caixa de texto.
+    QPushButton : object
+        atribuem-se aos botoes de acoes da tela
+    botao_cadastrar_autor :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para cadastrar um autor.
+    botao_voltar_autor :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para voltar da tela autor para a tela principal da biblioteca para usuario administrador do sistema.
+    """
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(855, 600)
