@@ -12,6 +12,29 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Tela_Buscar_Exemplar(object):
+    """
+    classe que representa a tela de buscar livro pelo codigo.
+
+    ...
+    Atributes
+    ----------
+    resize : object
+        dimensiona largura e altura da tela
+    setStyleSheet : object
+        estiliza a cor de fundo da tela
+    setObjectName : object
+        rotula algum lugar da tela, onde se deseja definir um nome ou frase curta
+    setText :
+        O método setText() da classe java.text.CollationElementIterator é usado para definir a nova string de origem para o objeto
+    QLineEdit : object
+        É um campo ou caixa de texto.
+    QPushButton : object
+        atribuem-se aos botoes de acoes da tela
+    botao_buscar_exemplar :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para buscar um exemplar de livro pelo codigo.
+    botao_voltar_busca_exemplar :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para voltar da tela buscar exemplar para a tela principal da biblioteca para usuarios.
+    """
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(954, 656)
