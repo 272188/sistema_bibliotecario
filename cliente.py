@@ -221,7 +221,7 @@ class Main(QMainWindow, Ui_Main):
                     self.tela_login.input_usuario.setText("")  # limpar campo de input
                     self.tela_login.input_senha.setText("")
                     self.abrirTelaBiblioteca()  # Método para abrir a tela de login
-                else:
+                elif self.usuario.tipo =="usuario":
                     self.tela_login.input_usuario.setText("")  # limpar campo de input
                     self.tela_login.input_senha.setText("")
                     self.abrirTelaBibliotecaUsuario()
