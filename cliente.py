@@ -1,4 +1,4 @@
-import typing
+import typing   #biblioteca usada para fornecer suporte a anotações de tipo ou seja, permite definir e trabalhar com diferentes tipos de argumentos nos metodos
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox
 import sys
@@ -48,6 +48,49 @@ except:
     exit()
 
 class Ui_Main(QtWidgets.QWidget):
+    """
+    Classe que apresenta todas as telas necessárias para a aplicação do prototipo do sistema
+
+    ...
+
+    Attributes
+    ----------
+    stack : objeto
+        utilizado para representar uma lista como pilhas. A mesma representa uma pilha de metodos do prototipo do sistema.
+    
+    tela_login : class
+        tela de login
+    tela_cadastro : class
+        tela de cadastro
+    buscar_cadastro : class
+        tela buscar cadastro 
+    tela_biblioteca : class
+        tela principal da biblioteca para administrador(es) do sistema
+    tela_biblioteca_usuario : class
+        tela principal da biblioteca para usuarios do sistema
+    tela_autor : class
+        tela de cadastro de autor para administrador do sistema
+    tela_buscar_autor : class
+        tela buscar autor
+    tela_livro : class
+        tela de cadastro de livro para administrador do sistema
+    tela_buscar_livro : class
+        tela buscar livro
+    tela_exemplar : class
+        tela de cadastro de exemplar de livro para administrador do sistema
+    tela_buscar_exemplar : class
+        tela buscar exemplar
+    tela_emprestimo : class
+        tela de emprestimo de exemplar de livro
+    tela_buscar_emprestimo : class
+        tela buscar emprestimo
+    tela_devolucao : class
+        tela de devolucoes de exemplar de livro
+    tela_buscar_devolucao : class
+        tela buscar devolucao
+    
+    
+    """
     def setupUi(self, Main):
         Main.setObjectName("Main")
         Main.resize(640, 480)
@@ -119,8 +162,107 @@ class Ui_Main(QtWidgets.QWidget):
     
 
 class Main(QMainWindow, Ui_Main):
+    """
+    classe principal que executa todos os metodos e acoes das telas e seus respectivos botoes, a nivel de comunicacao com cliente.
+
+
+    Attributes
+    ----------
+    
+    
+    
+    Methods
+    -------
+    init():
+        recebe os objetos de conexao das telas com seus respectivos botoes
+    abrirTelaLogin():
+        abre a tela de login
+    botao_Login():
+        realiza login para ter acesso as funcionalidades do sistema
+    abrirTelaCadastro():
+        abre a tela de login
+    botao_Cadastrar_Usuario():
+        realiza cadastro de um usuario, caso o mesmo nao possua
+    botao_Voltar_Cadastro():
+        volta da tela de cadastro para a de login
+    abrirTelaBibliotecaUsuario():
+        abre a tela principal da biblioteca
+    abrirTelaBuscarCadastro():
+        abre a tela de buscar cadastro
+    botao_Buscar_Usuario():
+        faz a busca de usuario do sistema pelo seu codigo de cadastro
+    botao_Voltar_Buscar_usuario():
+        volta da tela buscar usuario para a tela principal
+    abrirTelaAutor():
+        abre a tela de cadastro de autor para adminitrador do sistema
+    botao_Cadastrar_Autor():
+        realiza o cadastro de um autor
+    botao_Voltar_Autor():
+        volta da tela ator para a tela principal
+    abrirTelaBuscarAutor:
+        abre a tela buscar autor
+    botao_Buscar_Autor:
+        realiza a busca de um autor pelo seu nome
+    botao_Voltar_Buscar_Autor:
+        volta da tela buscar autor para a tela principal
+    abrirTelaLivro():
+    botao_Cadastrar_Livro():
+        realiza o cadastro de livro
+    botao_Voltar_Livro():
+        volta da tela livro para a tela principal
+    abrirTelaBuscarLivro():
+        abre a tela buscar livro
+    botao_Buscar_Livro():
+        realiza a busca de um livro pelo seu codigo
+    botao_Voltar_Buscar_Livro():
+        volta da tela buscar livro para a tela principal
+    abrirTelaExemplar():
+        abre a tela de cadastro de um exemplar
+    botao_Cadastrar_Exemplar():
+        realiza o cadastro de um exemplar de livro
+    botao_Voltar_Exemplar():
+        volta da tela exemplar para a tela principal
+    botao_Voltar_Biblioteca():
+        volta da tela principal para a tela de login
+    abrirTelaBuscarExemplar():
+        abre a tela buscar exemplar
+    botao_Buscar_Exemplar():
+        realiza a busca de um exemplar pelo seu codigo
+    botao_Voltar_Buscar_Exemplar():
+        volta da tela buscar exemplar para a tela principal
+    abrirTelaEmprestimo():
+        abre a tela de emprestimo
+    botao_Realizar_Emprestimo:
+        realiza emprestimo de exemplar de livro
+    botao_Voltar_Emprestimo:
+        volta da tela de emprestimo para a tela principal
+    abrirTelaBuscarEmprestimo:
+        abre a tela buscar emprestiimo
+    botao_Buscar_Emprestimo
+        realiza a busca de emprestimo de exemplar de livro pelo codigo do exemplar
+    botao_Voltar_Buscar_Emprestimo:
+        volta da tela buscar emprestimo para a tela principal
+    abrirTelaDevolucao:
+        abre a tela de devolucao de exemplar
+    botao_Devolver:
+        realiza a devolucao de um exemplar de livro
+    botao_Voltar_Devolucao:
+        volta da tela de devolucao para a tela principal
+    abrirTelaBuscarDevolucao:
+        abre a tela buscar devolucao
+    botao_Buscar_Devolucao:
+        realiza a busca de devolucoes de exemplares de livro pelo codigo do exemplar e data da devolucao
+    botao_Voltar_Buscar_Devolucao:
+        volta da tela buscar devolucao para a tela principal
+    botao_Voltar_Biblioteca_Usuario:
+        volta da tela principal de biblioteca para a tela de login
+    botao_sair_login:
+        botao para sair do sistema.
+
+    """
     def __init__(self, parent = None):
-        self.usuario = None
+        #self.usuario = None
+        verificarLogin = list()
         super(Main, self).__init__(parent)
         self.setupUi(self)
 
@@ -174,7 +316,7 @@ class Main(QMainWindow, Ui_Main):
         #realizar emprestimo
         self.tela_biblioteca_usuario.botao_emprestimo_biblioteca_usuario.clicked.connect(self.abrirTelaEmprestimo)
         self.tela_emprestimo.botao_realizar_emprestimo.clicked.connect(self.botao_Realizar_Emprestimo)
-        self.tela_emprestimo.botao_voltat_emprestimo.clicked.connect(self.botao_Voltar_Emprestimo)
+        self.tela_emprestimo.botao_voltar_realizar_emprestimo.clicked.connect(self.botao_Voltar_Emprestimo)
         #buscar emprestimo por codigo do exemplar
         self.tela_biblioteca_usuario.botao_buscar_emprestimo_biblioteca_usuario.clicked.connect(self.abrirTelaBuscarEmprestimo)
         self.tela_buscar_emprestimo.botao_buscar_emprestimo.clicked.connect(self.botao_Buscar_Emprestimo)
@@ -212,16 +354,18 @@ class Main(QMainWindow, Ui_Main):
             confirmacao = client_socket.recv(4096).decode().split(',')
             if confirmacao[0] == '0':
                 QMessageBox.information(None, 'Atenção!', 'código de usuário não cadastrado!')
+                self.tela_login.input_usuario.setText("")  # limpar campo de input
             elif confirmacao[0] == '1':
                 QMessageBox.information(None, 'Atenção!', 'Senha incorreta!')
+                self.tela_login.input_senha.setText("")
             elif confirmacao[0] == '2':
                 QMessageBox.information(None, "POO2", "Usuário logado no sistema!")
                 self.usuario = Usuario(*confirmacao[1:])
-                if self.usuario.tipo == "admin":
+                if self.usuario.tipo == 'admin':
                     self.tela_login.input_usuario.setText("")  # limpar campo de input
                     self.tela_login.input_senha.setText("")
                     self.abrirTelaBiblioteca()  # Método para abrir a tela de login
-                elif self.usuario.tipo =="usuario":
+                elif self.usuario.tipo =='usuario':
                     self.tela_login.input_usuario.setText("")  # limpar campo de input
                     self.tela_login.input_senha.setText("")
                     self.abrirTelaBibliotecaUsuario()
@@ -311,6 +455,8 @@ class Main(QMainWindow, Ui_Main):
         codigo_usuario = self.tela_buscar_cadastro.input_codigo_usuario2.text()
         usuario = self.bib.buscarUsuario(codigo_usuario)
         if (usuario != None):
+            client_socket.send('3'.encode())
+        
             self.tela_buscar_cadastro.input_nome2.setText(usuario.nome)
             self.tela_buscar_cadastro.input_cpf2.setText(usuario.cpf)
             self.tela_buscar_cadastro.input_fone2.setText(usuario.telefone)
@@ -321,29 +467,25 @@ class Main(QMainWindow, Ui_Main):
             self.tela_buscar_cadastro.input_email2.setText(usuario.email)
             self.tela_buscar_cadastro.input_senha2.setText(usuario.senha)
 
+            lista_usuarios = []
+            lista_usuarios.append(usuario.nome)
+            lista_usuarios.append(usuario.cpf)
+            lista_usuarios.append(usuario.telefone)
+            lista_usuarios.append(usuario.endereco)
+            lista_usuarios.append(usuario.bairro)
+            lista_usuarios.append(usuario.cidade)
+            lista_usuarios.append(usuario.cep)
+            lista_usuarios.append(usuario.email)
+            lista_usuarios.append(usuario.senha)
+            lista_usuarios.append(Main.login[1])
+            dados_usuarios = ",".join(lista_usuarios)
+            client_socket.send(dados_usuarios.encode())
+            retorno = client_socket.recv(4096).decode()
 
             
-            '''client_socket.send('3'.encode())
-            senha = senha.encode("utf8")
-            senha = md5(senha).hexdigest()
-            lista_de_usuarios = []
-            lista_de_usuarios.append(usuario.nome)
-            lista_de_usuarios.append(usuario.cpf)
-            lista_de_usuarios.append(usuario.telefone)
-            lista_de_usuarios.append(usuario.endereco)
-            lista_de_usuarios.append(usuario.bairro)
-            lista_de_usuarios.append(usuario.cidade)
-            lista_de_usuarios.append(usuario.cep)
-            lista_de_usuarios.append(usuario.email)
-            lista_de_usuarios.append(usuario.senha)
-            lista_de_usuarios.append(Main.login[1])
-            lista_de_usuarios = ",".join(lista_de_usuarios)
-            client_socket.send(lista_de_usuarios.encode())
-            retorno = client_socket.recv(4096).decode()'''
         else:
             QMessageBox.information(None, "POO2", "Usuario não encontrado!")
     
-
     def botao_Voltar_Buscar_usuario(self):  # Método para ativar o botão voltar
         self.QtStack.setCurrentIndex(4)
 

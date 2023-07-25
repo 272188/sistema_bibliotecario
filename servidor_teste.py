@@ -6,6 +6,17 @@ port = 8080
 addr = (host, port)
 
 def func_client(con, cliente):
+    """
+    Construtor para criar os atributos ao instanciar um objeto. Executa uma nova conexao de teste cliente e servidor 
+
+    Parameters
+    ---------
+    con : objeto
+        conexão da maquina que o usuário está usando 
+    cliente : objeto
+        endereço da maquina do usuário
+
+    """
 
     print(f"[NOVA CONEXÃO] {cliente} conectado.")
 

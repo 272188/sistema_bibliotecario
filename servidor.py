@@ -17,13 +17,25 @@ addr = (host, port)
 bib = Biblioteca()
 
 def menu(con, cliente):
+    """
+    Construtor para criar os atributos ao instanciar um objeto. Executa todas condicoes contidas nos demais metodos com conexao entre cliente e servidor 
 
-    connected = True
-    while connected:
+    Parameters
+    ---------
+    con : objeto
+        conexão da maquina que o usuário está usando 
+    cliente : objeto
+        endereço da maquina do usuário
 
-        msg = int(con.recv(1024).decode())
+    """
+
+    connected = True   #conectado recebe verdadeiro
+    while connected:   #enquanto a conexao entre cliente e servidor estiver estabelecida
+
+        msg = int(con.recv(1024).decode())  #msg recebe conexao de informacoes decodificadas
         
-        if msg == 0:     
+        
+        if msg == 0:     #se a mensagem for zero significa que nao foi conectado
             connected =  False
         
         elif msg  == 1:  #cadastrar usuario
@@ -49,8 +61,16 @@ def menu(con, cliente):
                 con.send('1'.encode())
             else:
                 con.send(f'2,{selecionar}'.encode())
-
-        #elif msg == 3:  #buscar usuario
+        
+        elif msg == 3:  #buscar usuario
+            dados_usuarios = con.recv(4096).decode()
+            lista_usuarios = dados_usuarios.split(',')
+            verifica = bib.buscarUsuario(lista_usuarios[0], lista_usuarios[1], lista_usuarios[2], lista_usuarios[3], lista_usuarios[4], lista_usuarios[5], lista_usuarios[6], lista_usuarios[7], lista_usuarios[8], lista_usuarios[9], lista_usuarios[10], lista_usuarios[11])
+           
+           # if verifica != None:
+                #con.send('0'.encode())
+            #else:
+                #con.send('1'.encode())
         
         elif msg == 4: #cadastrar autor
             dados_autor = con.recv(4096).decode()
@@ -117,6 +137,22 @@ def menu(con, cliente):
     con.close()
 
 def main():
+    """
+    Construtor para criar os atributos ao instanciar um objeto. Executa as conexoes entre cliente e sevidor.
+
+    Parameters
+    ---------
+    socket: object
+        envia dados pela rede
+    con : object
+        conexão da maquina que o usuário está usando 
+    cliente : object
+        endereço da maquina do usuário
+    thread : object
+        sequência de instruções do programa que pode ser executada de forma independente.
+
+
+    """
 
     print("[INICIADO] Aguardando conexão...")
     serv_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
