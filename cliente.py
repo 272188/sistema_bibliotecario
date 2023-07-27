@@ -466,7 +466,7 @@ class Main(QMainWindow, Ui_Main):
             self.tela_buscar_cadastro.input_cep2.setText(usuario.cep)
             self.tela_buscar_cadastro.input_email2.setText(usuario.email)
             self.tela_buscar_cadastro.input_senha2.setText(usuario.senha)
-
+            '''
             lista_usuarios = []
             lista_usuarios.append(usuario.nome)
             lista_usuarios.append(usuario.cpf)
@@ -481,7 +481,7 @@ class Main(QMainWindow, Ui_Main):
             dados_usuarios = ",".join(lista_usuarios)
             client_socket.send(dados_usuarios.encode())
             retorno = client_socket.recv(4096).decode()
-
+            '''
             
         else:
             QMessageBox.information(None, "POO2", "Usuario não encontrado!")

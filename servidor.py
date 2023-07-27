@@ -66,7 +66,7 @@ def menu(con, cliente):
             dados_usuarios = con.recv(4096).decode()
             lista_usuarios = dados_usuarios.split(',')
             verifica = bib.buscarUsuario(lista_usuarios[0], lista_usuarios[1], lista_usuarios[2], lista_usuarios[3], lista_usuarios[4], lista_usuarios[5], lista_usuarios[6], lista_usuarios[7], lista_usuarios[8], lista_usuarios[9], lista_usuarios[10], lista_usuarios[11])
-           
+           #usuario = self.bib.buscarUsuario(codigo_usuario)
            # if verifica != None:
                 #con.send('0'.encode())
             #else:

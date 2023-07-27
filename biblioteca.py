@@ -80,11 +80,11 @@ class Biblioteca:
             database='banco_bib',
         )
         self.cursor = self.conexao.cursor()
-        self.mysql = """CREATE DATABASE IF NOT EXISTS bd_biblioteca"""
+        self.mysql = """CREATE DATABASE IF NOT EXISTS banco_bib"""
         self.cursor.execute(self.mysql) #funcao para executar a acao no mysql
         self.conexao.commit() #Por padrão, não é efetuado commit automaticamente, deve-se commitar para salvar as alteracoes no banco.
 
-        self.mysql = """USE bd_biblioteca"""
+        self.mysql = """USE banco_bib"""
         self.cursor.execute(self.mysql)
         self.conexao.commit()
         
