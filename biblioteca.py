@@ -353,7 +353,7 @@ class Biblioteca:
         if (selecionar == None):
             return None
         else:
-            emprestimo = Emprestimo(selecionar[0],selecionar[1],selecionar[2],selecionar[3])
+            emprestimo = Emprestimo(selecionar[0],selecionar[1],selecionar[2],selecionar[3], selecionar[4])
             return emprestimo
 
     def realizarDevolucao(self, devolucao): #precisa ser ajustada, quando realizar uma devolucao, este exemplar deve ser inserido novamente

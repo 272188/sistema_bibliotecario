@@ -79,15 +79,7 @@ def menu(con, cliente):
             elif(retorno == False):
                 con.send('0'.encode())
 
-        elif msg == 5: #buscar autor
-            dados_autores = con.recv(4096).decode()
-            lista_autores = dados_autores.split(',')
-            verifica = bib.buscarAutores(lista_autores[0])#conferir posicao nome do autor
-            if verifica != None:
-                con.send('0'.encode())
-            else:
-                con.send('1'.encode())
-
+        
         elif msg == 6: #cadastrar livro
             dados_livro = con.recv(4096).decode()
             lista_livro = dados_livro.split(',')
@@ -117,14 +109,7 @@ def menu(con, cliente):
             elif(retorno == False):
                 con.send('0'.encode())
         
-        elif msg == 9: #buscar exemplar
-            dados_exemplares = con.recv(4096).decode()
-            lista_exemplares = dados_exemplares.split(',')
-            verifica = bib.buscarExemplares(lista_exemplares[0])
-            if verifica != None:
-                con.send('0'.encode())
-            else:
-                con.send('1'.encode())
+       
         
         elif msg == 10: #realizar emprestimo
             dados_emprestimo = con.recv(4096).decode()

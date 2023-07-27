@@ -12,60 +12,23 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Tela_Biblioteca_Usuario(object):
-    """
-    classe que representa a tela principal da biblioteca, que contem os menus de acesso as funcionalidades do sistema bibliotecario para os usuario
-
-    
-    ...
-    Atributes
-    ----------
-    resize : object
-        dimensiona largura e altura da tela
-    setStyleSheet : object
-        estiliza a cor de fundo da tela
-    setObjectName : object
-        rotula algum lugar da tela, onde se deseja definir um nome ou frase curta
-    setText :
-        O método setText() da classe java.text.CollationElementIterator é usado para definir a nova string de origem para o objeto
-    QPushButton : object
-        atribuem-se aos botoes de acoes da tela
-    
-    botao_emprestimo_biblioteca_usuario :
-        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela de emprestimo, contido na tela principal de biblioteca para usuarios
-    botao_devolucao_biblioteca_usuario :
-        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela de devolucao, contido na tela principal de biblioteca para usuarios
-    botao_buscar_autor_biblioteca_usuario :
-        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela buscar autor, contido na tela principal de biblioteca para usuarios
-    botao_buscar_livro_biblioteca_usuario :
-        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela buscar livro, contido na tela principal de biblioteca para usuarios
-    botao_buscar_exemplar_biblioteca_usuario :
-        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela buscar exemplar, contido na tela principal de biblioteca para usuarios
-    botao_buscar_cadastro_biblioteca_usuario :
-        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela buscar cadastro de um usuario, contido na tela principal de biblioteca para usuarios
-    botao_buscar_emprestimo_biblioteca_usuario :
-        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela buscar emprestimo de um exemplar de livro, contido na tela principal de biblioteca para usuarios
-    botao_buscar_devolucao_biblioteca_usuario :
-        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela buscar devolucao do exemplar de um livro, contido na tela principal de biblioteca para usuarios
-    botao_voltar_biblioteca_usuario :
-        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao de voltar da tela principal para a tela de login
-    """
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1028, 639)
         MainWindow.setStyleSheet("background-color: rgb(72, 145, 218);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.sistema_bibliotecario = QtWidgets.QLabel(self.centralwidget)
-        self.sistema_bibliotecario.setGeometry(QtCore.QRect(380, 10, 361, 61))
+        self.bemvindo = QtWidgets.QLabel(self.centralwidget)
+        self.bemvindo.setGeometry(QtCore.QRect(380, 10, 361, 61))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(16)
         font.setBold(True)
         font.setWeight(75)
-        self.sistema_bibliotecario.setFont(font)
-        self.sistema_bibliotecario.setObjectName("sistema_bibliotecario")
+        self.bemvindo.setFont(font)
+        self.bemvindo.setObjectName("bemvindo")
         self.buscar = QtWidgets.QLabel(self.centralwidget)
-        self.buscar.setGeometry(QtCore.QRect(470, 240, 91, 41))
+        self.buscar.setGeometry(QtCore.QRect(470, 270, 91, 41))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(16)
@@ -102,7 +65,7 @@ class Tela_Biblioteca_Usuario(object):
 "background-color: rgb(134, 134, 100);")
         self.botao_devolucao_biblioteca_usuario.setObjectName("botao_devolucao_biblioteca_usuario")
         self.line = QtWidgets.QFrame(self.centralwidget)
-        self.line.setGeometry(QtCore.QRect(10, 220, 1001, 20))
+        self.line.setGeometry(QtCore.QRect(10, 250, 1001, 20))
         self.line.setFrameShape(QtWidgets.QFrame.HLine)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")
@@ -111,17 +74,8 @@ class Tela_Biblioteca_Usuario(object):
         self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
         self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_2.setObjectName("line_2")
-        self.botao_buscar_cadastro_biblioteca_usuario = QtWidgets.QPushButton(self.centralwidget)
-        self.botao_buscar_cadastro_biblioteca_usuario.setGeometry(QtCore.QRect(170, 430, 171, 61))
-        font = QtGui.QFont()
-        font.setFamily("Times New Roman")
-        font.setPointSize(14)
-        self.botao_buscar_cadastro_biblioteca_usuario.setFont(font)
-        self.botao_buscar_cadastro_biblioteca_usuario.setStyleSheet("background-color: rgb(0, 0, 127);\n"
-"color: rgb(255, 255, 255);")
-        self.botao_buscar_cadastro_biblioteca_usuario.setObjectName("botao_buscar_cadastro_biblioteca_usuario")
         self.botao_buscar_emprestimo_biblioteca_usuario = QtWidgets.QPushButton(self.centralwidget)
-        self.botao_buscar_emprestimo_biblioteca_usuario.setGeometry(QtCore.QRect(430, 430, 171, 61))
+        self.botao_buscar_emprestimo_biblioteca_usuario.setGeometry(QtCore.QRect(430, 370, 171, 61))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(14)
@@ -130,7 +84,7 @@ class Tela_Biblioteca_Usuario(object):
 "color: rgb(255, 255, 255);")
         self.botao_buscar_emprestimo_biblioteca_usuario.setObjectName("botao_buscar_emprestimo_biblioteca_usuario")
         self.botao_buscar_devolucao_biblioteca_usuario = QtWidgets.QPushButton(self.centralwidget)
-        self.botao_buscar_devolucao_biblioteca_usuario.setGeometry(QtCore.QRect(690, 430, 171, 61))
+        self.botao_buscar_devolucao_biblioteca_usuario.setGeometry(QtCore.QRect(690, 370, 171, 61))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(14)
@@ -138,17 +92,8 @@ class Tela_Biblioteca_Usuario(object):
         self.botao_buscar_devolucao_biblioteca_usuario.setStyleSheet("background-color: rgb(0, 0, 127);\n"
 "color: rgb(255, 255, 255);")
         self.botao_buscar_devolucao_biblioteca_usuario.setObjectName("botao_buscar_devolucao_biblioteca_usuario")
-        self.botao_buscar_autor_biblioteca_usuario = QtWidgets.QPushButton(self.centralwidget)
-        self.botao_buscar_autor_biblioteca_usuario.setGeometry(QtCore.QRect(170, 320, 171, 61))
-        font = QtGui.QFont()
-        font.setFamily("Times New Roman")
-        font.setPointSize(14)
-        self.botao_buscar_autor_biblioteca_usuario.setFont(font)
-        self.botao_buscar_autor_biblioteca_usuario.setStyleSheet("background-color: rgb(0, 0, 127);\n"
-"color: rgb(255, 255, 255);")
-        self.botao_buscar_autor_biblioteca_usuario.setObjectName("botao_buscar_autor_biblioteca_usuario")
         self.botao_buscar_livro_biblioteca_usuario = QtWidgets.QPushButton(self.centralwidget)
-        self.botao_buscar_livro_biblioteca_usuario.setGeometry(QtCore.QRect(430, 320, 171, 61))
+        self.botao_buscar_livro_biblioteca_usuario.setGeometry(QtCore.QRect(180, 370, 171, 61))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(14)
@@ -156,15 +101,6 @@ class Tela_Biblioteca_Usuario(object):
         self.botao_buscar_livro_biblioteca_usuario.setStyleSheet("background-color: rgb(0, 0, 127);\n"
 "color: rgb(255, 255, 255);")
         self.botao_buscar_livro_biblioteca_usuario.setObjectName("botao_buscar_livro_biblioteca_usuario")
-        self.botao_buscar_exemplar_biblioteca_usuario = QtWidgets.QPushButton(self.centralwidget)
-        self.botao_buscar_exemplar_biblioteca_usuario.setGeometry(QtCore.QRect(690, 320, 171, 61))
-        font = QtGui.QFont()
-        font.setFamily("Times New Roman")
-        font.setPointSize(14)
-        self.botao_buscar_exemplar_biblioteca_usuario.setFont(font)
-        self.botao_buscar_exemplar_biblioteca_usuario.setStyleSheet("background-color: rgb(0, 0, 127);\n"
-"color: rgb(255, 255, 255);")
-        self.botao_buscar_exemplar_biblioteca_usuario.setObjectName("botao_buscar_exemplar_biblioteca_usuario")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -176,17 +112,14 @@ class Tela_Biblioteca_Usuario(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.sistema_bibliotecario.setText(_translate("MainWindow", "SISTEMA BIBLIOTECÁRIO"))
+        self.bemvindo.setText(_translate("MainWindow", "SISTEMA BIBLIOTECÁRIO"))
         self.buscar.setText(_translate("MainWindow", "Buscar"))
         self.botao_voltar_biblioteca_usuario.setText(_translate("MainWindow", "Voltar"))
         self.botao_emprestimo_biblioteca_usuario.setText(_translate("MainWindow", "Empréstimo"))
         self.botao_devolucao_biblioteca_usuario.setText(_translate("MainWindow", "Devolução"))
-        self.botao_buscar_cadastro_biblioteca_usuario.setText(_translate("MainWindow", "Cadastro"))
         self.botao_buscar_emprestimo_biblioteca_usuario.setText(_translate("MainWindow", "Empréstimo"))
         self.botao_buscar_devolucao_biblioteca_usuario.setText(_translate("MainWindow", "Devolução"))
-        self.botao_buscar_autor_biblioteca_usuario.setText(_translate("MainWindow", "Autor"))
         self.botao_buscar_livro_biblioteca_usuario.setText(_translate("MainWindow", "Livro"))
-        self.botao_buscar_exemplar_biblioteca_usuario.setText(_translate("MainWindow", "Exemplar"))
 
 
 if __name__ == "__main__":

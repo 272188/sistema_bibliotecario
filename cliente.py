@@ -23,11 +23,10 @@ from tela_login import Tela_Login
 from tela_cadastro import Tela_Cadastro
 from tela_buscar_cadastro import Tela_Buscar_Cadastro
 from tela_autor import Tela_Autor
-from tela_buscar_autor import Tela_Buscar_Autor
 from tela_livro import Tela_Livro
 from tela_buscar_livro import Tela_Buscar_Livro
 from tela_exemplar import Tela_Exemplar
-from tela_buscar_exemplar import Tela_Buscar_Exemplar
+
 from tela_emprestimo import Tela_Emprestimo
 from tela_buscar_emprestimo import Tela_Buscar_Emprestimo
 from tela_devolucao import Tela_Devolucao
@@ -102,15 +101,15 @@ class Ui_Main(QtWidgets.QWidget):
         self.stack3 = QtWidgets.QMainWindow()  #biblioteca admin
         self.stack4 = QtWidgets.QMainWindow()  #biblioteca usuario
         self.stack5 = QtWidgets.QMainWindow()  #cadastrar autor
-        self.stack6 = QtWidgets.QMainWindow()  #buscar autor
-        self.stack7 = QtWidgets.QMainWindow()  #livro
-        self.stack8 = QtWidgets.QMainWindow()  #buscar livro
-        self.stack9 = QtWidgets.QMainWindow()  #cadastrar exemplar
-        self.stack10 = QtWidgets.QMainWindow() #buscar exemplar
-        self.stack11 = QtWidgets.QMainWindow() #cadastrar emprestimo
-        self.stack12 = QtWidgets.QMainWindow() #buscar emprestimo
-        self.stack13 = QtWidgets.QMainWindow() #cadastrar devolucao
-        self.stack14 = QtWidgets.QMainWindow() #buscar devolucao
+        
+        self.stack6 = QtWidgets.QMainWindow()  #livro
+        self.stack7 = QtWidgets.QMainWindow()  #buscar livro
+        self.stack8 = QtWidgets.QMainWindow()  #cadastrar exemplar
+        
+        self.stack9 = QtWidgets.QMainWindow() #cadastrar emprestimo
+        self.stack10 = QtWidgets.QMainWindow() #buscar emprestimo
+        self.stack11 = QtWidgets.QMainWindow() #cadastrar devolucao
+        self.stack12 = QtWidgets.QMainWindow() #buscar devolucao
 
         self.tela_login = Tela_Login()
         self.tela_login.setupUi(self.stack0)
@@ -124,24 +123,22 @@ class Ui_Main(QtWidgets.QWidget):
         self.tela_biblioteca_usuario.setupUi(self.stack4)
         self.tela_autor = Tela_Autor()
         self.tela_autor.setupUi(self.stack5)
-        self.tela_buscar_autor = Tela_Buscar_Autor()
-        self.tela_buscar_autor.setupUi(self.stack6)
+        
         self.tela_livro = Tela_Livro()
-        self.tela_livro.setupUi(self.stack7)
+        self.tela_livro.setupUi(self.stack6)
         self.tela_buscar_livro = Tela_Buscar_Livro()
-        self.tela_buscar_livro.setupUi(self.stack8)
+        self.tela_buscar_livro.setupUi(self.stack7)
         self.tela_exemplar = Tela_Exemplar()
-        self.tela_exemplar.setupUi(self.stack9)
-        self.tela_buscar_exemplar = Tela_Buscar_Exemplar()
-        self.tela_buscar_exemplar.setupUi(self.stack10)
+        self.tela_exemplar.setupUi(self.stack8)
+        
         self.tela_emprestimo = Tela_Emprestimo()
-        self.tela_emprestimo.setupUi(self.stack11)
+        self.tela_emprestimo.setupUi(self.stack9)
         self.tela_buscar_emprestimo = Tela_Buscar_Emprestimo()
-        self.tela_buscar_emprestimo.setupUi(self.stack12)
+        self.tela_buscar_emprestimo.setupUi(self.stack10)
         self.tela_devolucao = Tela_Devolucao()
-        self.tela_devolucao.setupUi(self.stack13)
+        self.tela_devolucao.setupUi(self.stack11)
         self.tela_buscar_devolucao = Tela_Buscar_Devolucao()
-        self.tela_buscar_devolucao.setupUi(self.stack14)
+        self.tela_buscar_devolucao.setupUi(self.stack12)
 
         self.QtStack.addWidget(self.stack0)
         self.QtStack.addWidget(self.stack1)
@@ -156,8 +153,7 @@ class Ui_Main(QtWidgets.QWidget):
         self.QtStack.addWidget(self.stack10)
         self.QtStack.addWidget(self.stack11)
         self.QtStack.addWidget(self.stack12)
-        self.QtStack.addWidget(self.stack13)
-        self.QtStack.addWidget(self.stack14)
+        
 
     
 
@@ -298,21 +294,15 @@ class Main(QMainWindow, Ui_Main):
 
         '''telas de busca, emprestimo e devolucao para usuarios'''
         #buscar usuario pelo codigo do usuario
-        self.tela_biblioteca_usuario.botao_buscar_cadastro_biblioteca_usuario.clicked.connect(self.abrirTelaBuscarCadastro)
+        self.tela_biblioteca.botao_buscar_cadastro_biblioteca_admin.clicked.connect(self.abrirTelaBuscarCadastro)
         self.tela_buscar_cadastro.botao_buscar_usuario.clicked.connect(self.botao_Buscar_Usuario)
         self.tela_buscar_cadastro.boto_voltar_buscar.clicked.connect(self.botao_Voltar_Buscar_usuario)
-        #buscar autor por nome
-        self.tela_biblioteca_usuario.botao_buscar_autor_biblioteca_usuario.clicked.connect(self.abrirTelaBuscarAutor)
-        self.tela_buscar_autor.botao_buscar_autor.clicked.connect(self.botao_Buscar_Autor)
-        self.tela_buscar_autor.botao_voltar_buscar_autor.clicked.connect(self.botao_Voltar_Buscar_Autor)
+        
         #buscar livro por codigo do livro
         self.tela_biblioteca_usuario.botao_buscar_livro_biblioteca_usuario.clicked.connect(self.abrirTelaBuscarLivro)
         self.tela_buscar_livro.botao_buscar_livro.clicked.connect(self.botao_Buscar_Livro)
         self.tela_buscar_livro.botao_voltar_buscar_livro.clicked.connect(self.botao_Voltar_Buscar_Livro)
-        #buscar exemplar por codigo do exemplar
-        self.tela_biblioteca_usuario.botao_buscar_exemplar_biblioteca_usuario.clicked.connect(self.abrirTelaBuscarExemplar)
-        self.tela_buscar_exemplar.botao_buscar_exemplar.clicked.connect(self.botao_Buscar_Exemplar)
-        self.tela_buscar_exemplar.botao_voltar_busca_exemplar.clicked.connect(self.botao_Voltar_Buscar_Exemplar)
+        
         #realizar emprestimo
         self.tela_biblioteca_usuario.botao_emprestimo_biblioteca_usuario.clicked.connect(self.abrirTelaEmprestimo)
         self.tela_emprestimo.botao_realizar_emprestimo.clicked.connect(self.botao_Realizar_Emprestimo)
@@ -486,7 +476,7 @@ class Main(QMainWindow, Ui_Main):
             QMessageBox.information(None, "Atenção!", "Usuario não encontrado!")
     
     def botao_Voltar_Buscar_usuario(self):  # Método para ativar o botão voltar
-        self.QtStack.setCurrentIndex(4)
+        self.QtStack.setCurrentIndex(3)
 
     
     def abrirTelaBiblioteca(self):  # Método para abrir a tela de login
@@ -528,32 +518,8 @@ class Main(QMainWindow, Ui_Main):
         self.QtStack.setCurrentIndex(3)
 
 
-    def abrirTelaBuscarAutor(self):  # Método para abrir a tela autor
-        self.QtStack.setCurrentIndex(6)
-
-    def botao_Buscar_Autor(self):  # Método para ativar as funcionalidades de busca no botão buscar autor
-        nome_autor = self.tela_buscar_autor.input_nome_autor_2.text()
-        autor = self.bib.buscarAutores(nome_autor)
-        if (autor != None):
-            client_socket.send('5'.encode())
-
-            self.tela_buscar_autor.input_codigo_autor_2.setText(autor.codigo_autor)
-
-            lista_autores = []
-            lista_autores.append(autor.codigo_autor)
-            dados_autores = ",".join(lista_autores)
-            client_socket.send(dados_autores.encode())
-            retorno = client_socket.recv(4096).decode()
-
-        else:
-            QMessageBox.information(None, "Atenção!", "Autor não cadastrado!")
-
-    def botao_Voltar_Buscar_Autor(self):  # Método para ativar o botão voltar da tela autor
-        self.QtStack.setCurrentIndex(4)
-
-
     def abrirTelaLivro(self):  # Método para abrir a tela de livro
-        self.QtStack.setCurrentIndex(7)
+        self.QtStack.setCurrentIndex(6)
 
     def botao_Cadastrar_Livro(self):  # Método para ativar o botão cadastrar
         nome_autor = self.tela_livro.input_nome_autor.text()
@@ -615,7 +581,7 @@ class Main(QMainWindow, Ui_Main):
     
 
     def abrirTelaBuscarLivro(self):  # Método para abrir a tela buscar livro
-        self.QtStack.setCurrentIndex(8)
+        self.QtStack.setCurrentIndex(7)
 
     def botao_Buscar_Livro(self):  # Método para ativar o botão buscar livro
         codigo_livro = self.tela_buscar_livro.input_cod_livro2.text()
@@ -655,7 +621,7 @@ class Main(QMainWindow, Ui_Main):
 
 
     def abrirTelaExemplar(self):  # Método para abrir a tela de exemplar
-        self.QtStack.setCurrentIndex(9)
+        self.QtStack.setCurrentIndex(8)
 
     def botao_Cadastrar_Exemplar(self):  # Método para ativar o botão cadastrar exemplar
         codigo_livro = self.tela_exemplar.input_codigo_livro.text()
@@ -692,33 +658,10 @@ class Main(QMainWindow, Ui_Main):
         self.QtStack.setCurrentIndex(0)
     
 
-    def abrirTelaBuscarExemplar(self):  # Método para abrir a tela de exemplar
-        self.QtStack.setCurrentIndex(10)
-
-    def botao_Buscar_Exemplar(self):  # Método para ativar o botão buscar exemplar
-        codigo_exemplar = self.tela_buscar_exemplar.input_codigo_exemplar2.text()
-        exemplar = self.bib.buscarExemplares(codigo_exemplar)
-        if (exemplar != None):
-            client_socket.send('9'.encode())
-
-            self.tela_buscar_exemplar.input_codigo_livro2.setText(exemplar.codigo_livro)
-            self.tela_buscar_exemplar.input_qtd_dias2.setText(exemplar.dias_emprestimo)
-
-            lista_exemplares = []
-            lista_exemplares.append(exemplar.codigo_livro)
-            lista_exemplares.append(exemplar.dias_emprestimo)
-            dados_exemplares = ",".join(lista_exemplares)
-            client_socket.send(dados_exemplares.encode())
-            retorno = client_socket.recv(4096).decode()
-        else:
-            QMessageBox.information(None, "Atenção", "O exemplar não esta cadastrado na base de dados do sistema!")
-
-    def botao_Voltar_Buscar_Exemplar(self):  # Método para ativar o botão voltar da tela exemplar
-        self.QtStack.setCurrentIndex(4)
-
+    
 
     def abrirTelaEmprestimo(self):  # Método para abrir a tela de emprestimo
-        self.QtStack.setCurrentIndex(11)
+        self.QtStack.setCurrentIndex(9)
 
     def botao_Realizar_Emprestimo(self):  # Método para ativar o botão cadastrar emprestimos
         codigo_livro = self.tela_emprestimo.input_codigo_livro.text()
@@ -756,7 +699,7 @@ class Main(QMainWindow, Ui_Main):
     
 
     def abrirTelaBuscarEmprestimo(self):  # Método para abrir a tela de emprestimo
-        self.QtStack.setCurrentIndex(12)
+        self.QtStack.setCurrentIndex(10)
     
     def botao_Buscar_Emprestimo(self):  # Método para ativar o botão buscar emprestimo
         codigo_exemplar = self.tela_buscar_emprestimo.input_codigo_exemplar2.text()
@@ -782,7 +725,7 @@ class Main(QMainWindow, Ui_Main):
     
 
     def abrirTelaDevolucao(self):  # Método para abrir a tela de emprestimo
-        self.QtStack.setCurrentIndex(13)
+        self.QtStack.setCurrentIndex(11)
         
     def botao_Devolver(self):
         codigo_usuario = self.tela_devolucao.input_codigo_usuario.text()
@@ -821,7 +764,7 @@ class Main(QMainWindow, Ui_Main):
     
     
     def abrirTelaBuscarDevolucao(self):  # Método para abrir a tela de emprestimo
-        self.QtStack.setCurrentIndex(14)
+        self.QtStack.setCurrentIndex(12)
     
     def botao_Buscar_Devolucao(self):
         codigo_exemplar = self.tela_buscar_devolucao.input_codigo_exemplar_2.text()
