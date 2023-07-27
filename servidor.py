@@ -12,7 +12,7 @@ import socket
 import threading
 
 host = socket.gethostbyname(socket.gethostname())
-port = 8080
+port = 8082
 addr = (host, port)
 bib = Biblioteca()
 
@@ -85,7 +85,7 @@ def menu(con, cliente):
         elif msg == 5: #buscar autor
             dados_autores = con.recv(4096).decode()
             lista_autores = dados_autores.split(',')
-            verifica = bib.buscarAutores(lista_autores[1])#conferir posicao nome do autor
+            verifica = bib.buscarAutores(lista_autores[0])#conferir posicao nome do autor
             if verifica != None:
                 con.send('0'.encode())
             else:
@@ -142,7 +142,7 @@ def menu(con, cliente):
         elif msg == 11: #buscar emprestimo
             dados_emprestimos = con.recv(4096).decode()
             lista_emprestimos = dados_emprestimos.split(',')
-            verifica = bib.buscarEmprestimo(lista_emprestimos[2])
+            verifica = bib.buscarEmprestimo(lista_emprestimos[0])
             if verifica != None:
                 con.sen('0'.encode())
             else:
@@ -161,7 +161,7 @@ def menu(con, cliente):
         elif msg == 13: #buscar devolucao
             dados_devolucoes = con.recv(4096).decode()
             lista_devolucoes = dados_devolucoes.split(',')
-            verifica = bib.buscarDevolucoes(lista_devolucoes[2], lista_devolucoes[4])
+            verifica = bib.buscarDevolucoes(lista_devolucoes[0], lista_devolucoes[1])
             if verifica != None:
                 con.send('0'.encode())
             else:

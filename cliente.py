@@ -37,7 +37,7 @@ import mysql.connector
  
 import socket
 ip = host = socket.gethostbyname(socket.gethostname())
-port = 8080
+port = 8082
 addr = ((ip,port))
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -722,24 +722,24 @@ class Main(QMainWindow, Ui_Main):
 
     def botao_Realizar_Emprestimo(self):  # Método para ativar o botão cadastrar emprestimos
         codigo_usuario = self.tela_emprestimo.input_codigo_usuario.text()
-        codigo_exemplar = self.tela_emprestimo.input_codigo_exemplar.text()
         codigo_livro = self.tela_emprestimo.input_codigo_livro.text()
+        codigo_exemplar = self.tela_emprestimo.input_codigo_exemplar.text()
         data_emprestimo = self.tela_emprestimo.input_data_emprestimo.text()
         data_para_devolver = self.tela_emprestimo.input_data_devolucao.text()
-        if not (codigo_usuario == "" or codigo_exemplar == "" or codigo_livro == "" or data_emprestimo == "" or data_para_devolver == ""):
+        if not (codigo_usuario == "" or codigo_livro == "" or codigo_exemplar == "" or data_emprestimo == "" or data_para_devolver == ""):
             #emprestimo = Emprestimo(codigo_usuario,codigo_livro,codigo_exemplar,data_emprestimo,data_para_devolver)
             #if (self.bib.realizarEmprestimo(emprestimo)) == True:
             client_socket.send('10'.encode())    
             
             self.tela_emprestimo.input_codigo_usuario.setText("")
-            self.tela_emprestimo.input_codigo_exemplar.setText("")
             self.tela_emprestimo.input_codigo_livro.setText("")
+            self.tela_emprestimo.input_codigo_exemplar.setText("")
             self.tela_emprestimo.input_data_emprestimo.setText("")
             self.tela_emprestimo.input_data_devolucao.setText("")
             lista_emprestimo = []
             lista_emprestimo.append(codigo_usuario)
-            lista_emprestimo.append(codigo_exemplar)
             lista_emprestimo.append(codigo_livro)
+            lista_emprestimo.append(codigo_exemplar)
             lista_emprestimo.append(data_emprestimo)
             lista_emprestimo.append(data_para_devolver)
             dados_emprestimo = ",".join(lista_emprestimo)
@@ -788,11 +788,11 @@ class Main(QMainWindow, Ui_Main):
         
     def botao_Devolver(self):
         codigo_usuario = self.tela_devolucao.input_codigo_usuario.text()
-        codigo_exemplar = self.tela_devolucao.input_codigo_exemplar.text()
         codigo_livro = self.tela_devolucao.input_codigo_livro.text()
+        codigo_exemplar = self.tela_devolucao.input_codigo_exemplar.text()
         data_emprestimo = self.tela_devolucao.input_data_emprestimo.text()
         data_devolucao = self.tela_devolucao.input_data_devolucao.text()
-        if not (codigo_usuario == "" or codigo_exemplar == "" or codigo_livro == "" or data_emprestimo == "" or data_devolucao == ""):
+        if not (codigo_usuario == "" or codigo_livro == "" or codigo_exemplar == "" or data_emprestimo == "" or data_devolucao == ""):
             #devolucao = Devolucao(codigo_usuario, codigo_livro, codigo_exemplar, data_emprestimo, data_devolucao)
             #if (self.bib.realizarDevolucao(devolucao)) == True:
             client_socket.send('12'.encode())    
@@ -803,8 +803,8 @@ class Main(QMainWindow, Ui_Main):
             self.tela_devolucao.input_data_devolucao.setText("")
             lista_devolucao = []
             lista_devolucao.append(codigo_usuario)
-            lista_devolucao.append(codigo_exemplar)
             lista_devolucao.append(codigo_livro)
+            lista_devolucao.append(codigo_exemplar)
             lista_devolucao.append(data_emprestimo)
             lista_devolucao.append(data_devolucao)
             dados_devolucao = ",".join(lista_devolucao)
@@ -831,13 +831,13 @@ class Main(QMainWindow, Ui_Main):
         devolucao = self.bib.buscarDevolucoes(codigo_exemplar, data_devolucao)
         if (devolucao != None):
             client_socket.send('13'.encode())
-            self.tela_buscar_devolucao.input_codigo_livro_2.setText(devolucao.codigo_livro)
             self.tela_buscar_devolucao.input_codigo_usuario_2.setText(devolucao.codigo_usuario)
+            self.tela_buscar_devolucao.input_codigo_livro_2.setText(devolucao.codigo_livro)
             self.tela_buscar_devolucao.input_data_emprestimo_2.setText(devolucao.data_emprestimo)
 
             lista_devolucoes = []
-            lista_devolucoes.append(devolucao.codigo_livro)
             lista_devolucoes.append(devolucao.codigo_usuario)
+            lista_devolucoes.append(devolucao.codigo_livro)
             lista_devolucoes.append(devolucao.data_emprestimo)
             dados_devolucoes = ",".join(lista_devolucoes)
             client_socket.send(dados_devolucoes.encode())

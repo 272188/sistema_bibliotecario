@@ -2,7 +2,7 @@ import socket
 import threading
 
 host = socket.gethostbyname(socket.gethostname())
-port = 8080
+port = 8082
 addr = (host, port)
 
 def func_client(con, cliente):
