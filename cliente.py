@@ -621,6 +621,7 @@ class Main(QMainWindow, Ui_Main):
         codigo_livro = self.tela_buscar_livro.input_cod_livro2.text()
         livro = self.bib.buscarLivros(codigo_livro)
         if (livro != None):
+            client_socket.send('7'.encode())
             self.tela_buscar_livro.input_nome_autor2.setText(livro.nome_autor)
             self.tela_buscar_livro.input_cod_autor2.setText(livro.codigo_autor)
             self.tela_buscar_livro.input_titulo_livro2.setText(livro.titulo)
@@ -631,8 +632,23 @@ class Main(QMainWindow, Ui_Main):
             self.tela_buscar_livro.input_edicao2.setText(livro.edicao)
             self.tela_buscar_livro.input_num_paginas2.setText(livro.Numero_pag)
             self.tela_buscar_livro.input_volume2.setText(livro.volume)
+
+            lista_livros = []
+            lista_livros.append(livro.nome_autor)
+            lista_livros.append(livro.codigo_autor)
+            lista_livros.append(livro.titulo)
+            lista_livros.append(livro.editora)
+            lista_livros.append(livro.anoPublicacao)
+            lista_livros.append(livro.isbn)
+            lista_livros.append(livro.assunto)
+            lista_livros.append(livro.edicao)
+            lista_livros.append(livro.Numero_pag)
+            lista_livros.append(livro.volume)
+            dados_livros = ",".join(lista_livros)
+            client_socket.send(dados_livros.encode())
+            retorno = client_socket.recv(4096).decode()
         else:
-            QMessageBox.information(None, "POO2", "Livro não cadastrado no sistema!")
+            QMessageBox.information(None, "Atenção!", "Livro não cadastrado no sistema!")
 
     def botao_Voltar_Buscar_Livro(self):  # Método para ativar o botão voltar da tela autor
         self.QtStack.setCurrentIndex(4)
