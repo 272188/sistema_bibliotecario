@@ -101,7 +101,14 @@ def menu(con, cliente):
             elif(retorno == False):
                 con.send('0'.encode())
 
-        #elif msg == 7: #buscar livro
+        elif msg == 7: #buscar livro
+            dados_livros = con.recv(4096).decode()
+            lista_livros = dados_livros.split(',')
+            verifica = bib.buscarLivros(lista_livros[0])
+            if verifica != None:
+                con.send('0'.encode())
+            else:
+                con.send('1'.encode())
 
         elif msg == 8: #cadastrar exemplar
             dados_exemplar = con.recv(4096).decode()
