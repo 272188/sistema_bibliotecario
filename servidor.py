@@ -82,7 +82,14 @@ def menu(con, cliente):
             elif(retorno == False):
                 con.send('0'.encode())
 
-        #elif msg == 5: #buscar autor
+        elif msg == 5: #buscar autor
+            dados_autores = con.recv(4096).decode()
+            lista_autores = dados_autores.split(',')
+            verifica = bib.buscarAutores(lista_autores[1])#conferir posicao nome do autor
+            if verifica != None:
+                con.send('0'.encode())
+            else:
+                con.send('1'.encode())
 
         elif msg == 6: #cadastrar livro
             dados_livro = con.recv(4096).decode()

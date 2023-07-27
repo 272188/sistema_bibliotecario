@@ -535,10 +535,18 @@ class Main(QMainWindow, Ui_Main):
         nome_autor = self.tela_buscar_autor.input_nome_autor_2.text()
         autor = self.bib.buscarAutores(nome_autor)
         if (autor != None):
+            client_socket.send('5'.encode())
+
             self.tela_buscar_autor.input_codigo_autor_2.setText(autor.codigo_autor)
-        
+
+            lista_autores = []
+            lista_autores.append(autor.codigo_autor)
+            dados_autores = ",".join(lista_autores)
+            client_socket.send(dados_autores.encode())
+            retorno = client_socket.recv(4096).decode()
+
         else:
-            QMessageBox.information(None, "POO2", "Autor não cadastrado!")
+            QMessageBox.information(None, "Atenção!", "Autor não cadastrado!")
 
     def botao_Voltar_Buscar_Autor(self):  # Método para ativar o botão voltar da tela autor
         self.QtStack.setCurrentIndex(4)
