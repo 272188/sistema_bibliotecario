@@ -60,7 +60,7 @@ def menu(con, cliente):
             elif selecionar == False:
                 con.send('1'.encode())
             else:
-                con.send(f'2,{selecionar.codigo_usuario},{selecionar.nome},{selecionar.cpf},{selecionar.telefone},{selecionar.endereco},{selecionar.bairro},{selecionar.cidade},{selecionar.cep},{selecionar.email},{selecionar.senha},{selecionar.tipo}'.encode())
+                con.send(f'2,{selecionar.codigo_usuario},{selecionar.nome},{selecionar.cpf},{selecionar.telefone},{selecionar.endereco},{selecionar.bairro},{selecionar.cidade},{selecionar.cep},{selecionar.email},{selecionar.senha}, {selecionar.tipo}'.encode())
         
         elif msg == 3:  #buscar usuario
             dados_usuarios = con.recv(4096).decode()

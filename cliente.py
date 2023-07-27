@@ -858,6 +858,7 @@ class Main(QMainWindow, Ui_Main):
     def botao_sair_login(self):
         client_socket.send('0'.encode())
         client_socket.close()
+        exit()
 
 
 if __name__ == "__main__":
