@@ -115,7 +115,7 @@ class Biblioteca:
         self.cursor.execute(self.mysql)
         self.conexao.commit()
 
-        self.mysql = """CREATE TABLE IF NOT EXISTS emprestimo(codigo_usuario varchar(30) NOT NULL PRIMARY KEY, codigo_livro varchar(30) NOT NULL, codigo_exemplar varchar(30) NOT NULL, data_emprestimo VARCHAR(10) NOT NULL, data_para_devolver VARCHAR(10) NOT NULL)"""
+        self.mysql = """CREATE TABLE IF NOT EXISTS emprestimo(codigo_livro varchar(30) NOT NULL, codigo_exemplar varchar(30) NOT NULL, data_emprestimo VARCHAR(10) NOT NULL, data_para_devolver VARCHAR(10) NOT NULL)"""
         self.cursor.execute(self.mysql)
         self.conexao.commit()
 
@@ -328,7 +328,7 @@ class Biblioteca:
         """
         verifica = self.buscarEmprestimo(emprestimo.codigo_exemplar)
         if verifica == None:
-            self.cursor.execute('INSERT INTO emprestimo(codigo_usuario, codigo_livro, codigo_exemplar, data_emprestimo, data_para_devolver) VALUES(%s, %s, %s, %s, %s)', (emprestimo.codigo_usuario, emprestimo.codigo_livro, emprestimo.codigo_exemplar, emprestimo.data_emprestimo, emprestimo.data_para_devolver))
+            self.cursor.execute('INSERT INTO emprestimo(codigo_livro, codigo_exemplar, data_emprestimo, data_para_devolver) VALUES(%s, %s, %s, %s)', (emprestimo.codigo_livro, emprestimo.codigo_exemplar, emprestimo.data_emprestimo, emprestimo.data_para_devolver))
             #self.cursor.execute('DELETE FROM exemplar WHERE codigo_exemplar = %s', (exemplar.codigo_exemplar,))
             self.conexao.commit()
             return True
@@ -353,7 +353,7 @@ class Biblioteca:
         if (selecionar == None):
             return None
         else:
-            emprestimo = Emprestimo(selecionar[0],selecionar[1],selecionar[2],selecionar[3],selecionar[4])
+            emprestimo = Emprestimo(selecionar[0],selecionar[1],selecionar[2],selecionar[3])
             return emprestimo
 
     def realizarDevolucao(self, devolucao): #precisa ser ajustada, quando realizar uma devolucao, este exemplar deve ser inserido novamente

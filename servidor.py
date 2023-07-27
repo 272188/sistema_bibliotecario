@@ -31,15 +31,10 @@ def menu(con, cliente):
 
     connected = True   #conectado recebe verdadeiro
     while connected:   #enquanto a conexao entre cliente e servidor estiver estabelecida
-
         msg = int(con.recv(1024).decode())  #msg recebe conexao de informacoes decodificadas
-        
-        
         if msg == 0:     #se a mensagem for zero significa que nao foi conectado
             connected =  False
-        
-        elif msg  == 1:  #cadastrar usuario
-
+        elif msg == 1:  #cadastrar usuario
             dados = con.recv(4096).decode()
             lista = dados.split(',')       #divide uma String em uma lista ordenada de substrings, coloca essas substrings em um array e retorna o array.
             usuario = Usuario(lista[0],lista[1],lista[2],lista[3],lista[4],lista[5],lista[6],lista[7],lista[8],lista[9], lista[10])
@@ -60,8 +55,10 @@ def menu(con, cliente):
             elif selecionar == False:
                 con.send('1'.encode())
             else:
+                con.send(f'2,{selecionar}'.encode())
+                '''
                 con.send(f'2,{selecionar.codigo_usuario},{selecionar.nome},{selecionar.cpf},{selecionar.telefone},{selecionar.endereco},{selecionar.bairro},{selecionar.cidade},{selecionar.cep},{selecionar.email},{selecionar.senha}, {selecionar.tipo}'.encode())
-        
+                '''
         elif msg == 3:  #buscar usuario
             dados_usuarios = con.recv(4096).decode()
             lista_usuarios = dados_usuarios.split(',')
@@ -132,7 +129,7 @@ def menu(con, cliente):
         elif msg == 10: #realizar emprestimo
             dados_emprestimo = con.recv(4096).decode()
             lista_emprestimo = dados_emprestimo.split(',')
-            emprestimo = Emprestimo( lista_emprestimo[0], lista_emprestimo[1], lista_emprestimo[2], lista_emprestimo[3], lista_emprestimo[4])
+            emprestimo = Emprestimo( lista_emprestimo[0], lista_emprestimo[1], lista_emprestimo[2], lista_emprestimo[3])
             retorno = bib.realizarEmprestimo(emprestimo)
             if(retorno == True):
                 con.send('1'.encode())

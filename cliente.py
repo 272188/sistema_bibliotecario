@@ -261,8 +261,8 @@ class Main(QMainWindow, Ui_Main):
 
     """
     def __init__(self, parent = None):
-        #self.usuario = None
-        verificarLogin = list()
+        self.usuario = None
+        #verificarLogin = list()
         super(Main, self).__init__(parent)
         self.setupUi(self)
 
@@ -721,23 +721,21 @@ class Main(QMainWindow, Ui_Main):
         self.QtStack.setCurrentIndex(11)
 
     def botao_Realizar_Emprestimo(self):  # Método para ativar o botão cadastrar emprestimos
-        codigo_usuario = self.tela_emprestimo.input_codigo_usuario.text()
         codigo_livro = self.tela_emprestimo.input_codigo_livro.text()
         codigo_exemplar = self.tela_emprestimo.input_codigo_exemplar.text()
         data_emprestimo = self.tela_emprestimo.input_data_emprestimo.text()
         data_para_devolver = self.tela_emprestimo.input_data_devolucao.text()
-        if not (codigo_usuario == "" or codigo_livro == "" or codigo_exemplar == "" or data_emprestimo == "" or data_para_devolver == ""):
+        if not (codigo_livro == "" or codigo_exemplar == "" or data_emprestimo == "" or data_para_devolver == ""):
             #emprestimo = Emprestimo(codigo_usuario,codigo_livro,codigo_exemplar,data_emprestimo,data_para_devolver)
             #if (self.bib.realizarEmprestimo(emprestimo)) == True:
             client_socket.send('10'.encode())    
             
-            self.tela_emprestimo.input_codigo_usuario.setText("")
             self.tela_emprestimo.input_codigo_livro.setText("")
             self.tela_emprestimo.input_codigo_exemplar.setText("")
             self.tela_emprestimo.input_data_emprestimo.setText("")
             self.tela_emprestimo.input_data_devolucao.setText("")
             lista_emprestimo = []
-            lista_emprestimo.append(codigo_usuario)
+            
             lista_emprestimo.append(codigo_livro)
             lista_emprestimo.append(codigo_exemplar)
             lista_emprestimo.append(data_emprestimo)
