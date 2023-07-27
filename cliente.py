@@ -349,7 +349,7 @@ class Main(QMainWindow, Ui_Main):
             lista_de_login = []
             lista_de_login.append(codigo_usuario)
             lista_de_login.append(senha)
-            dados = ",".join(lista_de_login)
+            dados = ",".join(lista_de_login)   #junta todos os elementos de um array em uma string e retorna esta string
             client_socket.send(dados.encode())
             confirmacao = client_socket.recv(4096).decode().split(',')
             if confirmacao[0] == '0':
@@ -830,9 +830,19 @@ class Main(QMainWindow, Ui_Main):
         data_devolucao = self.tela_buscar_devolucao.input_data_devolucao_2.text()
         devolucao = self.bib.buscarDevolucoes(codigo_exemplar, data_devolucao)
         if (devolucao != None):
+            client_socket.send('13'.encode())
             self.tela_buscar_devolucao.input_codigo_livro_2.setText(devolucao.codigo_livro)
             self.tela_buscar_devolucao.input_codigo_usuario_2.setText(devolucao.codigo_usuario)
             self.tela_buscar_devolucao.input_data_emprestimo_2.setText(devolucao.data_emprestimo)
+
+            lista_devolucoes = []
+            lista_devolucoes.append(devolucao.codigo_livro)
+            lista_devolucoes.append(devolucao.codigo_usuario)
+            lista_devolucoes.append(devolucao.data_emprestimo)
+            dados_devolucoes = ",".join(lista_devolucoes)
+            client_socket.send(dados_devolucoes.encode())
+            retorno = client_socket.recv(4096).decode()
+
         else:
             QMessageBox.information(None, "POO2", "O exemplar ainda não foi devolvido!")
 
