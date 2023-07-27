@@ -699,10 +699,19 @@ class Main(QMainWindow, Ui_Main):
         codigo_exemplar = self.tela_buscar_exemplar.input_codigo_exemplar2.text()
         exemplar = self.bib.buscarExemplares(codigo_exemplar)
         if (exemplar != None):
+            client_socket.send('9'.encode())
+
             self.tela_buscar_exemplar.input_codigo_livro2.setText(exemplar.codigo_livro)
             self.tela_buscar_exemplar.input_qtd_dias2.setText(exemplar.dias_emprestimo)
+
+            lista_exemplares = []
+            lista_exemplares.append(exemplar.codigo_livro)
+            lista_exemplares.append(exemplar.dias_emprestimo)
+            dados_exemplares = ",".join(lista_exemplares)
+            client_socket.send(dados_exemplares.encode())
+            retorno = client_socket.recv(4096).decode()
         else:
-            QMessageBox.information(None, "POO2", "O exemplar não esta cadastrado na base de dados do sistema!")
+            QMessageBox.information(None, "Atenção", "O exemplar não esta cadastrado na base de dados do sistema!")
 
     def botao_Voltar_Buscar_Exemplar(self):  # Método para ativar o botão voltar da tela exemplar
         self.QtStack.setCurrentIndex(4)
@@ -755,9 +764,18 @@ class Main(QMainWindow, Ui_Main):
         codigo_exemplar = self.tela_buscar_emprestimo.input_codigo_exemplar2.text()
         emprestimo = self.bib.buscarEmprestimo(codigo_exemplar)
         if (emprestimo != None):
+            client_socket.send('11'.encode())
             self.tela_buscar_emprestimo.input_codigo_livro2.setText(emprestimo.codigo_livro)
             self.tela_buscar_emprestimo.input_data_emprestimo2.setText(emprestimo.data_emprestimo)
             self.tela_buscar_emprestimo.input_data_devolucao2.setText(emprestimo.data_para_devolver)
+
+            lista_emprestimos = []
+            lista_emprestimos.append(emprestimo.codigo_livro)
+            lista_emprestimos.append(emprestimo.data_emprestimo)
+            lista_emprestimos.append(emprestimo.data_para_devolver)
+            dados_emprestimos = ",".join(lista_emprestimos)
+            client_socket.send(dados_emprestimos.encode())
+            retorno = client_socket.recv(4096).decode()
         else:
             QMessageBox.information(None, "POO2", "O exemplar não possui registro de emprestimo!")
 

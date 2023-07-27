@@ -41,7 +41,7 @@ def menu(con, cliente):
         elif msg  == 1:  #cadastrar usuario
 
             dados = con.recv(4096).decode()
-            lista = dados.split(',')
+            lista = dados.split(',')       #divide uma String em uma lista ordenada de substrings, coloca essas substrings em um array e retorna o array.
             usuario = Usuario(lista[0],lista[1],lista[2],lista[3],lista[4],lista[5],lista[6],lista[7],lista[8],lista[9], lista[10])
             retorno = bib.cadastrarUsuario(usuario)
             if(retorno == True):
@@ -120,7 +120,14 @@ def menu(con, cliente):
             elif(retorno == False):
                 con.send('0'.encode())
         
-        #elif msg == 9: #buscar exemplar
+        elif msg == 9: #buscar exemplar
+            dados_exemplares = con.recv(4096).decode()
+            lista_exemplares = dados_exemplares.split(',')
+            verifica = bib.buscarExemplares(lista_exemplares[0])
+            if verifica != None:
+                con.send('0'.encode())
+            else:
+                con.send('1'.encode())
         
         elif msg == 10: #realizar emprestimo
             dados_emprestimo = con.recv(4096).decode()
@@ -132,7 +139,14 @@ def menu(con, cliente):
             elif(retorno == False):
                 con.send('0'.encode())
         
-        #elif msg == 11: #buscar emprestimo
+        elif msg == 11: #buscar emprestimo
+            dados_emprestimos = con.recv(4096).decode()
+            lista_emprestimos = dados_emprestimos.split(',')
+            verifica = bib.buscarEmprestimo(lista_emprestimos[2])
+            if verifica != None:
+                con.sen('0'.encode())
+            else:
+                con.send('1'.encode())
 
         elif msg == 12:
             dados_devolucao = con.recv(4096).decode()
@@ -144,7 +158,14 @@ def menu(con, cliente):
             elif(retorno == False):
                 con.send('0'.encode())
         
-        #elif msg == 13: #buscar devolucao
+        elif msg == 13: #buscar devolucao
+            dados_devolucoes = con.recv(4096).decode()
+            lista_devolucoes = dados_devolucoes.split(',')
+            verifica = bib.buscarDevolucoes(lista_devolucoes[2], lista_devolucoes[4])
+            if verifica != None:
+                con.send('0'.encode())
+            else:
+                con.send('1'.encode())
 
         
     print(f"[DESCONECTADO] client: {cliente}")
