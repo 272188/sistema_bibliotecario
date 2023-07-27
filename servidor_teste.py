@@ -34,7 +34,7 @@ def func_client(con, cliente):
 
 def main():
 
-    print("[INICIADO] Aguardado conexão...")
+    print("[INICIADO] Aguardando conexão...")
     serv_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     serv_socket.bind(addr)
     serv_socket.listen()
