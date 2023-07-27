@@ -93,7 +93,7 @@ class Biblioteca:
         self.cursor.execute(self.mysql)
         self.conexao.commit()
 
-        self.mysql = """CREATE TABLE IF NOT EXISTS usuario(codigo_usuario varchar(30) NOT NULL PRIMARY KEY, nome VARCHAR(45) NOT NULL, cpf VARCHAR(14) NOT NULL, telefone VARCHAR(20) NOT NULL, endereco VARCHAR(60) NOT NULL, bairro VARCHAR(45) NOT NULL, cidade VARCHAR(45) NOT NULL, cep VARCHAR(20) NOT NULL, email VARCHAR(40) NOT NULL, senha VARCHAR(20) NOT NULL, tipo VARCHAR(20) NOT NULL DEFAULT 'usuario')"""
+        self.mysql = """CREATE TABLE IF NOT EXISTS usuario(codigo_usuario varchar(30) NOT NULL PRIMARY KEY, nome VARCHAR(100) NOT NULL, cpf VARCHAR(14) NOT NULL, telefone VARCHAR(20) NOT NULL, endereco VARCHAR(200) NOT NULL, bairro VARCHAR(100) NOT NULL, cidade VARCHAR(100) NOT NULL, cep VARCHAR(20) NOT NULL, email VARCHAR(100) NOT NULL, senha VARCHAR(30) NOT NULL, tipo VARCHAR(20) NOT NULL DEFAULT 'usuario')"""
 
         self.cursor.execute(self.mysql)
         self.conexao.commit()
