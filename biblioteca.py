@@ -99,13 +99,7 @@ class Biblioteca:
         self.conexao.commit()
 
 
-        self.mysql = """CREATE TABLE IF NOT EXISTS autor(codigo_autor varchar(30) NOT NULL PRIMARY KEY, nome_autor VARCHAR(45) NOT NULL)"""
-
-        self.cursor.execute(self.mysql)
-        self.conexao.commit()
-
-
-        self.mysql = """CREATE TABLE IF NOT EXISTS livro(codigo_livro varchar(30) NOT NULL PRIMARY KEY, nome_autor VARCHAR(45) NOT NULL, codigo_autor varchar(30) NOT NULL, titulo VARCHAR(200) NOT NULL, editora VARCHAR(45) NOT NULL, isbn VARCHAR(20) NOT NULL, assunto VARCHAR(100) NOT NULL, edicao varchar(30) NOT NULL, volume varchar(30) NOT NULL, Numero_pag varchar(30) NOT NULL, anoPublicacao varchar(30) NOT NULL)"""
+        self.mysql = """CREATE TABLE IF NOT EXISTS livro(codigo_livro varchar(30) NOT NULL PRIMARY KEY, nome_autor VARCHAR(45) NOT NULL, codigo_autor varchar(30) NOT NULL, titulo VARCHAR(200) NOT NULL, editora VARCHAR(45) NOT NULL, isbn VARCHAR(20) NOT NULL, assunto VARCHAR(100) NOT NULL, edicao varchar(30) NOT NULL, volume varchar(30) NOT NULL, Numero_pag varchar(30) NOT NULL, anoPublicacao varchar(30) NOT NULL, quantidade_exemplares int NOT NULL)"""
 
         self.cursor.execute(self.mysql)
         self.conexao.commit()
@@ -191,47 +185,7 @@ class Biblioteca:
             usuario = Usuario(selecionar[0],selecionar[1],selecionar[2],selecionar[3],selecionar[4],selecionar[5],selecionar[6],selecionar[7],selecionar[8],selecionar[9],selecionar[10])
             return usuario
     
-    def cadastrarAutor(self, autor):
-        """
-        verifica se o nome do autor informado corresponde aos dos autores ja cadastrados no sistema, caso nao, realiza o cadastro de um novo autor
-
-        Parameters
-        ----------
-        nome_autor {string}:
-            nome do autor em formato de string.
-        return {boolean}: 
-            referente ao retorno com o resultado em formato Boleano (verdadeiro ou falso) das condicoes das funcoes 
-        """
-
-        verifica = self.buscarAutores(autor.nome_autor)
-        if verifica == None:
-            self.cursor.execute('INSERT INTO autor(codigo_autor, nome_autor) VALUES(%s, %s)', (autor.codigo_autor, autor.nome_autor))
-            self.conexao.commit()
-            return True
-        else:
-            return False
-
-    def buscarAutores(self, nome_autor):
-        """
-        realiza a busca de um autor pelo nome.
-
-        Parameters
-        ----------
-        nome_autor {string}:
-            nome do autor em formato de string.
-        return {boolean}: 
-            referente ao retorno com o resultado do tipo None ou o proprio resultado das condicoes das funcoes
-        autor:
-            referece um elemento intanciado da classe Autor, que recebe uma lista. 
-        """
-        self.cursor.execute("SELECT * FROM autor WHERE nome_autor = %s", (nome_autor,))
-        selecionar = self.cursor.fetchone()
-        # verifica se o autor já foi cadastrado pelo nome do autor
-        if (selecionar == None):
-            return None
-        else:
-            autor = Autor(selecionar[0],selecionar[1])
-            return autor
+    
     
 
 
@@ -248,7 +202,7 @@ class Biblioteca:
         """
         verifica = self.buscarLivros(livro.codigo_livro)
         if verifica == None:
-            self.cursor.execute('INSERT INTO livro(codigo_livro, nome_autor, codigo_autor, titulo, editora, isbn, assunto, edicao, volume, Numero_pag, anoPublicacao) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)', (livro.codigo_livro, livro.nome_autor, livro.codigo_autor, livro.titulo, livro.editora, livro.isbn, livro.assunto, livro.edicao, livro.volume, livro.Numero_pag, livro.anoPublicacao))
+            self.cursor.execute('INSERT INTO livro(codigo_livro, nome_autor, codigo_autor, titulo, editora, isbn, assunto, edicao, volume, Numero_pag, anoPublicacao, quantidade_exemplares) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %d)', (livro.codigo_livro, livro.nome_autor, livro.codigo_autor, livro.titulo, livro.editora, livro.isbn, livro.assunto, livro.edicao, livro.volume, livro.Numero_pag, livro.anoPublicacao, livro.quantidade_exemplares))
             self.conexao.commit()
             return True
         else:
@@ -272,7 +226,7 @@ class Biblioteca:
         if (selecionar == None):  # verifica se existe livro cadastrado
             return None
         else:
-            livro = Livro(selecionar[0],selecionar[1],selecionar[2],selecionar[3],selecionar[4],selecionar[5],selecionar[6],selecionar[7],selecionar[8],selecionar[9], selecionar[10])
+            livro = Livro(selecionar[0],selecionar[1],selecionar[2],selecionar[3],selecionar[4],selecionar[5],selecionar[6],selecionar[7],selecionar[8],selecionar[9], selecionar[10], selecionar[11])
             return livro
 
     def cadastrarExemplares(self, exemplar):

@@ -68,29 +68,19 @@ def menu(con, cliente):
                 con.send('0'.encode())
             else:
                 con.send('1'.encode())
-        
-        elif msg == 4: #cadastrar autor
-            dados_autor = con.recv(4096).decode()
-            lista_autor = dados_autor.split(',')
-            autor = Autor(lista_autor[0],lista_autor[1])
-            retorno = bib.cadastrarAutor(autor)
-            if(retorno == True):
-                con.send('1'.encode())
-            elif(retorno == False):
-                con.send('0'.encode())
 
         
-        elif msg == 6: #cadastrar livro
+        elif msg == 4: #cadastrar livro
             dados_livro = con.recv(4096).decode()
             lista_livro = dados_livro.split(',')
-            livro = Livro(lista_livro[0],lista_livro[1],lista_livro[2],lista_livro[3],lista_livro[4],lista_livro[5],lista_livro[6],lista_livro[7],lista_livro[8],lista_livro[9], lista_livro[10])
+            livro = Livro(lista_livro[0],lista_livro[1],lista_livro[2],lista_livro[3],lista_livro[4],lista_livro[5],lista_livro[6],lista_livro[7],lista_livro[8],lista_livro[9], lista_livro[10], lista_livro[10])
             retorno = bib.cadastrarLivros(livro)
             if(retorno == True):
                 con.send('1'.encode())
             elif(retorno == False):
                 con.send('0'.encode())
 
-        elif msg == 7: #buscar livro
+        elif msg == 5: #buscar livro
             dados_livros = con.recv(4096).decode()
             lista_livros = dados_livros.split(',')
             verifica = bib.buscarLivros(lista_livros[0])
@@ -99,7 +89,7 @@ def menu(con, cliente):
             else:
                 con.send('1'.encode())
 
-        elif msg == 8: #cadastrar exemplar
+        elif msg == 6: #cadastrar exemplar
             dados_exemplar = con.recv(4096).decode()
             lista_exemplar = dados_exemplar.split(',')
             exemplar = Exemplar(lista_exemplar [0],lista_exemplar [1],lista_exemplar[2])
@@ -109,9 +99,16 @@ def menu(con, cliente):
             elif(retorno == False):
                 con.send('0'.encode())
         
-       
+        elif msg == 7: #buscar exemplar
+            dados_exemplares = con.recv(4096).decode()
+            lista_exemplares = dados_exemplares.split(',')
+            verifica = bib.buscarLivros(lista_exemplares[0])
+            if verifica != None:
+                con.send('0'.encode())
+            else:
+                con.send('1'.encode())
         
-        elif msg == 10: #realizar emprestimo
+        elif msg == 8: #realizar emprestimo
             dados_emprestimo = con.recv(4096).decode()
             lista_emprestimo = dados_emprestimo.split(',')
             emprestimo = Emprestimo( lista_emprestimo[0], lista_emprestimo[1], lista_emprestimo[2], lista_emprestimo[3])
@@ -121,7 +118,7 @@ def menu(con, cliente):
             elif(retorno == False):
                 con.send('0'.encode())
         
-        elif msg == 11: #buscar emprestimo
+        elif msg == 9: #buscar emprestimo
             dados_emprestimos = con.recv(4096).decode()
             lista_emprestimos = dados_emprestimos.split(',')
             verifica = bib.buscarEmprestimo(lista_emprestimos[0])
@@ -130,7 +127,7 @@ def menu(con, cliente):
             else:
                 con.send('1'.encode())
 
-        elif msg == 12:
+        elif msg == 10:   #cadastrar devolucao
             dados_devolucao = con.recv(4096).decode()
             lista_devolucao = dados_devolucao.split(',')
             devolucao = Devolucao(lista_devolucao[0],lista_devolucao[1],lista_devolucao[2],lista_devolucao[3],lista_devolucao[4])
@@ -140,7 +137,7 @@ def menu(con, cliente):
             elif(retorno == False):
                 con.send('0'.encode())
         
-        elif msg == 13: #buscar devolucao
+        elif msg == 11: #buscar devolucao
             dados_devolucoes = con.recv(4096).decode()
             lista_devolucoes = dados_devolucoes.split(',')
             verifica = bib.buscarDevolucoes(lista_devolucoes[0], lista_devolucoes[1])

@@ -6,7 +6,7 @@ class Livro:
 
 
 	"""
-	def __init__(self, codigo_livro, nome_autor, codigo_autor, titulo, editora, isbn, assunto, edicao, volume, Numero_pag, anoPublicacao):
+	def __init__(self, codigo_livro, nome_autor, codigo_autor, titulo, editora, isbn, assunto, edicao, volume, Numero_pag, anoPublicacao, quantidade_exemplares):
 		"""
 		Parametros
         ----------
@@ -32,6 +32,8 @@ class Livro:
 			numero total de paginas do livro
 		anoPublicacao : date, opcional
 			ano de publicacao do livro
+		quantidade_exemplares : int, opcional
+			quantidade de exemplares do respectivo livro 
 		"""
 		
 		self.__codigo_livro = codigo_livro
@@ -45,6 +47,7 @@ class Livro:
 		self.__volume = volume
 		self.__Numero_pag = Numero_pag
 		self.__anoPublicacao = anoPublicacao
+		self.__quantidade_exemplares = quantidade_exemplares
 		
 		
 	@property
@@ -123,6 +126,13 @@ class Livro:
 	@anoPublicacao.setter
 	def anoPublicacao(self, anoPublicacao):
 		self.__anoPublicacao = anoPublicacao
+	
+	@property
+	def quantidade_exemplares(self):
+		return self.__quantidade_exemplares
+	@quantidade_exemplares.setter
+	def quantidade_exemplares(self, quantidade_exemplares):
+		self.__quantidade_exemplares = quantidade_exemplares
 
 	
 

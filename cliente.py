@@ -22,11 +22,11 @@ from tela_biblioteca_usuario import Tela_Biblioteca_Usuario
 from tela_login import Tela_Login
 from tela_cadastro import Tela_Cadastro
 from tela_buscar_cadastro import Tela_Buscar_Cadastro
-from tela_autor import Tela_Autor
+
 from tela_livro import Tela_Livro
 from tela_buscar_livro import Tela_Buscar_Livro
 from tela_exemplar import Tela_Exemplar
-
+from tela_buscar_exemplar import Tela_Buscar_Exemplar
 from tela_emprestimo import Tela_Emprestimo
 from tela_buscar_emprestimo import Tela_Buscar_Emprestimo
 from tela_devolucao import Tela_Devolucao
@@ -67,10 +67,7 @@ class Ui_Main(QtWidgets.QWidget):
         tela principal da biblioteca para administrador(es) do sistema
     tela_biblioteca_usuario : class
         tela principal da biblioteca para usuarios do sistema
-    tela_autor : class
-        tela de cadastro de autor para administrador do sistema
-    tela_buscar_autor : class
-        tela buscar autor
+    
     tela_livro : class
         tela de cadastro de livro para administrador do sistema
     tela_buscar_livro : class
@@ -100,16 +97,15 @@ class Ui_Main(QtWidgets.QWidget):
         self.stack2 = QtWidgets.QMainWindow()  #buscar cadastro
         self.stack3 = QtWidgets.QMainWindow()  #biblioteca admin
         self.stack4 = QtWidgets.QMainWindow()  #biblioteca usuario
-        self.stack5 = QtWidgets.QMainWindow()  #cadastrar autor
-        
-        self.stack6 = QtWidgets.QMainWindow()  #livro
-        self.stack7 = QtWidgets.QMainWindow()  #buscar livro
-        self.stack8 = QtWidgets.QMainWindow()  #cadastrar exemplar
-        
-        self.stack9 = QtWidgets.QMainWindow() #cadastrar emprestimo
+        self.stack5 =  QtWidgets.QMainWindow() #livro
+        self.stack6 = QtWidgets.QMainWindow()  #buscar livro
+        self.stack7 = QtWidgets.QMainWindow()  #cadastrar exemplar
+        self.stack8 = QtWidgets.QMainWindow()  #buscar exemplar
+        self.stack9 = QtWidgets.QMainWindow()  #cadastrar emprestimo
         self.stack10 = QtWidgets.QMainWindow() #buscar emprestimo
         self.stack11 = QtWidgets.QMainWindow() #cadastrar devolucao
         self.stack12 = QtWidgets.QMainWindow() #buscar devolucao
+        
 
         self.tela_login = Tela_Login()
         self.tela_login.setupUi(self.stack0)
@@ -121,16 +117,14 @@ class Ui_Main(QtWidgets.QWidget):
         self.tela_biblioteca.setupUi(self.stack3)
         self.tela_biblioteca_usuario = Tela_Biblioteca_Usuario()
         self.tela_biblioteca_usuario.setupUi(self.stack4)
-        self.tela_autor = Tela_Autor()
-        self.tela_autor.setupUi(self.stack5)
-        
         self.tela_livro = Tela_Livro()
-        self.tela_livro.setupUi(self.stack6)
+        self.tela_livro.setupUi(self.stack5)
         self.tela_buscar_livro = Tela_Buscar_Livro()
-        self.tela_buscar_livro.setupUi(self.stack7)
+        self.tela_buscar_livro.setupUi(self.stack6)
         self.tela_exemplar = Tela_Exemplar()
-        self.tela_exemplar.setupUi(self.stack8)
-        
+        self.tela_exemplar.setupUi(self.stack7)
+        self.tela_buscar_exemplar = Tela_Buscar_Exemplar()
+        self.tela_buscar_exemplar.setupUi(self.stack8)
         self.tela_emprestimo = Tela_Emprestimo()
         self.tela_emprestimo.setupUi(self.stack9)
         self.tela_buscar_emprestimo = Tela_Buscar_Emprestimo()
@@ -153,7 +147,6 @@ class Ui_Main(QtWidgets.QWidget):
         self.QtStack.addWidget(self.stack10)
         self.QtStack.addWidget(self.stack11)
         self.QtStack.addWidget(self.stack12)
-        
 
     
 
@@ -189,18 +182,6 @@ class Main(QMainWindow, Ui_Main):
         faz a busca de usuario do sistema pelo seu codigo de cadastro
     botao_Voltar_Buscar_usuario():
         volta da tela buscar usuario para a tela principal
-    abrirTelaAutor():
-        abre a tela de cadastro de autor para adminitrador do sistema
-    botao_Cadastrar_Autor():
-        realiza o cadastro de um autor
-    botao_Voltar_Autor():
-        volta da tela ator para a tela principal
-    abrirTelaBuscarAutor:
-        abre a tela buscar autor
-    botao_Buscar_Autor:
-        realiza a busca de um autor pelo seu nome
-    botao_Voltar_Buscar_Autor:
-        volta da tela buscar autor para a tela principal
     abrirTelaLivro():
     botao_Cadastrar_Livro():
         realiza o cadastro de livro
@@ -275,11 +256,8 @@ class Main(QMainWindow, Ui_Main):
         self.tela_cadastro.botao_cadastrar_usuario.clicked.connect(self.botao_Cadastrar_Usuario)
         self.tela_cadastro.botao_voltar_cadastro.clicked.connect(self.botao_Voltar_Cadastro)
 
-        '''telas de cadastros para administrador'''
-        #cadastrar autor
-        self.tela_biblioteca.botao_cadastrar_autor_biblioteca.clicked.connect(self.abrirTelaAutor)
-        self.tela_autor.botao_cadastrar_autor.clicked.connect(self.botao_Cadastrar_Autor)
-        self.tela_autor.botao_voltar_autor.clicked.connect(self.botao_Voltar_Autor)
+        '''telas de cadastros e de buscar usuario para administrador'''
+        
         #cadastrar livro
         self.tela_biblioteca.botao_cadastrar_livro_biblioteca.clicked.connect(self.abrirTelaLivro)
         self.tela_livro.botao_cadastrar_livro.clicked.connect(self.botao_Cadastrar_Livro)
@@ -288,21 +266,24 @@ class Main(QMainWindow, Ui_Main):
         self.tela_biblioteca.botao_cadastrar_exemplar_biblioteca.clicked.connect(self.abrirTelaExemplar)
         self.tela_exemplar.botao_cadastrar_exemplar.clicked.connect(self.botao_Cadastrar_Exemplar)
         self.tela_exemplar.botao_voltar_exemplar.clicked.connect(self.botao_Voltar_Exemplar)
-
-        self.tela_biblioteca.botao_voltar_biblioteca_admin.clicked.connect(self.botao_Voltar_Biblioteca)
-
-
-        '''telas de busca, emprestimo e devolucao para usuarios'''
         #buscar usuario pelo codigo do usuario
         self.tela_biblioteca.botao_buscar_cadastro_biblioteca_admin.clicked.connect(self.abrirTelaBuscarCadastro)
         self.tela_buscar_cadastro.botao_buscar_usuario.clicked.connect(self.botao_Buscar_Usuario)
         self.tela_buscar_cadastro.boto_voltar_buscar.clicked.connect(self.botao_Voltar_Buscar_usuario)
+
+        self.tela_biblioteca.botao_voltar_biblioteca_admin.clicked.connect(self.botao_Voltar_Biblioteca)
+
+        '''telas de busca, emprestimo e devolucao para usuarios'''
         
         #buscar livro por codigo do livro
         self.tela_biblioteca_usuario.botao_buscar_livro_biblioteca_usuario.clicked.connect(self.abrirTelaBuscarLivro)
         self.tela_buscar_livro.botao_buscar_livro.clicked.connect(self.botao_Buscar_Livro)
         self.tela_buscar_livro.botao_voltar_buscar_livro.clicked.connect(self.botao_Voltar_Buscar_Livro)
         
+        #buscar exemplar por codigo do exemplar
+        self.tela_biblioteca_usuario.botao_buscar_exemplar_biblioteca_usuario.clicked.connect(self.abrirTelaBuscarExemplar)
+        self.tela_buscar_exemplar.botao_buscar_exemplar.clicked.connect(self.botao_Buscar_Exemplar)
+        self.tela_buscar_exemplar.botao_voltar_busca_exemplar.clicked.connect(self.botao_Voltar_Buscar_Exemplar)
         #realizar emprestimo
         self.tela_biblioteca_usuario.botao_emprestimo_biblioteca_usuario.clicked.connect(self.abrirTelaEmprestimo)
         self.tela_emprestimo.botao_realizar_emprestimo.clicked.connect(self.botao_Realizar_Emprestimo)
@@ -434,10 +415,9 @@ class Main(QMainWindow, Ui_Main):
         self.usuario = None
         self.QtStack.setCurrentIndex(0)
 
-    def abrirTelaBibliotecaUsuario(self):  # Método para abrir a tela de login
-        self.QtStack.setCurrentIndex(4)
+    def abrirTelaBiblioteca(self):  # Método para abrir a tela de login
+        self.QtStack.setCurrentIndex(3)
 
-    
     def abrirTelaBuscarCadastro(self):  # Método para abrir a tela de cadastro
         self.QtStack.setCurrentIndex(2)
 
@@ -478,48 +458,8 @@ class Main(QMainWindow, Ui_Main):
     def botao_Voltar_Buscar_usuario(self):  # Método para ativar o botão voltar
         self.QtStack.setCurrentIndex(3)
 
-    
-    def abrirTelaBiblioteca(self):  # Método para abrir a tela de login
-        self.QtStack.setCurrentIndex(3)
-
-    def abrirTelaAutor(self):  # Método para abrir a tela autor
-        self.QtStack.setCurrentIndex(5)
-
-    def botao_Cadastrar_Autor(self):  # Método para ativar o botão cadastrar autor
-        nome_autor = self.tela_autor.input_nome_autor.text()
-        codigo_autor = self.tela_autor.input_codigo_autor.text()
-        if not (nome_autor == "" or codigo_autor == ""):
-            client_socket.send('4'.encode())
-            
-            #autor = Autor(codigo_autor, nome_autor)
-            #if (self.bib.cadastrarAutor(autor)) == True:
-                
-            self.tela_autor.input_nome_autor.setText("")
-            self.tela_autor.input_codigo_autor.setText("")
-            lista_autor=[]
-            lista_autor.append(nome_autor)
-            lista_autor.append(codigo_autor)
-            dados_autor = ",".join(lista_autor)
-            client_socket.send(dados_autor.encode())
-            
-            retorno = client_socket.recv(4096).decode()
-            
-            if(retorno == '1'):
-                QMessageBox.information(None, "Olá", "Autor cadastrado com sucesso!")
-                self.abrirTelaLivro()
-            elif(retorno == '0'):
-                QMessageBox.information(None,"Atenção!","Este autor já está cadastrado na base de dados!")   
-        
-        else:
-            QMessageBox.information(None, "Atenção!", "Todos os campos devem ser preenchidos!")
-
-
-    def botao_Voltar_Autor(self):  # Método para ativar o botão voltar da tela autor
-        self.QtStack.setCurrentIndex(3)
-
-
     def abrirTelaLivro(self):  # Método para abrir a tela de livro
-        self.QtStack.setCurrentIndex(6)
+        self.QtStack.setCurrentIndex(5)
 
     def botao_Cadastrar_Livro(self):  # Método para ativar o botão cadastrar
         nome_autor = self.tela_livro.input_nome_autor.text()
@@ -533,11 +473,12 @@ class Main(QMainWindow, Ui_Main):
         volume = self.tela_livro.input_volume.text()
         Numero_pag = self.tela_livro.input_num_paginas.text()
         anoPublicacao = self.tela_livro.input_ano_publicacao.text()
+        quantidade_exemplares = self.tela_livro.input_quantidade_exemplares.text()
         
-        if not (nome_autor == "" or codigo_autor == "" or titulo == "" or codigo_livro == "" or assunto == "" or isbn == "" or editora == "" or edicao == "" or volume == "" or Numero_pag == "" or anoPublicacao == ""):
+        if not (nome_autor == "" or codigo_autor == "" or titulo == "" or codigo_livro == "" or assunto == "" or isbn == "" or editora == "" or edicao == "" or volume == "" or Numero_pag == "" or anoPublicacao == "" or quantidade_exemplares == ""):
             #livro = Livro(codigo_livro, nome_autor, codigo_autor, titulo, editora, isbn, assunto, edicao, volume, Numero_pag, anoPublicacao)
             #if (self.bib.cadastrarLivros(livro)) == True:
-            client_socket.send('6'.encode())
+            client_socket.send('4'.encode())
                 
             self.tela_livro.input_nome_autor.setText("")
             self.tela_livro.input_codigo_autor.setText("")
@@ -550,6 +491,7 @@ class Main(QMainWindow, Ui_Main):
             self.tela_livro.input_volume.setText("")
             self.tela_livro.input_num_paginas.setText("")
             self.tela_livro.input_ano_publicacao.setText("")
+            self.tela_livro.input_quantidade_exemplares.setText("")
                 
             lista_livro=[]
             lista_livro.append(nome_autor)
@@ -563,6 +505,7 @@ class Main(QMainWindow, Ui_Main):
             lista_livro.append(volume)
             lista_livro.append(Numero_pag)
             lista_livro.append(anoPublicacao)
+            lista_livro.append(quantidade_exemplares)
             dados_livro = ",".join(lista_livro)
             client_socket.send(dados_livro.encode())
 
@@ -579,15 +522,17 @@ class Main(QMainWindow, Ui_Main):
     def botao_Voltar_Livro(self):  # Método para ativar o botão voltar da tela livro
         self.QtStack.setCurrentIndex(3)
     
+    def abrirTelaBibliotecaUsuario(self):  # Método para abrir a tela de login
+        self.QtStack.setCurrentIndex(4)
 
     def abrirTelaBuscarLivro(self):  # Método para abrir a tela buscar livro
-        self.QtStack.setCurrentIndex(7)
+        self.QtStack.setCurrentIndex(6)
 
     def botao_Buscar_Livro(self):  # Método para ativar o botão buscar livro
         codigo_livro = self.tela_buscar_livro.input_cod_livro2.text()
         livro = self.bib.buscarLivros(codigo_livro)
         if (livro != None):
-            client_socket.send('7'.encode())
+            client_socket.send('5'.encode())
             self.tela_buscar_livro.input_nome_autor2.setText(livro.nome_autor)
             self.tela_buscar_livro.input_cod_autor2.setText(livro.codigo_autor)
             self.tela_buscar_livro.input_titulo_livro2.setText(livro.titulo)
@@ -598,6 +543,7 @@ class Main(QMainWindow, Ui_Main):
             self.tela_buscar_livro.input_edicao2.setText(livro.edicao)
             self.tela_buscar_livro.input_num_paginas2.setText(livro.Numero_pag)
             self.tela_buscar_livro.input_volume2.setText(livro.volume)
+            self.tela_buscar_livro.input_quantidade_exemplares2.setText(livro.quantidade_exemplares)
 
             lista_livros = []
             lista_livros.append(livro.nome_autor)
@@ -610,6 +556,7 @@ class Main(QMainWindow, Ui_Main):
             lista_livros.append(livro.edicao)
             lista_livros.append(livro.Numero_pag)
             lista_livros.append(livro.volume)
+            lista_livros.append(livro.quantidade_exemplares)
             dados_livros = ",".join(lista_livros)
             client_socket.send(dados_livros.encode())
             retorno = client_socket.recv(4096).decode()
@@ -621,14 +568,14 @@ class Main(QMainWindow, Ui_Main):
 
 
     def abrirTelaExemplar(self):  # Método para abrir a tela de exemplar
-        self.QtStack.setCurrentIndex(8)
+        self.QtStack.setCurrentIndex(7)
 
     def botao_Cadastrar_Exemplar(self):  # Método para ativar o botão cadastrar exemplar
         codigo_livro = self.tela_exemplar.input_codigo_livro.text()
         codigo_exemplar = self.tela_exemplar.input_codigo_exemplar.text()
         dias_emprestimo = self.tela_exemplar.input_qtd_dias.text()
         if not (codigo_livro == "" or codigo_exemplar == "" or dias_emprestimo == ""):
-            client_socket.send('8'.encode())
+            client_socket.send('6'.encode())
             #exemplar = Exemplar(codigo_exemplar,codigo_livro,dias_emprestimo)
             #if (self.bib.cadastrarExemplares(exemplar)) == True:
                 
@@ -652,13 +599,33 @@ class Main(QMainWindow, Ui_Main):
 
     def botao_Voltar_Exemplar(self):  # Método para ativar o botão voltar da tela exemplar
         self.QtStack.setCurrentIndex(3)
-    
 
     def botao_Voltar_Biblioteca(self):  # Método para ativar o botão voltar da tela autor
         self.QtStack.setCurrentIndex(0)
-    
 
-    
+    def abrirTelaBuscarExemplar(self):  # Método para abrir a tela de exemplar
+        self.QtStack.setCurrentIndex(8)
+
+    def botao_Buscar_Exemplar(self):  # Método para ativar o botão buscar exemplar
+        codigo_exemplar = self.tela_buscar_exemplar.input_codigo_exemplar2.text()
+        exemplar = self.bib.buscarExemplares(codigo_exemplar)
+        if (exemplar != None):
+            client_socket.send('7'.encode())
+            self.tela_buscar_exemplar.input_codigo_livro2.setText(exemplar.codigo_livro)
+            self.tela_buscar_exemplar.input_qtd_dias2.setText(exemplar.dias_emprestimo)
+
+            lista_exemplares = []
+            lista_exemplares.append(exemplar.codigo_livro)
+            lista_exemplares.append(exemplar.dias_emprestimo)
+            dados_exemplares = ",".join(lista_exemplares)
+            client_socket.send(dados_exemplares.encode())
+            retorno = client_socket.recv(4096).decode()
+            
+        else:
+            QMessageBox.information(None, "POO2", "O exemplar não esta cadastrado na base de dados do sistema!")
+
+    def botao_Voltar_Buscar_Exemplar(self):  # Método para ativar o botão voltar da tela exemplar
+        self.QtStack.setCurrentIndex(4)
 
     def abrirTelaEmprestimo(self):  # Método para abrir a tela de emprestimo
         self.QtStack.setCurrentIndex(9)
@@ -671,7 +638,7 @@ class Main(QMainWindow, Ui_Main):
         if not (codigo_livro == "" or codigo_exemplar == "" or data_emprestimo == "" or data_para_devolver == ""):
             #emprestimo = Emprestimo(codigo_usuario,codigo_livro,codigo_exemplar,data_emprestimo,data_para_devolver)
             #if (self.bib.realizarEmprestimo(emprestimo)) == True:
-            client_socket.send('10'.encode())    
+            client_socket.send('8'.encode())    
             
             self.tela_emprestimo.input_codigo_livro.setText("")
             self.tela_emprestimo.input_codigo_exemplar.setText("")
@@ -705,7 +672,7 @@ class Main(QMainWindow, Ui_Main):
         codigo_exemplar = self.tela_buscar_emprestimo.input_codigo_exemplar2.text()
         emprestimo = self.bib.buscarEmprestimo(codigo_exemplar)
         if (emprestimo != None):
-            client_socket.send('11'.encode())
+            client_socket.send('9'.encode())
             self.tela_buscar_emprestimo.input_codigo_livro2.setText(emprestimo.codigo_livro)
             self.tela_buscar_emprestimo.input_data_emprestimo2.setText(emprestimo.data_emprestimo)
             self.tela_buscar_emprestimo.input_data_devolucao2.setText(emprestimo.data_para_devolver)
@@ -736,7 +703,7 @@ class Main(QMainWindow, Ui_Main):
         if not (codigo_usuario == "" or codigo_livro == "" or codigo_exemplar == "" or data_emprestimo == "" or data_devolucao == ""):
             #devolucao = Devolucao(codigo_usuario, codigo_livro, codigo_exemplar, data_emprestimo, data_devolucao)
             #if (self.bib.realizarDevolucao(devolucao)) == True:
-            client_socket.send('12'.encode())    
+            client_socket.send('10'.encode())    
             self.tela_devolucao.input_codigo_usuario.setText("")
             self.tela_devolucao.input_codigo_exemplar.setText("")
             self.tela_devolucao.input_codigo_livro.setText("")
@@ -771,7 +738,7 @@ class Main(QMainWindow, Ui_Main):
         data_devolucao = self.tela_buscar_devolucao.input_data_devolucao_2.text()
         devolucao = self.bib.buscarDevolucoes(codigo_exemplar, data_devolucao)
         if (devolucao != None):
-            client_socket.send('13'.encode())
+            client_socket.send('11'.encode())
             self.tela_buscar_devolucao.input_codigo_usuario_2.setText(devolucao.codigo_usuario)
             self.tela_buscar_devolucao.input_codigo_livro_2.setText(devolucao.codigo_livro)
             self.tela_buscar_devolucao.input_data_emprestimo_2.setText(devolucao.data_emprestimo)
