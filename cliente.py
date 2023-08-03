@@ -335,11 +335,11 @@ class Main(QMainWindow, Ui_Main):
                 if self.usuario.tipo == 'admin':
                     self.tela_login.input_usuario.setText("")  # limpar campo de input
                     self.tela_login.input_senha.setText("")
-                    self.abrirTelaBiblioteca()  # Método para abrir a tela de login
-                else:
+                    self.abrirTelaBiblioteca()  # Chamando Método para abrir a tela principal da biblioteca para administradores do sistema
+                elif self.usuario.tipo =='usuario':
                     self.tela_login.input_usuario.setText("")  # limpar campo de input
                     self.tela_login.input_senha.setText("")
-                    self.abrirTelaBibliotecaUsuario()
+                    self.abrirTelaBibliotecaUsuario()    # Chamando Método para abrir a tela principal da biblioteca para usuarios do sistema
             else:
                 QMessageBox.information(None,"Atenção!"," Usuário não cadastrado!")  # mensagem de erro
                 self.tela_login.input_usuario.setText("")
@@ -543,7 +543,7 @@ class Main(QMainWindow, Ui_Main):
             self.tela_buscar_livro.input_edicao2.setText(livro.edicao)
             self.tela_buscar_livro.input_num_paginas2.setText(livro.Numero_pag)
             self.tela_buscar_livro.input_volume2.setText(livro.volume)
-            self.tela_buscar_livro.input_quantidade_exemplares2.setText(livro.quantidade_exemplares)
+            self.tela_buscar_livro.input_quantidade_exemplares2.setText(str(livro.quantidade_exemplares))
 
             lista_livros = []
             lista_livros.append(livro.nome_autor)
@@ -557,7 +557,7 @@ class Main(QMainWindow, Ui_Main):
             lista_livros.append(livro.Numero_pag)
             lista_livros.append(livro.volume)
             lista_livros.append(livro.quantidade_exemplares)
-            dados_livros = ",".join(lista_livros)
+            dados_livros = ",".join(str(livro) for livro in lista_livros)
             client_socket.send(dados_livros.encode())
             retorno = client_socket.recv(4096).decode()
         else:

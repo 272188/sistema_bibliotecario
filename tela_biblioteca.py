@@ -12,11 +12,37 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Tela_Biblioteca(object):
+    """
+    classe que representa a tela principal da biblioteca para o administrador do sistema, que contem os menus de acesso as funcionalidades do sistema bibliotecario para cadastrar dados referentes a autores, livros e seus respectivos exemplares.
+
+    
+    ...
+    Atributes
+    ----------
+    resize : object
+        dimensiona largura e altura da tela
+    setStyleSheet : object
+        estiliza a cor de fundo da tela
+    setObjectName : object
+        rotula algum lugar da tela, onde se deseja definir um nome ou frase curta
+    setText :
+        O método setText() da classe java.text.CollationElementIterator é usado para definir a nova string de origem para o objeto
+    QPushButton : object
+        atribuem-se aos botoes de acoes da tela
+    botao_cadastrar_livro_biblioteca :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela de cadastrar livro.
+    botao_cadastrar_exemplar_biblioteca :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela de cadastrar exemplar.
+    botao_voltar_biblioteca_admin :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao de voltar da tela principal para a tela de login
+    botao_buscar_cadastro_biblioteca_admin :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela buscar cadastro de um usuario.
+    """
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(916, 751)
-        MainWindow.setStyleSheet("\n"
-"background-color: rgb(0, 90, 135);")
+        MainWindow.resize(874, 661)
+        MainWindow.setStyleSheet("background-color: rgb(0, 90, 135);\n"
+"")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.sistema_bibliotecario = QtWidgets.QLabel(self.centralwidget)
@@ -28,26 +54,17 @@ class Tela_Biblioteca(object):
         font.setWeight(75)
         self.sistema_bibliotecario.setFont(font)
         self.sistema_bibliotecario.setObjectName("sistema_bibliotecario")
-        self.cadastro = QtWidgets.QLabel(self.centralwidget)
-        self.cadastro.setGeometry(QtCore.QRect(410, 90, 111, 51))
-        font = QtGui.QFont()
-        font.setFamily("Times New Roman")
-        font.setPointSize(16)
-        font.setBold(True)
-        font.setWeight(75)
-        self.cadastro.setFont(font)
-        self.cadastro.setObjectName("cadastro")
-        self.botao_cadastrar_autor_biblioteca = QtWidgets.QPushButton(self.centralwidget)
-        self.botao_cadastrar_autor_biblioteca.setGeometry(QtCore.QRect(90, 220, 171, 61))
+        self.cadastrar = QtWidgets.QLabel(self.centralwidget)
+        self.cadastrar.setGeometry(QtCore.QRect(210, 130, 101, 51))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(14)
-        self.botao_cadastrar_autor_biblioteca.setFont(font)
-        self.botao_cadastrar_autor_biblioteca.setStyleSheet("\n"
-"background-color: rgb(134, 134, 100);")
-        self.botao_cadastrar_autor_biblioteca.setObjectName("botao_cadastrar_autor_biblioteca")
+        font.setBold(False)
+        font.setWeight(50)
+        self.cadastrar.setFont(font)
+        self.cadastrar.setObjectName("cadastrar")
         self.botao_voltar_biblioteca_admin = QtWidgets.QPushButton(self.centralwidget)
-        self.botao_voltar_biblioteca_admin.setGeometry(QtCore.QRect(380, 640, 171, 61))
+        self.botao_voltar_biblioteca_admin.setGeometry(QtCore.QRect(380, 550, 171, 61))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(14)
@@ -56,7 +73,7 @@ class Tela_Biblioteca(object):
 "background-color: rgb(134, 134, 100);")
         self.botao_voltar_biblioteca_admin.setObjectName("botao_voltar_biblioteca_admin")
         self.botao_cadastrar_livro_biblioteca = QtWidgets.QPushButton(self.centralwidget)
-        self.botao_cadastrar_livro_biblioteca.setGeometry(QtCore.QRect(380, 220, 171, 61))
+        self.botao_cadastrar_livro_biblioteca.setGeometry(QtCore.QRect(180, 220, 171, 61))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(14)
@@ -65,7 +82,7 @@ class Tela_Biblioteca(object):
 "background-color: rgb(134, 134, 100);")
         self.botao_cadastrar_livro_biblioteca.setObjectName("botao_cadastrar_livro_biblioteca")
         self.botao_cadastrar_exemplar_biblioteca = QtWidgets.QPushButton(self.centralwidget)
-        self.botao_cadastrar_exemplar_biblioteca.setGeometry(QtCore.QRect(670, 220, 171, 61))
+        self.botao_cadastrar_exemplar_biblioteca.setGeometry(QtCore.QRect(180, 340, 171, 61))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(14)
@@ -73,22 +90,8 @@ class Tela_Biblioteca(object):
         self.botao_cadastrar_exemplar_biblioteca.setStyleSheet("\n"
 "background-color: rgb(134, 134, 100);")
         self.botao_cadastrar_exemplar_biblioteca.setObjectName("botao_cadastrar_exemplar_biblioteca")
-        self.line = QtWidgets.QFrame(self.centralwidget)
-        self.line.setGeometry(QtCore.QRect(30, 350, 861, 16))
-        self.line.setFrameShape(QtWidgets.QFrame.HLine)
-        self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line.setObjectName("line")
-        self.cadastro_2 = QtWidgets.QLabel(self.centralwidget)
-        self.cadastro_2.setGeometry(QtCore.QRect(420, 370, 81, 51))
-        font = QtGui.QFont()
-        font.setFamily("Times New Roman")
-        font.setPointSize(16)
-        font.setBold(True)
-        font.setWeight(75)
-        self.cadastro_2.setFont(font)
-        self.cadastro_2.setObjectName("cadastro_2")
         self.botao_buscar_cadastro_biblioteca_admin = QtWidgets.QPushButton(self.centralwidget)
-        self.botao_buscar_cadastro_biblioteca_admin.setGeometry(QtCore.QRect(380, 470, 171, 61))
+        self.botao_buscar_cadastro_biblioteca_admin.setGeometry(QtCore.QRect(550, 220, 171, 61))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(14)
@@ -96,11 +99,15 @@ class Tela_Biblioteca(object):
         self.botao_buscar_cadastro_biblioteca_admin.setStyleSheet("\n"
 "background-color: rgb(134, 134, 100);")
         self.botao_buscar_cadastro_biblioteca_admin.setObjectName("botao_buscar_cadastro_biblioteca_admin")
-        self.line_2 = QtWidgets.QFrame(self.centralwidget)
-        self.line_2.setGeometry(QtCore.QRect(20, 560, 861, 16))
-        self.line_2.setFrameShape(QtWidgets.QFrame.HLine)
-        self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
-        self.line_2.setObjectName("line_2")
+        self.buscar = QtWidgets.QLabel(self.centralwidget)
+        self.buscar.setGeometry(QtCore.QRect(600, 130, 71, 51))
+        font = QtGui.QFont()
+        font.setFamily("Times New Roman")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setWeight(50)
+        self.buscar.setFont(font)
+        self.buscar.setObjectName("buscar")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -113,13 +120,12 @@ class Tela_Biblioteca(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.sistema_bibliotecario.setText(_translate("MainWindow", "SISTEMA BIBLIOTECÁRIO"))
-        self.cadastro.setText(_translate("MainWindow", "Cadastro"))
-        self.botao_cadastrar_autor_biblioteca.setText(_translate("MainWindow", "Autor"))
+        self.cadastrar.setText(_translate("MainWindow", "Cadastrar:"))
         self.botao_voltar_biblioteca_admin.setText(_translate("MainWindow", "Voltar"))
         self.botao_cadastrar_livro_biblioteca.setText(_translate("MainWindow", "Livro"))
         self.botao_cadastrar_exemplar_biblioteca.setText(_translate("MainWindow", "Exemplar"))
-        self.cadastro_2.setText(_translate("MainWindow", "Busca"))
         self.botao_buscar_cadastro_biblioteca_admin.setText(_translate("MainWindow", "Cadastro"))
+        self.buscar.setText(_translate("MainWindow", "Buscar:"))
 
 
 if __name__ == "__main__":

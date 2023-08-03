@@ -12,6 +12,39 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Tela_Biblioteca_Usuario(object):
+    """
+    classe que representa a tela principal da biblioteca, que contem os menus de acesso as funcionalidades do sistema bibliotecario para os usuario
+
+    
+    ...
+    Atributes
+    ----------
+    resize : object
+        dimensiona largura e altura da tela
+    setStyleSheet : object
+        estiliza a cor de fundo da tela
+    setObjectName : object
+        rotula algum lugar da tela, onde se deseja definir um nome ou frase curta
+    setText :
+        O método setText() da classe java.text.CollationElementIterator é usado para definir a nova string de origem para o objeto
+    QPushButton : object
+        atribuem-se aos botoes de acoes da tela
+    
+    botao_emprestimo_biblioteca_usuario :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela de emprestimo, contido na tela principal de biblioteca para usuarios
+    botao_devolucao_biblioteca_usuario :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela de devolucao, contido na tela principal de biblioteca para usuarios
+    botao_buscar_livro_biblioteca_usuario :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela buscar livro, contido na tela principal de biblioteca para usuarios
+    botao_buscar_exemplar_biblioteca_usuario :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela buscar exemplar, contido na tela principal de biblioteca para usuarios
+    botao_buscar_emprestimo_biblioteca_usuario :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela buscar emprestimo de um exemplar de livro, contido na tela principal de biblioteca para usuarios
+    botao_buscar_devolucao_biblioteca_usuario :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela buscar devolucao do exemplar de um livro, contido na tela principal de biblioteca para usuarios
+    botao_voltar_biblioteca_usuario :
+        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao de voltar da tela principal para a tela de login
+    """
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1028, 639)
@@ -75,7 +108,7 @@ class Tela_Biblioteca_Usuario(object):
         self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line_2.setObjectName("line_2")
         self.botao_buscar_emprestimo_biblioteca_usuario = QtWidgets.QPushButton(self.centralwidget)
-        self.botao_buscar_emprestimo_biblioteca_usuario.setGeometry(QtCore.QRect(690, 340, 171, 61))
+        self.botao_buscar_emprestimo_biblioteca_usuario.setGeometry(QtCore.QRect(540, 370, 171, 61))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(14)
@@ -84,7 +117,7 @@ class Tela_Biblioteca_Usuario(object):
 "color: rgb(255, 255, 255);")
         self.botao_buscar_emprestimo_biblioteca_usuario.setObjectName("botao_buscar_emprestimo_biblioteca_usuario")
         self.botao_buscar_devolucao_biblioteca_usuario = QtWidgets.QPushButton(self.centralwidget)
-        self.botao_buscar_devolucao_biblioteca_usuario.setGeometry(QtCore.QRect(690, 440, 171, 61))
+        self.botao_buscar_devolucao_biblioteca_usuario.setGeometry(QtCore.QRect(750, 370, 171, 61))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(14)
@@ -93,7 +126,7 @@ class Tela_Biblioteca_Usuario(object):
 "color: rgb(255, 255, 255);")
         self.botao_buscar_devolucao_biblioteca_usuario.setObjectName("botao_buscar_devolucao_biblioteca_usuario")
         self.botao_buscar_livro_biblioteca_usuario = QtWidgets.QPushButton(self.centralwidget)
-        self.botao_buscar_livro_biblioteca_usuario.setGeometry(QtCore.QRect(180, 340, 171, 61))
+        self.botao_buscar_livro_biblioteca_usuario.setGeometry(QtCore.QRect(120, 370, 171, 61))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(14)
@@ -102,7 +135,7 @@ class Tela_Biblioteca_Usuario(object):
 "color: rgb(255, 255, 255);")
         self.botao_buscar_livro_biblioteca_usuario.setObjectName("botao_buscar_livro_biblioteca_usuario")
         self.botao_buscar_exemplar_biblioteca_usuario = QtWidgets.QPushButton(self.centralwidget)
-        self.botao_buscar_exemplar_biblioteca_usuario.setGeometry(QtCore.QRect(180, 440, 171, 61))
+        self.botao_buscar_exemplar_biblioteca_usuario.setGeometry(QtCore.QRect(330, 370, 171, 61))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(14)

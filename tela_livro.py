@@ -37,7 +37,7 @@ class Tela_Livro(object):
     """
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1183, 703)
+        MainWindow.resize(1159, 703)
         MainWindow.setStyleSheet("background-color: rgb(0, 90, 135);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -151,7 +151,7 @@ class Tela_Livro(object):
         self.input_num_paginas.setGeometry(QtCore.QRect(170, 320, 291, 31))
         self.input_num_paginas.setObjectName("input_num_paginas")
         self.botao_cadastrar_livro = QtWidgets.QPushButton(self.centralwidget)
-        self.botao_cadastrar_livro.setGeometry(QtCore.QRect(980, 400, 141, 51))
+        self.botao_cadastrar_livro.setGeometry(QtCore.QRect(980, 420, 141, 51))
         font = QtGui.QFont()
         font.setFamily("Times New Roman")
         font.setPointSize(12)
@@ -185,6 +185,16 @@ class Tela_Livro(object):
         font.setWeight(75)
         self.sistema_bibliotecario.setFont(font)
         self.sistema_bibliotecario.setObjectName("sistema_bibliotecario")
+        self.quantidade_exemplares = QtWidgets.QLabel(self.centralwidget)
+        self.quantidade_exemplares.setGeometry(QtCore.QRect(30, 380, 111, 21))
+        font = QtGui.QFont()
+        font.setFamily("Times New Roman")
+        font.setPointSize(12)
+        self.quantidade_exemplares.setFont(font)
+        self.quantidade_exemplares.setObjectName("quantidade_exemplares")
+        self.input_quantidade_exemplares = QtWidgets.QLineEdit(self.centralwidget)
+        self.input_quantidade_exemplares.setGeometry(QtCore.QRect(170, 370, 291, 31))
+        self.input_quantidade_exemplares.setObjectName("input_quantidade_exemplares")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -211,6 +221,7 @@ class Tela_Livro(object):
         self.nome_autor.setText(_translate("MainWindow", "Nome do autor:"))
         self.botao_voltar_livro.setText(_translate("MainWindow", "Voltar"))
         self.sistema_bibliotecario.setText(_translate("MainWindow", "SISTEMA BIBLIOTECÁRIO"))
+        self.quantidade_exemplares.setText(_translate("MainWindow", "Quantidade:"))
 
 
 if __name__ == "__main__":
