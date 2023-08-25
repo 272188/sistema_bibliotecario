@@ -214,8 +214,6 @@ class Main(QMainWindow, Ui_Main):
         else:
             QMessageBox.information(None, "Atenção!", "Todos os campos devem ser preenchidos!")
         
-            
-
     def abrirTelaCadastro(self):  # Método para abrir a tela de cadastro
         self.QtStack.setCurrentIndex(1)
 
@@ -284,7 +282,6 @@ class Main(QMainWindow, Ui_Main):
     def abrirTelaBibliotecaUsuario(self):  # Método para abrir a tela de login
         self.QtStack.setCurrentIndex(4)
 
-    
     def abrirTelaBuscarCadastro(self):  # Método para abrir a tela de cadastro
         self.QtStack.setCurrentIndex(2)
 
@@ -324,11 +321,9 @@ class Main(QMainWindow, Ui_Main):
         else:
             QMessageBox.information(None, "POO2", "Usuario não encontrado!")
     
-
     def botao_Voltar_Buscar_usuario(self):  # Método para ativar o botão voltar
         self.QtStack.setCurrentIndex(4)
 
-    
     def abrirTelaBiblioteca(self):  # Método para abrir a tela de login
         self.QtStack.setCurrentIndex(3)
 
@@ -353,7 +348,6 @@ class Main(QMainWindow, Ui_Main):
     def botao_Voltar_Autor(self):  # Método para ativar o botão voltar da tela autor
         self.QtStack.setCurrentIndex(3)
 
-
     def abrirTelaBuscarAutor(self):  # Método para abrir a tela autor
         self.QtStack.setCurrentIndex(6)
 
@@ -368,7 +362,6 @@ class Main(QMainWindow, Ui_Main):
 
     def botao_Voltar_Buscar_Autor(self):  # Método para ativar o botão voltar da tela autor
         self.QtStack.setCurrentIndex(4)
-
 
     def abrirTelaLivro(self):  # Método para abrir a tela de livro
         self.QtStack.setCurrentIndex(7)
@@ -412,7 +405,6 @@ class Main(QMainWindow, Ui_Main):
     def botao_Voltar_Livro(self):  # Método para ativar o botão voltar da tela livro
         self.QtStack.setCurrentIndex(3)
     
-
     def abrirTelaBuscarLivro(self):  # Método para abrir a tela buscar livro
         self.QtStack.setCurrentIndex(8)
 
@@ -436,7 +428,6 @@ class Main(QMainWindow, Ui_Main):
     def botao_Voltar_Buscar_Livro(self):  # Método para ativar o botão voltar da tela autor
         self.QtStack.setCurrentIndex(4)
 
-
     def abrirTelaExemplar(self):  # Método para abrir a tela de exemplar
         self.QtStack.setCurrentIndex(9)
 
@@ -459,11 +450,9 @@ class Main(QMainWindow, Ui_Main):
     def botao_Voltar_Exemplar(self):  # Método para ativar o botão voltar da tela exemplar
         self.QtStack.setCurrentIndex(3)
     
-
     def botao_Voltar_Biblioteca(self):  # Método para ativar o botão voltar da tela autor
         self.QtStack.setCurrentIndex(0)
     
-
     def abrirTelaBuscarExemplar(self):  # Método para abrir a tela de exemplar
         self.QtStack.setCurrentIndex(10)
 
@@ -478,7 +467,6 @@ class Main(QMainWindow, Ui_Main):
 
     def botao_Voltar_Buscar_Exemplar(self):  # Método para ativar o botão voltar da tela exemplar
         self.QtStack.setCurrentIndex(4)
-
 
     def abrirTelaEmprestimo(self):  # Método para abrir a tela de emprestimo
         self.QtStack.setCurrentIndex(11)
@@ -508,7 +496,6 @@ class Main(QMainWindow, Ui_Main):
     def botao_Voltar_Emprestimo(self):  # Método para ativar o botão voltar da tela emprestimo
         self.QtStack.setCurrentIndex(4)
     
-
     def abrirTelaBuscarEmprestimo(self):  # Método para abrir a tela de emprestimo
         self.QtStack.setCurrentIndex(12)
     
@@ -525,7 +512,6 @@ class Main(QMainWindow, Ui_Main):
     def botao_Voltar_Buscar_Emprestimo(self):  # Método para ativar o botão voltar da tela emprestimo
         self.QtStack.setCurrentIndex(4)
     
-
     def abrirTelaDevolucao(self):  # Método para abrir a tela de emprestimo
         self.QtStack.setCurrentIndex(13)
         
@@ -553,7 +539,6 @@ class Main(QMainWindow, Ui_Main):
     def botao_Voltar_Devolucao(self):  # Método para ativar o botão voltar da tela emprestimo
         self.QtStack.setCurrentIndex(4)
     
-    
     def abrirTelaBuscarDevolucao(self):  # Método para abrir a tela de emprestimo
         self.QtStack.setCurrentIndex(14)
     
@@ -570,7 +555,6 @@ class Main(QMainWindow, Ui_Main):
 
     def botao_Voltar_Buscar_Devolucao(self):  # Método para ativar o botão voltar da tela emprestimo
         self.QtStack.setCurrentIndex(4)
-
 
     def botao_Voltar_Biblioteca_Usuario(self):  # Método para ativar o botão voltar da tela emprestimo
         self.usuario = None
