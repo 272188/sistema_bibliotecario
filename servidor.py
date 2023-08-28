@@ -1,20 +1,12 @@
-from usuario import Usuario
-from autor import Autor
-from livro import Livro
-from exemplar import Exemplar
-from emprestimo import Emprestimo
-from devolucao import Devolucao
+from modelos import Usuario
 from biblioteca import Biblioteca
 import threading
 import socket
 
-import socket
-import threading
 
 host = socket.gethostbyname(socket.gethostname())
-port = 8082
+port = 8080
 addr = (host, port)
-bib = Biblioteca()
 
 def menu(con, cliente):
     """
@@ -30,6 +22,7 @@ def menu(con, cliente):
     """
 
     connected = True   #conectado recebe verdadeiro
+    bib = Biblioteca()
     while connected:   #enquanto a conexao entre cliente e servidor estiver estabelecida
         msg = int(con.recv(1024).decode())  #msg recebe conexao de informacoes decodificadas
         if msg == 0:     #se a mensagem for zero significa que nao foi conectado
@@ -55,7 +48,7 @@ def menu(con, cliente):
             elif selecionar == False:
                 con.send('1'.encode())
             else:
-                con.send(f'2,{selecionar.codigo_usuario},{selecionar.nome},{selecionar.cpf},{selecionar.telefone},{selecionar.endereco},{selecionar.bairro},{selecionar.cidade},{selecionar.cep},{selecionar.email},{selecionar.senha},{selecionar.tipo}'.encode())
+                con.send(f'2,{selecionar}'.encode())
                 
         elif msg == 3:  #buscar usuario
             dados_usuarios = con.recv(4096).decode()
@@ -87,24 +80,7 @@ def menu(con, cliente):
             else:
                 con.send('1'.encode())
 
-        elif msg == 6: #cadastrar exemplar
-            dados_exemplar = con.recv(4096).decode()
-            lista_exemplar = dados_exemplar.split(',')
-            exemplar = Exemplar(lista_exemplar [0],lista_exemplar [1],lista_exemplar[2])
-            retorno = bib.cadastrarExemplares(exemplar)
-            if(retorno == True):
-                con.send('1'.encode())
-            elif(retorno == False):
-                con.send('0'.encode())
         
-        elif msg == 7: #buscar exemplar
-            dados_exemplares = con.recv(4096).decode()
-            lista_exemplares = dados_exemplares.split(',')
-            verifica = bib.buscarLivros(lista_exemplares[0])
-            if verifica != None:
-                con.send('0'.encode())
-            else:
-                con.send('1'.encode())
         
         elif msg == 8: #realizar emprestimo
             dados_emprestimo = con.recv(4096).decode()
