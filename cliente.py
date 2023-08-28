@@ -1,20 +1,9 @@
-import typing   #biblioteca usada para fornecer suporte a anotações de tipo ou seja, permite definir e trabalhar com diferentes tipos de argumentos nos metodos
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox
+import socket
 import sys
-import random
-import os
-from hashlib import md5
 
-from pessoa import Pessoa
-from usuario import Usuario
-from autor import Autor
-from biblioteca import Biblioteca
-from livro import Livro
-from exemplar import Exemplar
-from emprestimo import Emprestimo
-from devolucao import Devolucao
-
+from modelos import Usuario, Livro, Emprestimo
 
 
 from tela_biblioteca import Tela_Biblioteca
@@ -25,7 +14,7 @@ from tela_buscar_cadastro import Tela_Buscar_Cadastro
 
 from tela_livro import Tela_Livro
 from tela_buscar_livro import Tela_Buscar_Livro
-from tela_exemplar import Tela_Exemplar
+
 from tela_buscar_exemplar import Tela_Buscar_Exemplar
 from tela_emprestimo import Tela_Emprestimo
 from tela_buscar_emprestimo import Tela_Buscar_Emprestimo
