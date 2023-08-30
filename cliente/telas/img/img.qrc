@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="livros">
+    <file>login_livros.png</file>
+    <file>livros.png</file>
+  </qresource>
+</RCC>

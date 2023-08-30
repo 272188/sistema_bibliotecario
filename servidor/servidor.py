@@ -9,14 +9,15 @@ port = 8080
 addr = (host, port)
 
 
-def menu(con, cliente):
+def menu(con: socket.socket, cliente: tuple):
     connected = True
     bib = Biblioteca()
     while connected:
-        msg = int(con.recv(1024).decode())
-        if msg == 0:
-            connected =  False
-        elif msg  == 1:
+        msg = con.recv(1024).decode().split(',')
+        if msg[0] == '0':
+            bib.fazerLogout()
+            print(f"[LOGOUT] client: {cliente}")
+        elif msg[0]  == '1':
             dados = con.recv(4096).decode()
             lista = dados.split(',')
             usuario = Usuario(lista[0],lista[1],lista[2],lista[3],lista[4],lista[5],lista[6],lista[7],lista[8],lista[9], lista[10])
@@ -25,16 +26,20 @@ def menu(con, cliente):
                 con.send('1'.encode())
             elif(retorno == False):
                 con.send('0'.encode())
-        elif msg == 2:
-            dados = con.recv(4096).decode()
-            lista_de_login = dados.split(',')
-            selecionar = bib.verificarLogin(lista_de_login[0],lista_de_login[1])
-            if selecionar == None:
+        elif msg[0] == '2':
+            dados = msg[1:]
+            logado = bib.verificarLogin(*dados)
+            if logado == None:
                 con.send('0'.encode())
-            elif selecionar == False:
-                con.send('1'.encode())
+                print(f"[LOGIN FALHOU] client: {cliente}")
             else:
-                con.send(f'2,{selecionar}'.encode())
+                enviar = '2|'
+                for emp in bib.listarEmprestimos():
+                    enviar += f'{str(bib.buscarLivro(emp.id_livro))[:-2]},{emp.data_emprestimo},{emp.data_devolucao}|'
+                con.send(enviar.encode())
+                print(f"[LOGIN COM SUCESSO] - [{bib.usuario.email}] client: {cliente}")
+        elif msg[0] == '-1':
+            connected = False
     print(f"[DESCONECTADO] client: {cliente}")
     con.close()
 

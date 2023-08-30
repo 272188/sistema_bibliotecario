@@ -190,6 +190,11 @@ class Livro:
 		numero total de paginas do livro
 	ano_publicacao : date
 		ano de publicacao do livro
+
+	Methods
+	-------
+	__str__(self)
+		Retorna uma string com os dados do livro
 	"""
 	def __init__(self, id_livro, nome_autor, titulo, editora, isbn, edicao, volume, numero_pag, ano_publicacao, ativo):
 		"""
@@ -224,6 +229,9 @@ class Livro:
 		self._numero_pag = numero_pag
 		self._ano_publicacao = ano_publicacao
 		self._ativo = ativo
+
+	def __str__(self) -> str:
+		return f'{self._id_livro},{self._nome_autor},{self._titulo},{self._editora},{self._isbn},{self._edicao},{self._volume},{self._numero_pag},{self._ano_publicacao},{self._ativo}'
 
 	@property
 	def id_livro(self):
@@ -281,6 +289,11 @@ class Emprestimo:
 	data_emprestimo : date
 		data de emprestimo do livro
 	data_devolucao : date
+
+	Methods
+	-------
+	__str__(self)
+		Retorna uma string com os dados do emprestimo
 	"""
 	def __init__(self, id_usuario, id_livro, data_emprestimo, data_devolucao):
 		"""
@@ -299,6 +312,9 @@ class Emprestimo:
 		self._id_livro = id_livro
 		self._data_emprestimo = data_emprestimo
 		self._data_devolucao = data_devolucao
+
+	def __str__(self) -> str:
+		return f'{self._id_usuario},{self._id_livro},{self._data_emprestimo},{self._data_devolucao}'
 			
 	@property
 	def id_usuario(self):
