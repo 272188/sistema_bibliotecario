@@ -35,6 +35,13 @@
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="caixa_ano">
+      <property name="placeholderText">
+       <string>Ano</string>
+      </property>
+     </widget>
+    </item>
     <item row="1" column="0">
      <widget class="QLineEdit" name="caixa_titulo">
       <property name="placeholderText">
@@ -49,10 +56,10 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="QLineEdit" name="caixa_autor">
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="caixa_paginas">
       <property name="placeholderText">
-       <string>Autor</string>
+       <string>Páginas</string>
       </property>
      </widget>
     </item>
@@ -77,19 +84,46 @@
       </property>
      </widget>
     </item>
-    <item row="2" column="1">
-     <widget class="QLineEdit" name="caixa_paginas">
+    <item row="0" column="0">
+     <widget class="QLineEdit" name="caixa_autor">
       <property name="placeholderText">
-       <string>Páginas</string>
+       <string>Autor</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="1">
-     <widget class="QLineEdit" name="caixa_ano">
-      <property name="placeholderText">
-       <string>Ano</string>
-      </property>
-     </widget>
+    <item row="4" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_quantidade">
+        <property name="text">
+         <string>Quanitdade:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="spin_qntd">
+        <property name="maximumSize">
+         <size>
+          <width>50</width>
+          <height>16777215</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>
@@ -144,14 +178,16 @@
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-repeat: no-repeat;
-background-image: url(:/livros/login_livros.png);</string>
+       <string notr="true"/>
       </property>
       <property name="text">
        <string/>
       </property>
       <property name="textFormat">
        <enum>Qt::AutoText</enum>
+      </property>
+      <property name="pixmap">
+       <pixmap>../img/login_livros.png</pixmap>
       </property>
      </widget>
     </item>

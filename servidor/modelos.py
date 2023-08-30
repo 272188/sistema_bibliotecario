@@ -117,7 +117,7 @@ class Usuario:
 		self._is_admin = is_admin
 
 	def __str__(self):
-		return f'{self._id_usuario},{self._nome},{self._email},{self._senha},{self._cpf},{self._telefone},{self._endereco},{self._bairro},{self._cidade},{self._cep},{self._is_admin}'
+		return f'{self._id_usuario},{self._nome},{self._email},{self._cpf},{self._telefone},{self._endereco},{self._bairro},{self._cidade},{self._cep},{self._is_admin}'
 	
 	@property
 	def id_usuario(self):

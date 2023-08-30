@@ -18,14 +18,13 @@ def menu(con: socket.socket, cliente: tuple):
             bib.fazerLogout()
             print(f"[LOGOUT] client: {cliente}")
         elif msg[0]  == '1':
-            dados = con.recv(4096).decode()
-            lista = dados.split(',')
-            usuario = Usuario(lista[0],lista[1],lista[2],lista[3],lista[4],lista[5],lista[6],lista[7],lista[8],lista[9], lista[10])
-            retorno = bib.cadastrarUsuario(usuario)
-            if(retorno == True):
+            dados = msg[1:]
+            if usuario := bib.cadastrarUsuario(*dados):
                 con.send('1'.encode())
-            elif(retorno == False):
+                print(f"[CADASTRO REALIZADO] - [{usuario.email}] client: {cliente}")
+            else:
                 con.send('0'.encode())
+                print(f"[CADASTRO FALHOU] client: {cliente}")
         elif msg[0] == '2':
             dados = msg[1:]
             usuario = bib.verificarLogin(*dados)
@@ -70,6 +69,32 @@ def menu(con: socket.socket, cliente: tuple):
             for emp in bib.listarEmprestimos():
                 enviar += f'{str(bib.buscarLivro(emp.id_livro))[:-2]},{emp.data_emprestimo},{emp.data_devolucao}|'
             con.send(enviar.encode())
+        elif msg[0] == '7':
+            email = msg[1]
+            if bib.excluirUsuario(email):
+                con.send('7'.encode())
+                print(f"[USUARIO EXCLUIDO] - [{bib.usuario.email}] - [{email}] client: {cliente}")
+            else:
+                con.send('0'.encode())
+                print(f"[USUARIO NAO EXCLUIDO] - [{bib.usuario.email}] - [{email}] client: {cliente}")
+        elif msg[0] == '8':
+            enviar = '8|'
+            for usuario in bib.listarUsuarios():
+                enviar += f'{usuario}|'
+            con.send(enviar.encode())
+        elif msg[0] == '9':
+            dados = msg[1:]
+            bib.cadastrarLivros(*dados)
+            con.send('9'.encode())
+            print(f"[LIVRO CADASTRADO] - [{bib.usuario.email}] client: {cliente}")
+        elif msg[0] == '10':
+            id_livro = msg[1]
+            if bib.excluirLivro(id_livro):
+                con.send('10'.encode())
+                print(f"[LIVRO EXCLUIDO] - [{bib.usuario.email}] client: {cliente}")
+            else:
+                con.send('0'.encode())
+                print(f"[LIVRO NAO EXCLUIDO] - [{bib.usuario.email}] client: {cliente}")
         elif msg[0] == '-1':
             connected = False
     print(f"[DESCONECTADO] client: {cliente}")

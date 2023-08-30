@@ -126,11 +126,12 @@ class Ui_Principal(object):
         tabela.clearContents()
         tabela.setRowCount(0)
 
-    def buscar(self, id_livro: int, tabela: QtWidgets.QTableWidget):
+    def buscar(self, ident: int, tabela: QtWidgets.QTableWidget):
         linha = None
         for row in range(tabela.rowCount()):
-            if tabela.item(row, 0).text() == str(id_livro):
+            if tabela.item(row, 0).text() == str(ident):
                 linha = row
+                break
         return linha
 
     def retranslateUi(self, Principal):

@@ -73,6 +73,34 @@ class Biblioteca:
             usuario = self.buscarUsuario(email)
         return usuario
     
+    def _emprestimos_usuario(self, id_usuario):
+        lista_emprestimos = []
+        self.cursor.execute("SELECT * FROM emprestimo WHERE id_usuario = %s", (id_usuario,))
+        selecionar = self.cursor.fetchall()
+        for registro in selecionar:
+            emprestimo = Emprestimo(*registro)
+            lista_emprestimos.append(emprestimo)
+        return lista_emprestimos
+    
+    def excluirUsuario(self, email):
+        excluiu = False
+        usuario = self.buscarUsuario(email)
+        if usuario != None and not self._emprestimos_usuario(usuario.id_usuario):
+            self.cursor.execute('DELETE FROM usuario WHERE email = %s', (email,))
+            self.conexao.commit()
+            excluiu = True
+        return excluiu
+    
+    def listarUsuarios(self):
+        lista_usuarios = []
+        self.cursor.execute("SELECT * FROM usuario")
+        selecionar = self.cursor.fetchall()
+        for registro in selecionar:
+            usuario = Usuario(*registro)
+            if usuario.id_usuario != self.usuario.id_usuario:
+                lista_usuarios.append(usuario)
+        return lista_usuarios
+    
     def buscarLivro(self, id_livro):
         livro = None
         self.cursor.execute("SELECT * FROM livro WHERE id_livro = %s", (id_livro,))
@@ -82,9 +110,27 @@ class Biblioteca:
         return livro
 
     def cadastrarLivros(self, nome_autor, titulo, editora, isbn, edicao, volume, numero_pag, ano_publicacao, qntd_exemplar):
-        for i in range(qntd_exemplar):
+        for i in range(int(qntd_exemplar)):
             self.cursor.execute('INSERT INTO livro(nome_autor, titulo, editora, isbn, edicao, volume, numero_pag, ano_publicacao, ativo) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)', (nome_autor, titulo, editora, isbn, edicao, volume, numero_pag, ano_publicacao, 1 if i else 0))
         self.conexao.commit()
+
+    def _emprestimos_livro(self, id_livro):
+        lista_emprestimos = []
+        self.cursor.execute("SELECT * FROM emprestimo WHERE id_livro = %s", (id_livro,))
+        selecionar = self.cursor.fetchall()
+        for registro in selecionar:
+            emprestimo = Emprestimo(*registro)
+            lista_emprestimos.append(emprestimo)
+        return lista_emprestimos
+
+    def excluirLivro(self, id_livro):
+        excluiu = False
+        livro = self.buscarLivro(id_livro)
+        if livro != None and self._emprestimos_livro(id_livro) == []:
+            self.cursor.execute('DELETE FROM livro WHERE id_livro = %s', (id_livro,))
+            self.conexao.commit()
+            excluiu = True
+        return excluiu
 
     def listarLivros(self, pesquisa):
         lista_livros = []
