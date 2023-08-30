@@ -103,13 +103,28 @@ class Biblioteca:
             emprestimo = Emprestimo(*selecionar)
         return emprestimo
 
-    def realizarEmprestimo(self, id_livro):
+    def realizarEmprestimo(self, id_livro, data_emprestimo=datetime.date.today(), data_devolucao=datetime.date.today() + datetime.timedelta(days=7)):
         emprestimo = self.buscarEmprestimo(id_livro)
         if emprestimo == None:
-            self.cursor.execute('INSERT INTO emprestimo(id_usuario, id_livro, data_emprestimo, data_devolucao) VALUES(%s, %s, %s, %s)', (self.usuario.id_usuario, id_livro, datetime.date.today(), datetime.date.today() + datetime.timedelta(days=7)))
-            self.conexao.commit()
-            emprestimo = self.buscarEmprestimo(id_livro)
+            livro = self.buscarLivro(id_livro)
+            if livro and livro.ativo:
+                self.cursor.execute('INSERT INTO emprestimo(id_usuario, id_livro, data_emprestimo, data_devolucao) VALUES(%s, %s, %s, %s)', (self.usuario.id_usuario, id_livro, data_emprestimo, data_devolucao))
+                self.cursor.execute('UPDATE livro SET ativo = 0 WHERE id_livro = %s', (id_livro,))
+                self.conexao.commit()
+                emprestimo = self.buscarEmprestimo(id_livro)
+        else:
+            emprestimo = None
         return emprestimo
+    
+    def realizarDevolucao(self, id_livro):
+        devolveu = False
+        emprestimo = self.buscarEmprestimo(id_livro)
+        if emprestimo != None:
+            self.cursor.execute('DELETE FROM emprestimo WHERE id_usuario = %s AND id_livro = %s', (self.usuario.id_usuario, id_livro))
+            self.cursor.execute('UPDATE livro SET ativo = 1 WHERE id_livro = %s', (id_livro,))
+            self.conexao.commit()
+            devolveu = True
+        return devolveu
     
     def listarEmprestimos(self):
         lista_emprestimos = []
@@ -124,5 +139,4 @@ class Biblioteca:
 if __name__ == '__main__':
     bib = Biblioteca()
     bib.verificarLogin('joao@gmail.com', '1234')
-    for emp in bib.listarEmprestimos():
-        print(f'{str(bib.buscarLivro(emp.id_livro))[:-2]},{emp.data_emprestimo},{emp.data_devolucao}')
+    print(bib.realizarEmprestimo(9))

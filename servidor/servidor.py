@@ -28,16 +28,48 @@ def menu(con: socket.socket, cliente: tuple):
                 con.send('0'.encode())
         elif msg[0] == '2':
             dados = msg[1:]
-            logado = bib.verificarLogin(*dados)
-            if logado == None:
+            usuario = bib.verificarLogin(*dados)
+            if usuario == None:
                 con.send('0'.encode())
                 print(f"[LOGIN FALHOU] client: {cliente}")
+            elif usuario.is_admin:
+                con.send('2,1'.encode())
+                print(f"[LOGIN ADMIN] - [{bib.usuario.email}] client: {cliente}")
             else:
-                enviar = '2|'
-                for emp in bib.listarEmprestimos():
-                    enviar += f'{str(bib.buscarLivro(emp.id_livro))[:-2]},{emp.data_emprestimo},{emp.data_devolucao}|'
+                con.send('2,0'.encode())
+                print(f"[LOGIN USUARIO] - [{bib.usuario.email}] client: {cliente}")
+        elif msg[0] == '3':
+            pesquisa = msg[1]
+            if livros := bib.listarLivros(pesquisa):
+                enviar = '3|'
+                for livro in livros:
+                    enviar += f'{livro}|'
                 con.send(enviar.encode())
-                print(f"[LOGIN COM SUCESSO] - [{bib.usuario.email}] client: {cliente}")
+                print(f"[LISTA LIVROS] - [{bib.usuario.email}] client: {cliente}")
+            else:
+                con.send('0'.encode())
+                print(f"[LISTA LIVROS FALHOU] - [{bib.usuario.email}] client: {cliente}")
+        elif msg[0] == '4':
+            id_livro = msg[1]
+            if bib.realizarEmprestimo(id_livro):
+                con.send('4'.encode())
+                print(f"[EMPRESTIMO REALIZADO] - [{bib.usuario.email}] - [{bib.buscarLivro(id_livro).titulo}] client: {cliente}")
+            else:
+                con.send('0'.encode())
+                print(f"[EMPRESTIMO FALHOU] - [{bib.usuario.email}] - [{bib.buscarLivro(id_livro).titulo}] client: {cliente}")
+        elif msg[0] == '5':
+            id_livro = msg[1]
+            if bib.realizarDevolucao(id_livro):
+                con.send('5'.encode())
+                print(f"[DEVOLUCAO REALIZADA] - [{bib.usuario.email}] - [{bib.buscarLivro(id_livro).titulo}] client: {cliente}")
+            else:
+                con.send('0'.encode())
+                print(f"[DEVOLUCAO FALHOU] - [{bib.usuario.email}] - [{bib.buscarLivro(msg[1]).titulo}] client: {cliente}")
+        elif msg[0] == '6':
+            enviar = '6|'
+            for emp in bib.listarEmprestimos():
+                enviar += f'{str(bib.buscarLivro(emp.id_livro))[:-2]},{emp.data_emprestimo},{emp.data_devolucao}|'
+            con.send(enviar.encode())
         elif msg[0] == '-1':
             connected = False
     print(f"[DESCONECTADO] client: {cliente}")

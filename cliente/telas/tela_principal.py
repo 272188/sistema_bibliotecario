@@ -17,6 +17,10 @@ class Ui_Principal(object):
         Principal.resize(650, 500)
         Principal.setMinimumSize(QtCore.QSize(650, 500))
         Principal.setMaximumSize(QtCore.QSize(650, 500))
+        qtRectangle = Principal.frameGeometry()
+        centerPoint = QtWidgets.QDesktopWidget().availableGeometry().center()
+        qtRectangle.moveCenter(centerPoint)
+        Principal.move(qtRectangle.topLeft())
         self.caixa_buscar = QtWidgets.QLineEdit(Principal)
         self.caixa_buscar.setGeometry(QtCore.QRect(150, 240, 491, 31))
         font = QtGui.QFont()
@@ -96,18 +100,18 @@ class Ui_Principal(object):
         self.botao_sair = QtWidgets.QPushButton(Principal)
         self.botao_sair.setGeometry(QtCore.QRect(560, 10, 81, 23))
         self.botao_sair.setObjectName("botao_sair")
-        self.lineEdit = QtWidgets.QLineEdit(Principal)
-        self.lineEdit.setGeometry(QtCore.QRect(470, 460, 40, 30))
+        self.caixa_emprestimo = QtWidgets.QLineEdit(Principal)
+        self.caixa_emprestimo.setGeometry(QtCore.QRect(470, 460, 40, 30))
         font = QtGui.QFont()
         font.setPointSize(16)
-        self.lineEdit.setFont(font)
-        self.lineEdit.setObjectName("lineEdit")
-        self.lineEdit_2 = QtWidgets.QLineEdit(Principal)
-        self.lineEdit_2.setGeometry(QtCore.QRect(500, 190, 40, 30))
+        self.caixa_emprestimo.setFont(font)
+        self.caixa_emprestimo.setObjectName("caixa_emprestimo")
+        self.caixa_devolver = QtWidgets.QLineEdit(Principal)
+        self.caixa_devolver.setGeometry(QtCore.QRect(500, 190, 40, 30))
         font = QtGui.QFont()
         font.setPointSize(16)
-        self.lineEdit_2.setFont(font)
-        self.lineEdit_2.setObjectName("lineEdit_2")
+        self.caixa_devolver.setFont(font)
+        self.caixa_devolver.setObjectName("caixa_devolver")
 
         self.retranslateUi(Principal)
         QtCore.QMetaObject.connectSlotsByName(Principal)
@@ -121,6 +125,13 @@ class Ui_Principal(object):
     def limpar(self, tabela: QtWidgets.QTableWidget):
         tabela.clearContents()
         tabela.setRowCount(0)
+
+    def buscar(self, id_livro: int, tabela: QtWidgets.QTableWidget):
+        linha = None
+        for row in range(tabela.rowCount()):
+            if tabela.item(row, 0).text() == str(id_livro):
+                linha = row
+        return linha
 
     def retranslateUi(self, Principal):
         _translate = QtCore.QCoreApplication.translate
@@ -172,8 +183,8 @@ class Ui_Principal(object):
         item.setText(_translate("Principal", "Devolução"))
         self.botao_devolver.setText(_translate("Principal", "Devolver"))
         self.botao_sair.setText(_translate("Principal", "Sair"))
-        self.lineEdit.setPlaceholderText(_translate("Principal", "ID"))
-        self.lineEdit_2.setPlaceholderText(_translate("Principal", "ID"))
+        self.caixa_emprestimo.setPlaceholderText(_translate("Principal", "ID"))
+        self.caixa_devolver.setPlaceholderText(_translate("Principal", "ID"))
 
 
 if __name__ == "__main__":
@@ -185,7 +196,6 @@ if __name__ == "__main__":
     ui.inserir(ui.tabela_emprestimos, ['1', 'João', 'Livro 1', 'Editora 1', '123456789', '1', '1', '1', '2021', '01/01/2021', '01/01/2021'])
     ui.inserir(ui.tabela_emprestimos, ['2', 'João', 'Livro 2', 'Editora 2', '123456789', '1', '1', '1', '2021', '01/01/2021', '01/01/2021'])
     ui.inserir(ui.tabela_emprestimos, ['3', 'João', 'Livro 3', 'Editora 3', '123456789', '1', '1', '1', '2021', '01/01/2021', '01/01/2021'])
-    ui.limpar(ui.tabela_emprestimos)
-    ui.inserir(ui.tabela_emprestimos, ['3', 'João', 'Livro 3', 'Editora 3', '123456789', '1', '1', '1', '2021', '01/01/2021', '01/01/2021'])
+    ui.devolver(2)
     Principal.show()
     sys.exit(app.exec_())

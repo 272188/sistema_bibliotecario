@@ -72,9 +72,6 @@ class Ui_Livro(object):
         self.imagem_livros = QtWidgets.QLabel(self.horizontalLayoutWidget_2)
         self.imagem_livros.setMinimumSize(QtCore.QSize(96, 96))
         self.imagem_livros.setMaximumSize(QtCore.QSize(96, 96))
-        self.imagem_livros.setStyleSheet("background-repeat: no-repeat;\n"
-"background-image: url(:/livros/login_livros.png);")
-        self.imagem_livros.setText("")
         self.imagem_livros.setTextFormat(QtCore.Qt.AutoText)
         self.imagem_livros.setObjectName("imagem_livros")
         self.horizontalLayout_2.addWidget(self.imagem_livros)
