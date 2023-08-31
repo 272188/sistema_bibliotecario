@@ -215,8 +215,8 @@ class Biblioteca:
 '''
 if __name__ == '__main__':
     bib = Biblioteca()
-    bib.verificarLogin('email@gmail.com', 'senha')
-    print (bib.realizarEmprestimo(1, data_emprestimo=datetime.date(2023, 8, 1), data_devolucao=datetime.date(2023, 8, 8)))
+    bib.verificarLogin('romuere@gmail.com', '000')
+    print (bib.realizarEmprestimo(4, data_emprestimo=datetime.date(2023, 8, 1), data_devolucao=datetime.date(2023, 8, 8)))
     bib.fechar_bd()
 
 if __name__ == '__main__':
