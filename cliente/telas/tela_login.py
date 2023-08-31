@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'tela_login.ui'
+# Form implementation generated from reading ui file './designer/tela_login.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -11,126 +11,69 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Tela_Login(object):
-    """
-    classe que representa a tela login
-
-    ...
-    Atributes
-    ----------
-    resize : object
-        dimensiona largura e altura da tela
-    setStyleSheet : object
-        estiliza a cor de fundo da tela
-    setObjectName : object
-        rotula algum lugar da tela, onde se deseja definir um nome ou frase curta
-    setText :
-        O método setText() da classe java.text.CollationElementIterator é usado para definir a nova string de origem para o objeto
-    setEchoMode : object
-        utilizado para modificar um password de modo que a mesma fique camuflada.
-    QPushButton : object
-        atribuem-se aos botoes de acoes da tela
-    botao_login :
-        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para logar no sistema
-    botao_cadastro_login :
-        elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para abrir a tela de cadastro
-    botao_sair_login : elemento instanciado do QPushButton, que foi rotulado para identifica-lo como o botao para sair do sistema
-    """
-
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1190, 706)
-        MainWindow.setStyleSheet("\n"
-"background-color: rgb(0, 170, 255);")
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setObjectName("centralwidget")
-        self.bemvindo = QtWidgets.QLabel(self.centralwidget)
-        self.bemvindo.setGeometry(QtCore.QRect(270, 20, 581, 61))
-        font = QtGui.QFont()
-        font.setFamily("Times New Roman")
-        font.setPointSize(16)
-        font.setBold(True)
-        font.setWeight(75)
-        self.bemvindo.setFont(font)
-        self.bemvindo.setObjectName("bemvindo")
-        self.email = QtWidgets.QLabel(self.centralwidget)
-        self.email.setGeometry(QtCore.QRect(70, 220, 61, 21))
-        font = QtGui.QFont()
-        font.setFamily("Times New Roman")
-        font.setPointSize(12)
-        self.email.setFont(font)
-        self.email.setObjectName("email")
-        self.senha = QtWidgets.QLabel(self.centralwidget)
-        self.senha.setGeometry(QtCore.QRect(70, 290, 71, 21))
-        font = QtGui.QFont()
-        font.setFamily("Times New Roman")
-        font.setPointSize(12)
-        self.senha.setFont(font)
-        self.senha.setObjectName("senha")
-        self.input_email = QtWidgets.QLineEdit(self.centralwidget)
-        self.input_email.setGeometry(QtCore.QRect(160, 210, 371, 41))
-        self.input_email.setObjectName("input_email")
-        self.input_senha = QtWidgets.QLineEdit(self.centralwidget)
-        self.input_senha.setGeometry(QtCore.QRect(160, 280, 371, 41))
-        self.input_senha.setObjectName("input_senha")
-        self.botao_login = QtWidgets.QPushButton(self.centralwidget)
-        self.botao_login.setGeometry(QtCore.QRect(680, 230, 191, 61))
-        font = QtGui.QFont()
-        font.setFamily("Times New Roman")
-        font.setPointSize(12)
-        self.botao_login.setFont(font)
-        self.botao_login.setStyleSheet("background-color: rgb(134, 134, 100);")
+class Ui_Login(object):
+    def setupUi(self, Login):
+        Login.setObjectName("Login")
+        Login.resize(400, 300)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(Login.sizePolicy().hasHeightForWidth())
+        Login.setSizePolicy(sizePolicy)
+        Login.setMinimumSize(QtCore.QSize(400, 300))
+        Login.setMaximumSize(QtCore.QSize(400, 300))
+        qtRectangle = Login.frameGeometry()
+        centerPoint = QtWidgets.QDesktopWidget().availableGeometry().center()
+        qtRectangle.moveCenter(centerPoint)
+        Login.move(qtRectangle.topLeft())
+        self.verticalLayoutWidget = QtWidgets.QWidget(Login)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(70, 50, 261, 203))
+        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
+        self.imagem_livros = QtWidgets.QLabel(self.verticalLayoutWidget)
+        self.imagem_livros.setMinimumSize(QtCore.QSize(96, 96))
+        self.imagem_livros.setMaximumSize(QtCore.QSize(96, 96))
+        self.imagem_livros.setTextFormat(QtCore.Qt.AutoText)
+        self.imagem_livros.setObjectName("imagem_livros")
+        self.horizontalLayout_2.addWidget(self.imagem_livros)
+        self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.caixa_email = QtWidgets.QLineEdit(self.verticalLayoutWidget)
+        self.caixa_email.setMinimumSize(QtCore.QSize(0, 30))
+        self.caixa_email.setObjectName("caixa_email")
+        self.verticalLayout.addWidget(self.caixa_email)
+        self.caixa_senha = QtWidgets.QLineEdit(self.verticalLayoutWidget)
+        self.caixa_senha.setMinimumSize(QtCore.QSize(0, 30))
+        self.caixa_senha.setEchoMode(QtWidgets.QLineEdit.Password)
+        self.caixa_senha.setObjectName("caixa_senha")
+        self.verticalLayout.addWidget(self.caixa_senha)
+        self.botao_login = QtWidgets.QPushButton(self.verticalLayoutWidget)
         self.botao_login.setObjectName("botao_login")
-        self.botao_sair_login = QtWidgets.QPushButton(self.centralwidget)
-        self.botao_sair_login.setGeometry(QtCore.QRect(940, 600, 141, 51))
-        font = QtGui.QFont()
-        font.setFamily("Times New Roman")
-        font.setPointSize(12)
-        self.botao_sair_login.setFont(font)
-        self.botao_sair_login.setStyleSheet("background-color: rgb(134, 134, 100);")
-        self.botao_sair_login.setObjectName("botao_sair_login")
-        self.login_2 = QtWidgets.QLabel(self.centralwidget)
-        self.login_2.setGeometry(QtCore.QRect(560, 90, 91, 61))
-        font = QtGui.QFont()
-        font.setFamily("Times New Roman")
-        font.setPointSize(16)
-        font.setBold(True)
-        font.setWeight(75)
-        self.login_2.setFont(font)
-        self.login_2.setObjectName("login_2")
-        self.botao_cadastro_login = QtWidgets.QPushButton(self.centralwidget)
-        self.botao_cadastro_login.setGeometry(QtCore.QRect(250, 430, 191, 61))
-        font = QtGui.QFont()
-        font.setFamily("Times New Roman")
-        font.setPointSize(12)
-        self.botao_cadastro_login.setFont(font)
-        self.botao_cadastro_login.setStyleSheet("background-color: rgb(134, 134, 100);")
-        self.botao_cadastro_login.setObjectName("botao_cadastro_login")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        self.verticalLayout.addWidget(self.botao_login)
+        self.botao_fechar = QtWidgets.QPushButton(Login)
+        self.botao_fechar.setObjectName(u"botao_fechar")
+        self.botao_fechar.setGeometry(QtCore.QRect(340, 10, 50, 23))
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(Login)
+        QtCore.QMetaObject.connectSlotsByName(Login)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, Login):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.bemvindo.setText(_translate("MainWindow", "BEMVINDO AO SISTEMA BIBLIOTECÁRIO"))
-        self.email.setText(_translate("MainWindow", "Email:"))
-        self.senha.setText(_translate("MainWindow", "Senha:"))
-        self.botao_login.setText(_translate("MainWindow", "Login"))
-        self.botao_sair_login.setText(_translate("MainWindow", "Sair"))
-        self.login_2.setText(_translate("MainWindow", "Login"))
-        self.botao_cadastro_login.setText(_translate("MainWindow", "Cadastro"))
+        Login.setWindowTitle(_translate("Login", "Login"))
+        self.caixa_email.setPlaceholderText(_translate("Login", "E-mail"))
+        self.caixa_senha.setPlaceholderText(_translate("Login", "Senha"))
+        self.botao_login.setText(_translate("Login", "Login"))
+        self.botao_fechar.setText(_translate("Login", "Fechar"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Tela_Login()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    Login = QtWidgets.QWidget()
+    ui = Ui_Login()
+    ui.setupUi(Login)
+    Login.show()
     sys.exit(app.exec_())
