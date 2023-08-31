@@ -180,9 +180,23 @@ class Biblioteca:
             emprestimo = Emprestimo(*registro)
             lista_emprestimos.append(emprestimo)
         return lista_emprestimos
+    
+    def fechar_bd(self):
+        self.conexao.close()
 
 
 if __name__ == '__main__':
     bib = Biblioteca()
-    bib.verificarLogin('joao@gmail.com', '1234')
-    print(bib.realizarEmprestimo(9))
+    bib.cadastrarUsuario(
+        nome='Admin',
+        email='admin@gmail.com',
+        senha='1234',
+        cpf='12345678910',
+        telefone='(11) 11111-1111',
+        endereco='Rua 1',
+        bairro='Bairro 1',
+        cidade='Cidade 1',
+        cep='11111-111',
+        is_admin=True
+    )
+    bib.fechar_bd()

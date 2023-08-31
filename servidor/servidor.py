@@ -96,6 +96,7 @@ def menu(con: socket.socket, cliente: tuple):
                 con.send('0'.encode())
                 print(f"[LIVRO NAO EXCLUIDO] - [{bib.usuario.email}] client: {cliente}")
         elif msg[0] == '-1':
+            bib.fechar_bd()
             connected = False
     print(f"[DESCONECTADO] client: {cliente}")
     con.close()
