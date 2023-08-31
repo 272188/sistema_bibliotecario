@@ -3,8 +3,8 @@ import mysql.connector
 import datetime
 
 
-usuario = 'root'
-senha = '1234'
+usuario = 'sheila'
+senha = 'root'
 
 
 class Biblioteca:
