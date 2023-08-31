@@ -30,6 +30,33 @@ class Biblioteca:
         verifica se o login do usuario esta correto
     cadastrarUsuario(self, nome, email, senha, cpf, telefone, endereco, bairro, cidade, cep, is_admin=False)
         cadastra um usuario no banco de dados
+    _emprestimos_usuario(self, id_usuario):
+        Obtém uma lista de empréstimos associados a um usuário específico, ou seja, realiza uma consulta ao banco de dados para buscar todos os registros de empréstimos que estão associados ao ID de usuário fornecido.
+    excluirUsuario(self, email):
+        Exclui um usuário do sistema com base no email fornecido. Ele verifica se o usuário com o email fornecido existe. Se o usuário existe e não possui empréstimos ativos, o método prossegue para excluir o usuário do banco de dados.
+    listarUsuarios(self):
+        Lista todos os usuários cadastrados no sistema, exceto o usuário atualmente logado. Ele executa uma consulta SQL para selecionar todos os registros da tabela 'usuario'.
+    buscarLivro(self, id_livro):
+        Busca um livro no sistema com base no ID do livro fornecido.
+    cadastrarLivros(self, nome_autor, titulo, editora, isbn, edicao, volume, numero_pag, ano_publicacao, qntd_exemplar):
+        Cadastra múltiplos exemplares do mesmo livro no sistema. Ele itera sobre um intervalo de acordo com a quantidade de exemplares a serem cadastrados.
+    _emprestimos_livro(self, id_livro):
+        Este método realiza uma consulta ao banco de dados para buscar todos os registros de empréstimos que estão associados ao ID do livro fornecido.
+    def excluirLivro(self, id_livro):
+        Este método tenta excluir um livro do sistema com base no ID fornecido.
+    listarLivros(self, pesquisa):
+        Lista os livros cadastrados no sistema que correspondem à pesquisa fornecida.
+    buscarEmprestimo(self, id_livro):
+        Busca um empréstimo no sistema com base no ID do livro e no ID do usuário atual.
+    realizarEmprestimo(self, id_livro, data_emprestimo=datetime.date.today(), data_devolucao=datetime.date.today() + datetime.timedelta(days=7)):
+        Verificar se um empréstimo já existe para o livro fornecido caso não, realiza um empréstimo de um livro para o usuário atual.
+    realizarDevolucao(self, id_livro):
+        Realiza a devolução de um livro previamente emprestado pelo usuário atual.
+    listarEmprestimos(self):
+        Lista os empréstimos realizados pelo usuário atual.
+    fechar_bd(self):
+        Fecha a conexão com o banco de dados.
+     
     """
     def __init__(self):
         self.usuario = None
@@ -126,7 +153,8 @@ class Biblioteca:
     def excluirLivro(self, id_livro):
         excluiu = False
         livro = self.buscarLivro(id_livro)
-        if livro != None and self._emprestimos_livro(id_livro) == []:
+        #Se o livro existe e não possui empréstimos ativos, o método prossegue para excluir o livro do banco de dados.
+        if livro != None and self._emprestimos_livro(id_livro) == []:   
             self.cursor.execute('DELETE FROM livro WHERE id_livro = %s', (id_livro,))
             self.conexao.commit()
             excluiu = True
@@ -184,6 +212,12 @@ class Biblioteca:
     def fechar_bd(self):
         self.conexao.close()
 
+'''
+if __name__ == '__main__':
+    bib = Biblioteca()
+    bib.verificarLogin('email@gmail.com', 'senha')
+    print (bib.realizarEmprestimo(1, data_emprestimo=datetime.date(2023, 8, 1), data_devolucao=datetime.date(2023, 8, 8)))
+    bib.fechar_bd()
 
 if __name__ == '__main__':
     bib = Biblioteca()
@@ -200,3 +234,4 @@ if __name__ == '__main__':
         is_admin=True
     )
     bib.fechar_bd()
+'''
